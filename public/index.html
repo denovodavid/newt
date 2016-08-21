@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Newt - Vuefire</title>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.jsdelivr.net/firebase/3.2.1/firebase.js"></script>
+    <!-- VueFire -->
+    <script src="https://cdn.jsdelivr.net/vuefire/1.2.0/vuefire.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.js"></script>
+    <!-- Images Loaded -->
+    <script src="https://cdn.jsdelivr.net/imagesloaded/4.1.0/imagesloaded.pkgd.min.js"></script>
+    <!-- Marked -->
+    <script src="https://cdn.jsdelivr.net/marked/0.3.5/marked.min.js"></script>
+    <!-- jQuery Shapeshift -->
+    <!-- <script src="https://cdn.jsdelivr.net/jquery.shapeshift/2.0.0/jquery.shapeshift.min.js"></script> -->
+    <script src="js/jquery.shapeshift.custom.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body style="background-color: #eee;">
+
+    <div id="page-loader" class="ui page inverted dimmer active">
+      <div class="content">
+        <div class="ui massive text loader"></div>
+      </div>
+    </div>
+
+    <div class="ui fluid container">
+      <div class="ui yellow inverted borderless menu" style="border-radius: 0;">
+        <div class="grey item" style="color: #222 !important;">
+          <h3>Newt</h3>
+        </div>
+        <a class="item" style="color: #222 !important;">Vue</a>
+        <!-- <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Angular</a>
+        <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">React</a>
+        <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Ember</a>
+        <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Meteor</a> -->
+        <div class="right menu">
+          <div class="ui item">
+            <i id="loading-icon" class="icon large checkmark" style="color: #222 !important;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div id="newt" class="ui fluid container">
+
+      <div class="ui text container">
+        <form id="note-form" class="ui form" @submit.prevent="create">
+          <div class="ui fluid card">
+            <div class="content">
+              <div class="ui large transparent left input fluid">
+                <input id="note-title" type="text" placeholder="Title" v-model="newNote.title">
+              </div>
+              <div class="ui divider"></div>
+              <div class="field">
+                <textarea id="note-text" rows="3" placeholder="Take a note..." v-model="newNote.text" style="border: 0; padding: 0;"></textarea>
+              </div>
+            </div>
+            <div class="extra content" :style="{ backgroundColor: getColor(newNote.color) }">
+              <div class="compact ui icon dropdown circular basic tiny button" v-dropdown>
+                <i class="icon theme"></i>
+                <div class="menu">
+                  <div class="item" v-for="(color, hex) in colors" @click="changeNewNoteColor(color)">
+                    <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
+                    {{ color | capitalize }}
+                  </div>
+                </div>
+              </div>
+              <div class="right floated">
+                <div class="ui icon basic tiny buttons compact">
+                  <button class="ui toggle button" type="button" :class="[newNote.markdown ? 'active' : '']" @click="toggleMarkdown">Markdown</button>
+                  <!-- <div class="ui icon dropdown button" v-dropdown>
+                    <i class="icon ellipsis vertical"></i>
+                    <div class="menu">
+                      <div class="item">Option 1</div>
+                      <div class="item">Option 2</div>
+                      <div class="item">Option 3</div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <button class="ui bottom attached button" type="submit">Done</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="m-notes" v-el:notes v-notes>
+        <div class="m-note" v-for="note in notes | orderBy noteOrder" track-by=".key" v-note data-key="{{ note['.key'] }}">
+          <div class="ui raised card" :style="{ backgroundColor: getColor(note.color) }">
+            <div class="content">
+              <div class="right floated meta drag-handle" style="visibility: hidden;">
+                <i class="block layout icon"></i>
+              </div>
+              <div class="header" v-show="note.title">{{ note.title }}</div>
+              <div class="description" v-show="!note.markdown">
+                <p style="white-space: pre-wrap; word-wrap: break-word; text-overflow: ellipsis;">{{ note.text }}</p>
+              </div>
+              <div v-show="note.markdown" v-html="note.text | marked"></div>
+            </div>
+            <div class="extra content" style="visibility: hidden;">
+              <span class="left floated">
+                <div class="compact ui circular icon basic mini button" @click="edit(note)">
+                  <i class="icon write"></i>
+                </div>
+                <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
+                  <i class="icon theme"></i>
+                  <div class="menu">
+                    <div class="item" v-for="(color, hex) in colors" @click="changeNoteColor(note, color)">
+                      <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
+                      {{ color | capitalize }}
+                    </div>
+                  </div>
+                </div>
+              </span>
+              <span class="right floated">
+                <span>{{ note.created_at | date }}</span>
+                <div class="ui icon dropdown" v-dropdown>
+                  <i class="icon ellipsis vertical"></i>
+                  <div class="menu">
+                    <div class="item" @click="remove(note)">Delete note</div>
+                    <!-- <div class="item">Add label</div> -->
+                    <div class="item" @click="copy(note)">Make a copy</div>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      // Initialize Firebase
+      var firebaseConfig = {
+        apiKey: "AIzaSyBFN89t2lehIxUBmZ3tbf3izP5uDpoUn3A",
+        authDomain: "newt-853a9.firebaseapp.com",
+        databaseURL: "https://newt-853a9.firebaseio.com",
+        storageBucket: "newt-853a9.appspot.com"
+      };
+      var firebaseApp = firebase.initializeApp(firebaseConfig);
+      var db = firebaseApp.database();
+    </script>
+    <script src="js/vm.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
