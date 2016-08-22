@@ -186,7 +186,7 @@ var vm = new Vue({
         var self = this;
         var $notes = $(self);
         $notes.off();
-        $notes.triggrt('ss-destroy');
+        $notes.trigger('ss-destroy');
       }
     },
     note: {
