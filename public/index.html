@@ -142,6 +142,47 @@
         </div>
       </div>
 
+      <div class="ui small modal" v-el:editor v-modal>
+        <form id="edit-form" class="ui form" @submit.prevent="">
+          <div class="ui fluid card">
+            <div class="content">
+              <div class="ui large transparent left input fluid">
+                <input id="edit-title" type="text" placeholder="Title" v-model="editor.title">
+              </div>
+              <div class="ui divider"></div>
+              <div class="field">
+                <textarea id="edit-text" v-autogrow placeholder="Take a note..." v-model="editor.text" style="border: 0; padding: 0;"></textarea>
+              </div>
+            </div>
+            <div class="extra content" :style="{ backgroundColor: getColor(editor.color) }">
+              <div class="compact ui icon dropdown circular basic tiny button" v-dropdown>
+                <i class="icon theme"></i>
+                <div class="menu">
+                  <div class="item" v-for="(color, hex) in colors" @click="changeNewNoteColor(color)">
+                    <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
+                    {{ color | capitalize }}
+                  </div>
+                </div>
+              </div>
+              <div class="right floated">
+                <div class="ui icon basic tiny buttons compact">
+                  <button class="ui toggle button" type="button" :class="[editor.markdown ? 'active' : '']" @click="toggleMarkdown">Markdown</button>
+                  <!-- <div class="ui icon dropdown button" v-dropdown>
+                    <i class="icon ellipsis vertical"></i>
+                    <div class="menu">
+                      <div class="item">Option 1</div>
+                      <div class="item">Option 2</div>
+                      <div class="item">Option 3</div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <button class="ui bottom attached button" type="submit">Done</button>
+          </div>
+        </form>
+      </div>
+
     </div>
 
     <script>

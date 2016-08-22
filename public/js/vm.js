@@ -48,6 +48,13 @@ var vm = new Vue({
       color: 'none',
       created_at: ''
     },
+    editor: {
+      title: '',
+      text: '',
+      markdown: false,
+      color: 'none',
+      created_at: ''
+    },
     colors: colors
   },
   ready: function () {
@@ -102,6 +109,8 @@ var vm = new Vue({
     edit: function (note) {
       var self = this;
       var key = note['.key'];
+      self.editor = note;
+      $(self.$els.editor).modal('show');
     },
     update: function (note) {
       var self = this;
@@ -227,6 +236,29 @@ var vm = new Vue({
       },
       unbind: function () {
         $(this.el).dropdown('destroy');
+      }
+    },
+    modal: {
+      bind: function () {
+        $(this.el).modal({
+          blurring: true
+        });
+      },
+      unbind: function () {
+        $(this.el).modal('destroy');
+      }
+    },
+    autogrow: {
+      bind: function () {
+        var self = this;
+        $(this.el).autogrow({
+          vertical: true,
+          horizontal: false,
+          flickering: false,
+          postGrowCallback: function () {
+            $(self.vm.$els.editor).modal('refresh');
+          }
+        });
       }
     }
   },
