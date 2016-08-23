@@ -1,5 +1,5 @@
 .m-notes {
-    position: relative;
+	position: relative;
 }
 
 .m-notes > .m-note {
@@ -19,11 +19,11 @@
 
 .m-notes > .ss-placeholder-child {
 	border: 1px dashed #999;
-    border-radius: 4px;
-    position: absolute;
-    transition: left 0.4s ease, top 0.4s ease;
-    width: 290px;
-    z-index: 0;
+	border-radius: 4px;
+	position: absolute;
+	transition: left 0.4s ease, top 0.4s ease;
+	width: 290px;
+	z-index: 0;
 }
 
 @media only screen and (min-width: 35em) {
@@ -33,9 +33,9 @@
 
 
 @media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 1.25dppx),
-  (min-resolution: 120dpi) {
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
 	/* Style adjustments for high resolution devices */
 	html {
 		font-size: 32px;
