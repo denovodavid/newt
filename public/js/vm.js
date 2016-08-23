@@ -112,6 +112,12 @@ var vm = new Vue({
             self.$set('editor', note);
             $(self.$els.editor).modal('show');
         },
+        saveEdit: function () {
+            var self = this;
+            self.update(self.editor);
+            self.order();
+            $(self.$els.editor).modal('hide');
+        },
         update: function (note) {
             var self = this;
             var key = note['.key'];
