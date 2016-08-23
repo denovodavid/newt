@@ -19,4 +19,10 @@ $(function() {
         }
     });
 
+    $('#edit-text').on('keydown', function (event) {
+        if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+            $(vm.$els.editor).modal('hide');
+        }
+    });
+
 });
