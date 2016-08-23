@@ -109,7 +109,7 @@ var vm = new Vue({
         edit: function (note) {
             var self = this;
             var key = note['.key'];
-            self.editor = note;
+            self.$set('editor', note);
             $(self.$els.editor).modal('show');
         },
         update: function (note) {
