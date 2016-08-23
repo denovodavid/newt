@@ -142,8 +142,8 @@
         </div>
     </div>
 
-    <div class="ui small modal" v-el:editor v-modal>
-        <form id="edit-form" class="ui form" @submit.prevent="saveEdit">
+    <div class="ui small modal" v-el:editor v-editor>
+        <form id="edit-form" class="ui form" @submit.prevent="">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui large transparent left input fluid">
@@ -167,18 +167,12 @@
                     <div class="right floated">
                         <div class="ui icon basic tiny buttons compact">
                             <button class="ui toggle button" type="button" :class="[editor.markdown ? 'active' : '']" @click="toggleEditorMarkdown">Markdown</button>
-                            <!-- <div class="ui icon dropdown button" v-dropdown>
-                              <i class="icon ellipsis vertical"></i>
-                              <div class="menu">
-                                <div class="item">Option 1</div>
-                                <div class="item">Option 2</div>
-                                <div class="item">Option 3</div>
-                              </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
-                <button class="ui bottom attached button" type="submit">Done</button>
+                <div class="actions">
+                    <div class="ui bottom attached button" style="margin-left: 0;">Done</div>
+                </div>
             </div>
         </form>
     </div>
