@@ -155,6 +155,10 @@ var vm = new Vue({
             var self = this;
             self.$set('newNote.markdown', !self.newNote.markdown);
         },
+        toggleEditorMarkdown: function () {
+            var self = this;
+            self.$set('editor.markdown', !self.editor.markdown);
+        },
         setOrder: function () {
             var self = this;
             var $notes = $(self.$els.notes);
