@@ -133,6 +133,10 @@ var vm = new Vue({
             var self = this;
             self.$set('newNote.color', color);
         },
+        changeEditorColor: function (color) {
+            var self = this;
+            self.$set('editor.color', color);
+        },
         remove: function (note) {
             var self = this;
             var key = note['.key'];

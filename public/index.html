@@ -158,7 +158,7 @@
                     <div class="compact ui icon dropdown circular basic tiny button" v-dropdown>
                         <i class="icon theme"></i>
                         <div class="menu">
-                            <div class="item" v-for="(color, hex) in colors" @click="changeNewNoteColor(color)">
+                            <div class="item" v-for="(color, hex) in colors" @click="changeEditorColor(color)">
                                 <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
                                 {{ color | capitalize }}
                             </div>
