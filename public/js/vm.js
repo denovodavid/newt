@@ -252,11 +252,21 @@ var vm = new Vue({
                 $(this.el).dropdown('destroy');
             }
         },
+        editor: {
+            bind: function () {
+                var self = this;
+                $(this.el).modal({
+                    blurring: true,
+                    onHidden: self.vm.saveEdit
+                });
+            },
+            unbind: function () {
+                $(this.el).modal('destroy');
+            }
+        },
         modal: {
             bind: function () {
-                $(this.el).modal({
-                    blurring: true
-                });
+                $(this.el).modal();
             },
             unbind: function () {
                 $(this.el).modal('destroy');
