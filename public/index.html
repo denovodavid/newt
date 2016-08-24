@@ -167,6 +167,14 @@
                     <div class="right floated">
                         <div class="ui icon basic tiny buttons compact">
                             <button class="ui toggle button" type="button" :class="[editor.markdown ? 'active' : '']" @click="toggleEditorMarkdown">Markdown</button>
+                            <div class="ui icon dropdown button" v-dropdown>
+                              <i class="icon ellipsis vertical"></i>
+                              <div class="menu">
+                                <div class="item" @click="editorRemove(editor)">Delete note</div>
+                                <!-- <div class="item">Add label</div> -->
+                                <div class="item" @click="editorCopy(editor)">Make a copy</div>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>

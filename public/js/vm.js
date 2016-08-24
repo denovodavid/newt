@@ -118,6 +118,20 @@ var vm = new Vue({
             self.order();
             $(self.$els.editor).modal('hide');
         },
+        editorRemove: function (editor) {
+            var self = this;
+            self.remove(editor);
+            $(self.$els.editor).modal({
+                onHidden: undefined
+            }).modal('hide').modal({
+                onHidden: self.saveEdit
+            });
+        },
+        editorCopy: function (editor) {
+            var self = this;
+            self.copy(editor);
+            $(self.$els.editor).modal('hide');
+        },
         update: function (note) {
             var self = this;
             var key = note['.key'];
