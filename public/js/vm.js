@@ -112,26 +112,6 @@ var vm = new Vue({
             self.$set('editor', note);
             $(self.$els.editor).modal('show');
         },
-        editorSaveNote: function () {
-            var self = this;
-            self.updateNote(self.editor);
-            self.arrangeNotes();
-            $(self.$els.editor).modal('hide');
-        },
-        editorRemoveNote: function (editor) {
-            var self = this;
-            self.removeNote(editor);
-            $(self.$els.editor).modal({
-                onHidden: undefined
-            }).modal('hide').modal({
-                onHidden: self.editorSaveNote
-            });
-        },
-        editorCopyNote: function (editor) {
-            var self = this;
-            self.copyNote(editor);
-            $(self.$els.editor).modal('hide');
-        },
         updateNote: function (note) {
             var self = this;
             var key = note['.key'];
@@ -142,6 +122,37 @@ var vm = new Vue({
                 color: note.color
             }, function () {
                 console.log('update success');
+            });
+        },
+        removeNote: function (note) {
+            var self = this;
+            var key = note['.key'];
+            self.$firebaseRefs.notes.child(key).remove()
+                .then(function() {
+                    console.log('remove success');
+                })
+                .catch(function(error) {
+                    console.log('remove failed:' + error.message);
+                });
+        },
+        editorSaveNote: function () {
+            var self = this;
+            self.updateNote(self.editor);
+            self.arrangeNotes();
+            $(self.$els.editor).modal('hide');
+        },
+        editorCopyNote: function (editor) {
+            var self = this;
+            self.copyNote(editor);
+            $(self.$els.editor).modal('hide');
+        },
+        editorRemoveNote: function (editor) {
+            var self = this;
+            self.removeNote(editor);
+            $(self.$els.editor).modal({
+                onHidden: undefined
+            }).modal('hide').modal({
+                onHidden: self.editorSaveNote
             });
         },
         setNoteColor: function (note, color) {
@@ -156,17 +167,6 @@ var vm = new Vue({
         setEditorNoteColor: function (color) {
             var self = this;
             self.$set('editor.color', color);
-        },
-        removeNote: function (note) {
-            var self = this;
-            var key = note['.key'];
-            self.$firebaseRefs.notes.child(key).remove()
-                .then(function() {
-                    console.log('remove success');
-                })
-                .catch(function(error) {
-                    console.log('remove failed:' + error.message);
-                });
         },
         getColorHex: function (colorName) {
             return Vue.filter('noteColorToHex')(colorName);
