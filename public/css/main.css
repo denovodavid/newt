@@ -1,8 +1,8 @@
-.m-notes {
+.newt-notes {
 	position: relative;
 }
 
-.m-notes > .m-note {
+.newt-notes > .newt-note {
 	background: #CCC;
 	position: absolute;
 	transition: left 0.4s ease, top 0.4s ease;
@@ -13,11 +13,11 @@
 	cursor: move;
 }
 
-.m-note.ui-draggable-dragging {
+.newt-note.ui-draggable-dragging {
 	transition: none;
 }
 
-.m-notes > .ss-placeholder-child {
+.newt-notes > .ss-placeholder-child {
 	border: 1px dashed #999;
 	border-radius: 4px;
 	position: absolute;

@@ -11,14 +11,14 @@ marked.setOptions({
     renderer: mdRenderer
 });
 
-var ssOptions = {
-    selector: '.m-note',
+var shapeshiftOptions = {
+    selector: '.newt-note',
     colWidth: 290,
     animated: false,
     handle: '.drag-handle'
 };
 
-var colors = {
+var noteColors = {
     none: '',
     red: '#ff8a80',
     orange: '#ffd180',
@@ -55,7 +55,7 @@ var vm = new Vue({
             color: 'none',
             created_at: ''
         },
-        colors: colors
+        noteColors: noteColors
     },
     ready: function () {
         var self = this;
@@ -68,7 +68,7 @@ var vm = new Vue({
         console.log('ready');
     },
     methods: {
-        create: function () {
+        createNote: function () {
             var self = this;
             self.$firebaseRefs.notes.push({
                 title: self.newNote.title.trim(),
@@ -79,7 +79,7 @@ var vm = new Vue({
             }, function () {
                 console.log('write success');
                 Vue.nextTick(function () {
-                    self.setOrder();
+                    self.setNotesOrder();
                 });
                 $('#loading-icon').fadeOut(300, function () {
                     $(this).removeClass('notched circle loading').addClass('checkmark').fadeIn();
@@ -90,7 +90,7 @@ var vm = new Vue({
             self.$set('newNote.title', '');
             self.$set('newNote.text', '');
         },
-        copy: function (note) {
+        copyNote: function (note) {
             var self = this;
             self.$firebaseRefs.notes.push({
                 title: note.title,
@@ -106,33 +106,13 @@ var vm = new Vue({
             });
             $('#loading-icon').removeClass('checkmark').addClass('notched circle loading');
         },
-        edit: function (note) {
+        editNote: function (note) {
             var self = this;
             var key = note['.key'];
             self.$set('editor', note);
             $(self.$els.editor).modal('show');
         },
-        saveEdit: function () {
-            var self = this;
-            self.update(self.editor);
-            self.order();
-            $(self.$els.editor).modal('hide');
-        },
-        editorRemove: function (editor) {
-            var self = this;
-            self.remove(editor);
-            $(self.$els.editor).modal({
-                onHidden: undefined
-            }).modal('hide').modal({
-                onHidden: self.saveEdit
-            });
-        },
-        editorCopy: function (editor) {
-            var self = this;
-            self.copy(editor);
-            $(self.$els.editor).modal('hide');
-        },
-        update: function (note) {
+        updateNote: function (note) {
             var self = this;
             var key = note['.key'];
             self.$firebaseRefs.notes.child(key).update({
@@ -144,20 +124,7 @@ var vm = new Vue({
                 console.log('update success');
             });
         },
-        changeNoteColor: function (note, color) {
-            var self = this;
-            note.color = color;
-            self.update(note);
-        },
-        changeNewNoteColor: function (color) {
-            var self = this;
-            self.$set('newNote.color', color);
-        },
-        changeEditorColor: function (color) {
-            var self = this;
-            self.$set('editor.color', color);
-        },
-        remove: function (note) {
+        removeNote: function (note) {
             var self = this;
             var key = note['.key'];
             self.$firebaseRefs.notes.child(key).remove()
@@ -168,22 +135,55 @@ var vm = new Vue({
                     console.log('remove failed:' + error.message);
                 });
         },
-        getColor: function (colorName) {
-            return Vue.filter('noteColor')(colorName);
+        editorSaveNote: function () {
+            var self = this;
+            self.updateNote(self.editor);
+            self.arrangeNotes();
+            $(self.$els.editor).modal('hide');
         },
-        toggleMarkdown: function () {
+        editorCopyNote: function (editor) {
+            var self = this;
+            self.copyNote(editor);
+            $(self.$els.editor).modal('hide');
+        },
+        editorRemoveNote: function (editor) {
+            var self = this;
+            self.removeNote(editor);
+            $(self.$els.editor).modal({
+                onHidden: undefined
+            }).modal('hide').modal({
+                onHidden: self.editorSaveNote
+            });
+        },
+        setNoteColor: function (note, color) {
+            var self = this;
+            note.color = color;
+            self.updateNote(note);
+        },
+        setNewNoteColor: function (color) {
+            var self = this;
+            self.$set('newNote.color', color);
+        },
+        setEditorNoteColor: function (color) {
+            var self = this;
+            self.$set('editor.color', color);
+        },
+        getColorHex: function (colorName) {
+            return Vue.filter('noteColorToHex')(colorName);
+        },
+        toggleNewNoteMarkdown: function () {
             var self = this;
             self.$set('newNote.markdown', !self.newNote.markdown);
         },
-        toggleEditorMarkdown: function () {
+        toggleEditorNoteMarkdown: function () {
             var self = this;
             self.$set('editor.markdown', !self.editor.markdown);
         },
-        setOrder: function () {
+        setNotesOrder: function () {
             var self = this;
             var $notes = $(self.$els.notes);
             var order = {};
-            $notes.children('.m-note').each(function(i, itemElem) {
+            $notes.children('.newt-note').each(function(i, itemElem) {
                 var noteKey = $(itemElem).data('key');
                 order[noteKey] = i + 1;
             });
@@ -191,14 +191,14 @@ var vm = new Vue({
                 console.log('update order success');
             });
             Vue.nextTick(function () {
-                self.order();
+                self.arrangeNotes();
             });
         },
-        order: function () {
+        arrangeNotes: function () {
             var self = this;
             $(self.$els.notes).trigger('ss-rearrange');
         },
-        noteOrder: function (a, b) {
+        orderNotes: function (a, b) {
             var self = this;
             var aKey = a['.key'];
             var bKey = b['.key'];
@@ -216,7 +216,7 @@ var vm = new Vue({
                 var self = this;
                 var $notes = $(self.el);
                 $notes.on('ss-drop-complete', function(e) {
-                    self.vm.setOrder();
+                    self.vm.setNotesOrder();
                 });
             },
             unbind: function () {
@@ -241,12 +241,12 @@ var vm = new Vue({
                         $(this).find('.drag-handle').css({'visibility': 'hidden'});
                     },
                     click: function () {
-                        $notes.children('.m-note').css('z-index', '');
+                        $notes.children('.newt-note').css('z-index', '');
                         $(this).css('z-index', '2');
                     }
                 });
                 Vue.nextTick(function () {
-                    $notes.shapeshift(ssOptions);
+                    $notes.shapeshift(shapeshiftOptions);
                 });
             },
             unbind: function () {
@@ -255,7 +255,7 @@ var vm = new Vue({
                 var key = $note.data('key');
                 self.vm.$firebaseRefs.notesOrder.child(key).remove();
                 $note.off();
-                self.vm.order();
+                self.vm.arrangeNotes();
             }
         },
         dropdown: {
@@ -271,7 +271,7 @@ var vm = new Vue({
                 var self = this;
                 $(this.el).modal({
                     blurring: true,
-                    onHidden: self.vm.saveEdit
+                    onHidden: self.vm.editorSaveNote
                 });
             },
             unbind: function () {
@@ -309,18 +309,18 @@ var vm = new Vue({
                 var self = this;
                 console.log('order_changed');
                 Vue.nextTick(function () {
-                    self.order();
+                    self.arrangeNotes();
                 });
             }
         }
     }
 });
 
-Vue.filter('date', function (value) {
+Vue.filter('formatDate', function (value) {
     var date = new Date(value);
     return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
 });
 
-Vue.filter('noteColor', function (colorName) {
-    return colors[colorName];
+Vue.filter('noteColorToHex', function (colorName) {
+    return noteColors[colorName];
 });
