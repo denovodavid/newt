@@ -58,7 +58,7 @@
 <div id="newt" class="ui fluid container">
 
     <div class="ui text container">
-        <form id="note-form" class="ui form" @submit.prevent="create">
+        <form id="note-form" class="ui form" @submit.prevent="createNote">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui large transparent left input fluid">
@@ -69,11 +69,11 @@
                         <textarea id="note-text" rows="3" placeholder="Take a note..." v-model="newNote.text" style="border: 0; padding: 0;"></textarea>
                     </div>
                 </div>
-                <div class="extra content" :style="{ backgroundColor: getColor(newNote.color) }">
+                <div class="extra content" :style="{ backgroundColor: getColorHex(newNote.color) }">
                     <div class="compact ui icon dropdown circular basic tiny button" v-dropdown>
                         <i class="icon theme"></i>
                         <div class="menu">
-                            <div class="item" v-for="(color, hex) in colors" @click="changeNewNoteColor(color)">
+                            <div class="item" v-for="(color, hex) in noteColors" @click="setNewNoteColor(color)">
                                 <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
                                 {{ color | capitalize }}
                             </div>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="right floated">
                         <div class="ui icon basic tiny buttons compact">
-                            <button class="ui toggle button" type="button" :class="[newNote.markdown ? 'active' : '']" @click="toggleMarkdown">Markdown</button>
+                            <button class="ui toggle button" type="button" :class="[newNote.markdown ? 'active' : '']" @click="toggleNewNoteMarkdown">Markdown</button>
                             <!-- <div class="ui icon dropdown button" v-dropdown>
                               <i class="icon ellipsis vertical"></i>
                               <div class="menu">
@@ -98,9 +98,9 @@
         </form>
     </div>
 
-    <div class="m-notes" v-el:notes v-notes>
-        <div class="m-note" v-for="note in notes | orderBy noteOrder" track-by=".key" v-note data-key="{{ note['.key'] }}">
-            <div class="ui raised card" :style="{ backgroundColor: getColor(note.color) }">
+    <div class="newt-notes" v-el:notes v-notes>
+        <div class="newt-note" v-for="note in notes | orderBy orderNotes" track-by=".key" v-note data-key="{{ note['.key'] }}">
+            <div class="ui raised card" :style="{ backgroundColor: getColorHex(note.color) }">
                 <div class="content">
                     <div class="right floated meta drag-handle" style="visibility: hidden;">
                         <i class="block layout icon"></i>
@@ -113,13 +113,13 @@
                 </div>
                 <div class="extra content" style="visibility: hidden;">
               <span class="left floated">
-                <div class="compact ui circular icon basic mini button" @click="edit(note)">
+                <div class="compact ui circular icon basic mini button" @click="editNote(note)">
                   <i class="icon write"></i>
                 </div>
                 <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
                   <i class="icon theme"></i>
                   <div class="menu">
-                    <div class="item" v-for="(color, hex) in colors" @click="changeNoteColor(note, color)">
+                    <div class="item" v-for="(color, hex) in noteColors" @click="setNoteColor(note, color)">
                       <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
                       {{ color | capitalize }}
                     </div>
@@ -127,13 +127,13 @@
                 </div>
               </span>
                     <span class="right floated">
-                <span>{{ note.created_at | date }}</span>
+                <span>{{ note.created_at | formatDate }}</span>
                 <div class="ui icon dropdown" v-dropdown>
                   <i class="icon ellipsis vertical"></i>
                   <div class="menu">
-                    <div class="item" @click="remove(note)">Delete note</div>
+                    <div class="item" @click="removeNote(note)">Delete note</div>
                       <!-- <div class="item">Add label</div> -->
-                    <div class="item" @click="copy(note)">Make a copy</div>
+                    <div class="item" @click="copyNote(note)">Make a copy</div>
                   </div>
                 </div>
               </span>
@@ -154,11 +154,11 @@
                         <textarea id="edit-text" v-autogrow placeholder="Take a note..." v-model="editor.text" style="border: 0; padding: 0;"></textarea>
                     </div>
                 </div>
-                <div class="extra content" :style="{ backgroundColor: getColor(editor.color) }">
+                <div class="extra content" :style="{ backgroundColor: getColorHex(editor.color) }">
                     <div class="compact ui icon dropdown circular basic tiny button" v-dropdown>
                         <i class="icon theme"></i>
                         <div class="menu">
-                            <div class="item" v-for="(color, hex) in colors" @click="changeEditorColor(color)">
+                            <div class="item" v-for="(color, hex) in noteColors" @click="setEditorNoteColor(color)">
                                 <div class="ui large empty circular label" :style="{ backgroundColor: hex }"></div>
                                 {{ color | capitalize }}
                             </div>
@@ -166,13 +166,13 @@
                     </div>
                     <div class="right floated">
                         <div class="ui icon basic tiny buttons compact">
-                            <button class="ui toggle button" type="button" :class="[editor.markdown ? 'active' : '']" @click="toggleEditorMarkdown">Markdown</button>
+                            <button class="ui toggle button" type="button" :class="[editor.markdown ? 'active' : '']" @click="toggleEditorNoteMarkdown">Markdown</button>
                             <div class="ui icon dropdown button" v-dropdown>
                               <i class="icon ellipsis vertical"></i>
                               <div class="menu">
-                                <div class="item" @click="editorRemove(editor)">Delete note</div>
+                                <div class="item" @click="editorRemoveNote(editor)">Delete note</div>
                                 <!-- <div class="item">Add label</div> -->
-                                <div class="item" @click="editorCopy(editor)">Make a copy</div>
+                                <div class="item" @click="editorCopyNote(editor)">Make a copy</div>
                               </div>
                             </div>
                         </div>
