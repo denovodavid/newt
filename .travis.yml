@@ -1,0 +1,8 @@
+language: node_js
+node_js: "6"
+
+after_success:
+  - firebase deploy --email ${FIREBASE_USERNAME} --password ${FIREBASE_PASSWORD}
+
+notifications:
+  email: false
