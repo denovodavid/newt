@@ -2,7 +2,7 @@
 
 A [Google Keep](https://keep.google.com/) clone I am making for `teh lolz`.
 
-### [DEMO](https://newt-853a9.firebaseapp.com/)
+### [DEMO](https://newt.davidjholland.net/)
 
 ### Built On
 - [Vue.js](https://vuejs.org/)
