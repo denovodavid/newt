@@ -7,8 +7,11 @@ install:
 script:
   - echo "Hello Newt!"
 
-after_success:
-  - firebase deploy --token "${FIREBASE_TOKEN}"
+deploy:
+  provider: script
+  script: firebase deploy --token "${FIREBASE_TOKEN}"
+  on:
+    branch: master
 
 notifications:
   email: false
