@@ -8,7 +8,7 @@ script:
   - echo "Hello Newt!"
 
 deploy:
-  - firebase deploy --token "${FIREBASE_TOKEN}"
+  - firebase deploy --token ${FIREBASE_TOKEN}
 
 notifications:
   email: false
