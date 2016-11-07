@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <navbar></navbar>
+    <br>
+    <div class="ui fluid container">
+      <noteform></noteform>
+      <notes></notes>
+    </div>
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
+import Navbar from './components/Navbar'
+import Noteform from './components/Noteform'
+import Notes from './components/Notes'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Hello,
+    Navbar,
+    Noteform,
+    Notes
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    background: #eee;
+  }
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 </style>
