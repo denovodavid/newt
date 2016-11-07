@@ -4,11 +4,11 @@
       <div class="ui fluid card">
         <div class="content">
           <div class="ui large transparent left input fluid">
-            <input id="note-title" type="text" placeholder="Title">
+            <input id="note-title" type="text" placeholder="Title" v-model="newNote.title">
           </div>
           <div class="ui divider"></div>
           <div class="field">
-            <textarea id="note-text" rows="3" placeholder="Take a note..." style="border: 0; padding: 0;"></textarea>
+            <textarea id="note-text" rows="3" placeholder="Take a note..." v-model="newNote.text" style="border: 0; padding: 0;"></textarea>
           </div>
         </div>
         <div class="extra content">
@@ -46,7 +46,13 @@ export default {
   name: 'noteform',
   data () {
     return {
-      msg: 'lol'
+      newNote: {
+        title: '',
+        text: '',
+        markdown: false,
+        color: 'none',
+        created_at: ''
+      }
     }
   }
 }
