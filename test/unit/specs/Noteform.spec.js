@@ -19,7 +19,14 @@ describe('Noteform.vue', () => {
   // Inspect the component instance on mount
   it('correctly sets the message when created', () => {
     const vm = new Vue(Noteform).$mount()
-    expect(vm.newNote.title).to.equal('')
+    // expect(vm.newNote.title).to.equal('')
+    expect(vm.newNote).to.deep.equal({
+      title: '',
+      text: '',
+      markdown: false,
+      color: 'none',
+      created_at: ''
+    })
   })
 
   // Mount an instance and inspect the render output
