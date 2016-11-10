@@ -17,29 +17,67 @@ describe('Noteform.vue', () => {
   })
 
   // Inspect the component instance on mount
-  it('correctly sets the message when created', () => {
-    const vm = new Vue(Noteform).$mount()
-    // expect(vm.newNote.title).to.equal('')
-    expect(vm.newNote).to.deep.equal({
-      title: '',
-      text: '',
-      markdown: false,
-      color: 'none',
-      created_at: ''
+  // it('correctly sets the message when created', () => {
+  //   const vm = new Vue(Noteform).$mount()
+  //   expect(vm.newNote).to.deep.equal({
+  //     title: '',
+  //     text: '',
+  //     markdown: false,
+  //     color: 'none',
+  //     created_at: ''
+  //   })
+  // })
+
+  // Mount an instance and inspect the render output
+  it('renders the correct title', done => {
+    const Ctor = Vue.extend(Noteform)
+    const vm = new Ctor().$mount()
+    const title = 'Correct Title'
+    vm.newNote.title = title
+    Vue.nextTick(() => {
+      expect(vm.$el.querySelector('#note-title').value).to.equal(title)
+      done()
     })
   })
 
   // Mount an instance and inspect the render output
-  it('renders the correct message', done => {
+  it('renders the correct text', done => {
     const Ctor = Vue.extend(Noteform)
     const vm = new Ctor().$mount()
-    expect(vm.$el.querySelector('#note-title').value).to.equal('')
-
-    vm.newNote.title = '911'
+    const text = 'Correct Text'
+    vm.newNote.text = text
     Vue.nextTick(() => {
-      expect(vm.$el.querySelector('#note-title').value).to.equal('911')
+      expect(vm.$el.querySelector('#note-text').value).to.equal(text)
       done()
     })
-
   })
+
+  function hasClass(element, cls) {
+    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
+  }
+
+  // Mount an instance and inspect the render output
+  it('renders the correct markdown', done => {
+    const Ctor = Vue.extend(Noteform)
+    const vm = new Ctor().$mount()
+    const markdown = true
+    vm.newNote.markdown = markdown
+    Vue.nextTick(() => {
+      expect(hasClass(vm.$el.querySelector('#note-markdown'), 'active')).to.equal(markdown)
+      // expect((' ' + vm.$el.querySelector('#note-markdown').className + ' ').indexOf('active') > -1).to.equal(markdown)
+      done()
+    })
+  })
+
+  // Mount an instance and inspect the render output
+  it('renders the correct color', done => {
+    const Ctor = Vue.extend(Noteform)
+    const vm = new Ctor().$mount()
+    vm.newNote.color = 'red'
+    Vue.nextTick(() => {
+      expect(window.getComputedStyle(vm.$el.querySelector('.extra.content')).getPropertyValue('background-color')).to.equal('#ff8a80')
+      done()
+    })
+  })
+
 })
