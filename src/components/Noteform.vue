@@ -11,7 +11,7 @@
             <textarea id="note-text" rows="3" placeholder="Take a note..." v-model="newNote.text" style="border: 0; padding: 0;"></textarea>
           </div>
         </div>
-        <div class="extra content">
+        <div class="extra content" v-bind:style="newNoteColor">
           <div class="compact ui icon dropdown circular basic tiny button">
             <i class="icon theme"></i>
             <div class="menu">
@@ -23,7 +23,7 @@
           </div>
           <div class="right floated">
             <div class="ui icon basic tiny buttons compact">
-              <button class="ui toggle button" type="button">Markdown</button>
+              <button id="note-markdown" class="ui toggle button" v-bind:class="{ active: newNote.markdown }" type="button">Markdown</button>
               <!--<div class="ui icon dropdown button" v-dropdown>
                 <i class="icon ellipsis vertical"></i>
                 <div class="menu">
@@ -52,6 +52,13 @@ export default {
         markdown: false,
         color: 'none',
         created_at: ''
+      }
+    }
+  },
+  computed: {
+    newNoteColor () {
+      return {
+        'background-color': this.$root.colors[this.newNote.color]
       }
     }
   }
