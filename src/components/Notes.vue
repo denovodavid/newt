@@ -34,8 +34,6 @@ export default {
       console.log('setNotesOrder')
       // self.vm.setNotesOrder();
     })
-
-    console.log(self)
   },
   methods: {
     shapeshift () {
