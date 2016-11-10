@@ -1,5 +1,6 @@
 var path = require('path')
 var config = require('../config')
+var webpack = require('webpack')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 
@@ -66,6 +67,13 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    }),
+  ],
   vue: {
     loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
     postcss: [
