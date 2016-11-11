@@ -15,7 +15,7 @@ var shapeshiftOptions = {
   colWidth: 290,
   animated: false,
   handle: '.drag-handle'
-};
+}
 
 export default {
   name: 'notes',

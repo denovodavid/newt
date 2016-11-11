@@ -13,7 +13,7 @@ imagesLoaded.makeJQueryPlugin($)
 import 'semantic-ui-css/semantic.js'
 import 'semantic-ui-css/semantic.css'
 
-import marked from 'marked'
+// import marked from 'marked'
 
 import 'jquery-shapeshift'
 
@@ -41,4 +41,4 @@ new Vue({
       grey: '#cfd8dc'
     }
   }
-});
+})

@@ -62,7 +62,7 @@ export default {
         $(self.$parent.$el).children('.newt-note').css('z-index', '')
         $(this).css('z-index', '2')
       }
-    });
+    })
     self.$parent.shapeshift()
   }
 }
