@@ -52,7 +52,7 @@ describe('Noteform.vue', () => {
     })
   })
 
-  function hasClass(element, cls) {
+  function hasClass (element, cls) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
   }
 
@@ -79,5 +79,4 @@ describe('Noteform.vue', () => {
       done()
     })
   })
-
 })
