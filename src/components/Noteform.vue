@@ -58,7 +58,8 @@ export default {
   computed: {
     newNoteColor () {
       return {
-        'background-color': this.$root.colors[this.newNote.color]
+        // 'background-color': this.$root.colors[this.newNote.color]
+        'background-color': '#ccc'
       }
     }
   }
