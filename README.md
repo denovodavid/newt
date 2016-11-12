@@ -1,8 +1,11 @@
-# newt
+# Newt
 
-> A note taking webb app.
+[![Build Status](https://travis-ci.org/smeagolem/newt.svg?branch=develop)](https://travis-ci.org/smeagolem/newt)
 
-testing gitflow feature thing.
+> A note taking web app.
+
+Built with [Vue.js & Webpack](https://github.com/vuejs-templates/webpack).  
+And a [Firebase](https://firebase.google.com/) backend.
 
 ## Build Setup
 
