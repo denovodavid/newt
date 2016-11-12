@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import Marked from 'Marked'
+import Marked from 'marked'
 import 'jquery-dotdotdot/src/jquery.dotdotdot.js'
 import Colors from '../colors.js'
 
