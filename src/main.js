@@ -32,3 +32,7 @@ Vue.directive('dropdown', {
     $(el).dropdown('destroy')
   }
 })
+
+Vue.filter('capatalise', (text) => {
+  return text[0].toUpperCase() + text.slice(1)
+})
