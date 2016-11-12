@@ -12,8 +12,6 @@ import 'semantic-ui-css/semantic.css'
 
 // import marked from 'marked'
 
-import 'jquery-shapeshift'
-
 Vue.use(VueFire)
 
 console.log('NEWT!')
