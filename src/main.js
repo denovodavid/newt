@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueFire from 'vuefire'
 import App from './App'
-import db from './firebaseDatabase'
 
 import 'jquery-ui/jquery-ui.min.js'
 
@@ -23,8 +22,6 @@ console.log('NEWT!')
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App },
-  data: {
-    db: db
+  components: { App }
   }
 })
