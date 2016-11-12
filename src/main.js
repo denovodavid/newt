@@ -21,5 +21,14 @@ new Vue({
   el: '#app',
   template: '<App/>',
   components: { App }
+})
+
+// Register a global custom directive called v-dropdown
+Vue.directive('dropdown', {
+  bind (el) {
+    $(el).dropdown()
+  },
+  unbind (el) {
+    $(el).dropdown('destroy')
   }
 })
