@@ -8,7 +8,6 @@
 
 <script>
 import Note from './Note'
-import $ from 'jquery'
 
 var shapeshiftOptions = {
   selector: '.newt-note',
