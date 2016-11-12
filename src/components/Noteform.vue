@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import Colors from '../colors'
+
 export default {
   name: 'noteform',
   data () {
@@ -58,8 +60,7 @@ export default {
   computed: {
     newNoteColor () {
       return {
-        // 'background-color': this.$root.colors[this.newNote.color]
-        'background-color': '#ccc'
+        'background-color': Colors[this.newNote.color]
       }
     }
   }
