@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Noteform from 'src/components/Noteform'
+import Colors from 'src/colors'
 
 describe('Noteform.vue', () => {
   // Evaluate the results of functions in
@@ -52,10 +53,6 @@ describe('Noteform.vue', () => {
     })
   })
 
-  function hasClass (element, cls) {
-    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
-  }
-
   // Mount an instance and inspect the render output
   it('renders the correct markdown', done => {
     const Ctor = Vue.extend(Noteform)
@@ -74,9 +71,31 @@ describe('Noteform.vue', () => {
     const Ctor = Vue.extend(Noteform)
     const vm = new Ctor().$mount()
     vm.newNote.color = 'red'
+    var expected = (vm.newNote.color === 'none') ? '' : hexToRGB(Colors[vm.newNote.color])
     Vue.nextTick(() => {
-      expect(window.getComputedStyle(vm.$el.querySelector('.extra.content')).getPropertyValue('background-color')).to.equal('#ff8a80')
+      expect(vm.$el.querySelector('.extra.content').style.backgroundColor).to.equal(expected)
       done()
     })
   })
 })
+
+function hasClass (element, cls) {
+  return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
+}
+
+// convert a hexidecimal color string to 0..255 R,G,B
+// https://gist.github.com/lrvick/2080648
+function hexToRGB (hex) {
+  if (hex.length < 7) {
+    var r = hex.slice(1, 2)
+    var g = hex.slice(2, 3)
+    var b = hex.slice(3, 4)
+    hex = '0x' + r + r + g + g + b + b
+  } else {
+    hex = hex.replace('#', '0x')
+  }
+  var rr = hex >> 16
+  var gg = hex >> 8 & 0xFF
+  var bb = hex & 0xFF
+  return 'rgb(' + rr + ', ' + gg + ', ' + bb + ')'
+}
