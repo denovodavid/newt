@@ -43,6 +43,7 @@
 
 <script>
 import Colors from '../colors'
+import AutoSize from 'autosize'
 
 export default {
   name: 'noteform',
@@ -63,6 +64,12 @@ export default {
         'background-color': Colors[this.newNote.color]
       }
     }
+  },
+  mounted () {
+    AutoSize($('#note-text'))
+  },
+  beforeDestroy () {
+    AutoSize.destroy($('#note-text'))
   }
 }
 </script>
