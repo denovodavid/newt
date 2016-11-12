@@ -13,12 +13,12 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "autosize": "^3.0.18",
     "firebase": "^3.6.0",
     "imagesloaded": "^4.1.1",
     "jquery": "^2.2.4",
     "jquery-shapeshift": "^1.0.1",
     "jquery-ui": "github:components/jqueryui#1.11.4",
-    "jquery.ns-autogrow": "^1.1.6",
     "marked": "^0.3.6",
     "semantic-ui-css": "^2.2.4",
     "vue": "^2.0.1",
