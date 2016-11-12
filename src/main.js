@@ -5,8 +5,6 @@ import db from './firebaseDatabase'
 
 import 'jquery-ui/jquery-ui.min.js'
 
-import 'jquery.ns-autogrow'
-
 import imagesLoaded from 'imagesloaded'
 imagesLoaded.makeJQueryPlugin($)
 
