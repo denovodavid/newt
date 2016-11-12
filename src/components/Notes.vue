@@ -1,13 +1,13 @@
 <template>
   <div class="newt-notes">
-    <div class="newt-note" v-for="note in notes">
-      <note v-bind:note="note"></note>
-    </div>
+    <note v-for="note in notes" v-bind:note="note" v-on:zindex="updateZindex"></note>
   </div>
 </template>
 
 <script>
 import Note from './Note'
+import db from '../database.js'
+import 'jquery-shapeshift'
 
 var shapeshiftOptions = {
   selector: '.newt-note',
@@ -20,7 +20,7 @@ export default {
   name: 'notes',
   firebase () {
     return {
-      notes: this.$root.db.ref('notes')
+      notes: db.ref('notes')
     }
   },
   components: {
@@ -38,6 +38,9 @@ export default {
     shapeshift () {
       $(this.$el).shapeshift(shapeshiftOptions)
       console.log('SHAPESHIPT')
+    },
+    updateZindex () {
+      $(this.$el).children('.newt-note').css('z-index', '')
     }
   }
 }
