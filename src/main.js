@@ -4,8 +4,8 @@ import App from './App'
 
 import 'jquery-ui/jquery-ui.min.js'
 
-import imagesLoaded from 'imagesloaded'
-imagesLoaded.makeJQueryPlugin($)
+// import imagesLoaded from 'imagesloaded'
+// imagesLoaded.makeJQueryPlugin($)
 
 import 'semantic-ui-css/semantic.js'
 import 'semantic-ui-css/semantic.css'
@@ -13,15 +13,6 @@ import 'semantic-ui-css/semantic.css'
 // import marked from 'marked'
 
 Vue.use(VueFire)
-
-console.log('NEWT!')
-
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  template: '<App/>',
-  components: { App }
-})
 
 // Register a global custom directive called v-dropdown
 Vue.directive('dropdown', {
@@ -40,4 +31,13 @@ Vue.filter('capatalise', (text) => {
 Vue.filter('formatDate', (value) => {
   var date = new Date(value)
   return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()
+})
+
+console.log('NEWT!')
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  template: '<App/>',
+  components: { App }
 })
