@@ -17,7 +17,7 @@
             <div class="menu">
               <div class="item" v-on:click="changeColor(color)" v-for="(hex, color) in colors">
                 <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-                {{ color | capatalise }}
+                {{ color | capitalise }}
               </div>
             </div>
           </div>

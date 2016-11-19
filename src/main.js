@@ -24,7 +24,7 @@ Vue.directive('dropdown', {
   }
 })
 
-Vue.filter('capatalise', (text) => {
+Vue.filter('capitalise', (text) => {
   return text[0].toUpperCase() + text.slice(1)
 })
 
