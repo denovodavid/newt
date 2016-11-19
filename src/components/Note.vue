@@ -5,12 +5,13 @@
         <div class="right floated meta drag-handle" style="visibility: hidden;">
           <i class="block layout icon"></i>
         </div>
-        <div class="header">{{ note.title }}</div>
-        <div class="description" v-show="!note.markdown">
-          <p class="note-text">{{ note.text }}</p>
+        <div class="header" v-show="note.title">{{ note.title }}</div>
+        <div class="description">
+          <div v-show="overflow" class="note-overflow"></div>
+          <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
+          <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
         </div>
-        <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
-        <div></div>
+        <p v-show="overflow">...</p>
       </div>
       <div class="extra content" style="visibility: hidden;">
         <span class="left floated">
@@ -45,7 +46,6 @@
 
 <script>
 import Marked from 'marked'
-import 'jquery-dotdotdot/src/jquery.dotdotdot.js'
 import Colors from '../colors.js'
 
 var mdRenderer = new Marked.Renderer()
@@ -64,6 +64,7 @@ export default {
   props: ['note'],
   data () {
     return {
+      overflow: false,
       colors: Colors
     }
   },
@@ -78,11 +79,6 @@ export default {
   mounted () {
     var self = this
     var $note = $(self.$el)
-    $('.description, .note-markdown').dotdotdot({
-      wrap: 'letter',
-      watch: true,
-      height: 400
-    })
     $note.on({
       mouseenter: function () {
         $(this).find('.extra.content').css({'visibility': 'visible'})
@@ -97,6 +93,41 @@ export default {
         $(this).css('z-index', '2')
       }
     })
+
+    var $noteMarkdown = $note.find('.note-markdown')
+    var $noteText = $note.find('.note-text')
+    if (
+      $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
+      $noteText[0].scrollHeight > $noteText.innerHeight()
+    ) {
+      // Text has over-flowed
+      console.log('text overflow')
+      self.overflow = true
+      $note.find('.note-overflow').css({
+        'background': 'linear-gradient(transparent, ' + self.noteColor + ')'
+      })
+    }
+
+    self.$parent.shapeshift()
+  },
+  updated () {
+    var self = this
+    var $note = $(self.$el)
+    var $noteMarkdown = $note.find('.note-markdown')
+    var $noteText = $note.find('.note-text')
+    if (
+      $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
+      $noteText[0].scrollHeight > $noteText.innerHeight()
+    ) {
+      // Text has over-flowed
+      self.overflow = true
+      $note.find('.note-overflow').css({
+        'background': 'linear-gradient(transparent, ' + self.noteColor + ')'
+      })
+    } else {
+      self.overflow = false
+    }
+
     self.$parent.shapeshift()
   },
   beforeDestroy () {
@@ -106,19 +137,29 @@ export default {
 </script>
 
 <style scoped>
+  .description {
+    position: relative;
+  }
+
   .note-text {
-    /*max-height: 400px;*/
-    /*overflow: hidden;*/
-    /*white-space: pre-wrap;*/
-    /*word-wrap: break-word;*/
-    /*text-overflow: ellipsis;*/
+    max-height: 24em;
+    overflow: hidden;
+    white-space: pre-wrap;
   }
   
   .note-markdown {
-    max-height: 400px;
+    max-height: 24em;
     overflow: hidden;
     word-wrap: break-word;
-    text-overflow: ellipsis;
+  }
+
+  .note-overflow {
+    pointer-events: none;
+    position: absolute;
+    height: 5em;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
   
   .drag-handle {
