@@ -30,14 +30,14 @@
         </span>
         <span class="right floated">
           <span>{{ note.created_at | formatDate }}</span>
-          <div class="ui icon dropdown" v-dropdown>
-            <i class="icon ellipsis vertical"></i>
-            <div class="menu">
-              <div class="item">Delete note</div>
-              <!-- <div class="item">Add label</div> -->
-              <div class="item">Make a copy</div>
-            </div>
+        <div class="ui icon dropdown" v-dropdown>
+          <i class="icon ellipsis vertical"></i>
+          <div class="menu">
+            <div class="item">Delete note</div>
+            <!-- <div class="item">Add label</div> -->
+            <div class="item" v-on:click="copyNote()">Make a copy</div>
           </div>
+        </div>
         </span>
       </div>
     </div>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import db from '../database.js'
 import Marked from 'marked'
 import Colors from '../colors.js'
 
@@ -132,6 +133,20 @@ export default {
   },
   beforeDestroy () {
     $('.description, .note-markdown').trigger('destroy.dot')
+  },
+  methods: {
+    copyNote () {
+      var self = this
+      db.ref('notes').push({
+        title: self.note.title,
+        text: self.note.text,
+        markdown: self.note.markdown,
+        color: self.note.color,
+        created_at: self.note.created_at
+      }, () => {
+        console.log('Note Copied!')
+      })
+    }
   }
 }
 </script>
@@ -140,7 +155,7 @@ export default {
   .description {
     position: relative;
   }
-
+  
   .note-text {
     max-height: 24em;
     overflow: hidden;
@@ -152,7 +167,7 @@ export default {
     overflow: hidden;
     word-wrap: break-word;
   }
-
+  
   .note-overflow {
     pointer-events: none;
     position: absolute;
