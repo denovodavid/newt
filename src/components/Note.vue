@@ -33,7 +33,11 @@
         <div class="ui icon dropdown" v-dropdown>
           <i class="icon ellipsis vertical"></i>
           <div class="menu">
+<<<<<<< HEAD
             <div class="item" v-on:click="removeNote()">Delete note</div>
+=======
+            <div class="item">Delete note</div>
+>>>>>>> Add note copying
             <!-- <div class="item">Add label</div> -->
             <div class="item" v-on:click="copyNote()">Make a copy</div>
           </div>
@@ -178,19 +182,19 @@ export default {
   .description {
     position: relative;
   }
-  
+
   .note-text {
     max-height: 24em;
     overflow: hidden;
     white-space: pre-wrap;
   }
-  
+
   .note-markdown {
     max-height: 24em;
     overflow: hidden;
     word-wrap: break-word;
   }
-  
+
   .note-overflow {
     pointer-events: none;
     position: absolute;
@@ -199,11 +203,11 @@ export default {
     left: 0;
     right: 0;
   }
-  
+
   .drag-handle {
     cursor: move;
   }
-  
+
   .ss-placeholder-child {
     border: 1px dashed #999;
     border-radius: 4px;
