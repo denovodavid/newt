@@ -34,10 +34,14 @@
           <i class="icon ellipsis vertical"></i>
           <div class="menu">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div class="item" v-on:click="removeNote()">Delete note</div>
 =======
             <div class="item">Delete note</div>
 >>>>>>> Add note copying
+=======
+            <div class="item" v-on:click="removeNote()">Delete note</div>
+>>>>>>> Add note removing
             <!-- <div class="item">Add label</div> -->
             <div class="item" v-on:click="copyNote()">Make a copy</div>
           </div>
