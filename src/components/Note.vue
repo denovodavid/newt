@@ -15,7 +15,7 @@
       </div>
       <div class="extra content" style="visibility: hidden;">
         <span class="left floated">
-        <div class="compact ui circular icon basic mini button">
+        <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
           <i class="icon write"></i>
         </div>
         <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
@@ -166,6 +166,9 @@ export default {
       }, () => {
         console.log('update color success')
       })
+    },
+    editNote () {
+      this.$emit('editnote')
     }
   }
 }
