@@ -33,7 +33,7 @@
         <div class="ui icon dropdown" v-dropdown>
           <i class="icon ellipsis vertical"></i>
           <div class="menu">
-            <div class="item">Delete note</div>
+            <div class="item" v-on:click="removeNote()">Delete note</div>
             <!-- <div class="item">Add label</div> -->
             <div class="item" v-on:click="copyNote()">Make a copy</div>
           </div>
@@ -146,6 +146,17 @@ export default {
       }, () => {
         console.log('Note Copied!')
       })
+    },
+    removeNote () {
+      var self = this
+      var key = self.note['.key']
+      db.ref('notes').child(key).remove()
+        .then(() => {
+          console.log('remove success')
+        })
+        .catch((error) => {
+          console.log('remove failed:' + error.message)
+        })
     }
   }
 }
