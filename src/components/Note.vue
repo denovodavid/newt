@@ -21,7 +21,7 @@
         <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
           <i class="icon theme"></i>
           <div class="menu">
-            <div class="item" v-for="(hex, color) in colors">
+            <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
               <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
               {{ color | capitalise }}
               </div>
@@ -157,6 +157,15 @@ export default {
         .catch((error) => {
           console.log('remove failed:' + error.message)
         })
+    },
+    setNoteColor (color) {
+      var self = this
+      var key = self.note['.key']
+      db.ref('notes').child(key).update({
+        color: color
+      }, () => {
+        console.log('update color success')
+      })
     }
   }
 }
