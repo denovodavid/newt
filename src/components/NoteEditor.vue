@@ -11,11 +11,11 @@
             <textarea id="edit-text" placeholder="Take a note..." style="border: 0; padding: 0;" v-model="editor.note.text" v-autosize="editor.note.text"></textarea>
           </div>
         </div>
-        <div class="extra content" v-bind:style="noteColor">
-          <div class="compact ui icon dropdown circular basic tiny button" v-dropdown>
+        <div class="extra content" v-bind:style="{ backgroundColor: noteColor }">
+          <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
             <i class="icon theme"></i>
             <div class="menu">
-              <div class="item" v-on:click="changeColor(color)" v-for="(hex, color) in colors">
+              <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
                 <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
                 {{ color | capitalise }}
               </div>
@@ -59,16 +59,14 @@ export default {
   },
   computed: {
     noteColor () {
-      return {
-        'background-color': Colors[this.editor.note.color]
-      }
+      return Colors[this.editor.note.color]
     }
   },
   mounted () {
-    // var self = this
-    // $(self.$el).modal({
-    //   onHidden: self.vm.editorSaveNote
-    // });
+    var self = this
+    $(self.$el).modal({
+      onHidden: self.updateNote
+    })
   },
   beforeDestroy () {
   },
@@ -84,28 +82,26 @@ export default {
     }
   },
   methods: {
-    toggleMarkdown () {
-      // this.newNote.markdown = !this.newNote.markdown
-    },
-    changeColor (color) {
-      // this.newNote.color = color
-    },
     updateNote () {
       var self = this
-      db.ref('notes').push({
-        title: self.newNote.title.trim(),
-        text: self.newNote.text.trim(),
-        markdown: self.newNote.markdown,
-        color: self.newNote.color,
-        created_at: new Date().toJSON()
+      var key = self.editor.note['.key']
+      db.ref('notes').child(key).update({
+        title: self.editor.note.title.trim(),
+        text: self.editor.note.text.trim(),
+        markdown: self.editor.note.markdown,
+        color: self.editor.note.color
       }, () => {
-        console.log('Note Created!')
+        console.log('Note Updated!')
         Vue.nextTick(() => {
-          self.$emit('noteCreated')
+          self.$emit('noteUpdated')
         })
-        self.newNote.title = self.newNote.text = ''
-        $('#note-title').focus()
       })
+    },
+    setNoteColor (color) {
+      this.editor.note.color = color
+    },
+    toggleMarkdown () {
+      this.editor.note.markdown = !this.editor.note.markdown
     }
   }
 }
