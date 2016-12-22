@@ -7,7 +7,7 @@
         </div>
         <div class="header" v-show="note.title">{{ note.title }}</div>
         <div class="description">
-          <div v-show="overflow" class="note-overflow"></div>
+          <div v-show="overflow" class="note-overflow" v-bind:style="{ background: overflowGradient }"></div>
           <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
           <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
         </div>
@@ -15,29 +15,29 @@
       </div>
       <div class="extra content" style="visibility: hidden;">
         <span class="left floated">
-        <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
-          <i class="icon write"></i>
-        </div>
-        <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
-          <i class="icon theme"></i>
-          <div class="menu">
-            <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
-              <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-              {{ color | capitalise }}
+          <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
+            <i class="icon write"></i>
+          </div>
+          <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
+            <i class="icon theme"></i>
+            <div class="menu">
+              <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
+                <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
+                {{ color | capitalise }}
               </div>
             </div>
           </div>
         </span>
         <span class="right floated">
           <span>{{ note.created_at | formatDate }}</span>
-        <div class="ui icon dropdown" v-dropdown>
-          <i class="icon ellipsis vertical"></i>
-          <div class="menu">
-            <div class="item" v-on:click="removeNote()">Delete note</div>
-            <!-- <div class="item">Add label</div> -->
-            <div class="item" v-on:click="copyNote()">Make a copy</div>
+          <div class="ui icon dropdown" v-dropdown>
+            <i class="icon ellipsis vertical"></i>
+            <div class="menu">
+              <div class="item" v-on:click="removeNote()">Delete note</div>
+              <!-- <div class="item">Add label</div> -->
+              <div class="item" v-on:click="copyNote()">Make a copy</div>
+            </div>
           </div>
-        </div>
         </span>
       </div>
     </div>
@@ -75,6 +75,9 @@ export default {
     },
     noteColor () {
       return Colors[this.note.color]
+    },
+    overflowGradient () {
+      return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
     }
   },
   mounted () {
@@ -122,9 +125,6 @@ export default {
     ) {
       // Text has over-flowed
       self.overflow = true
-      $note.find('.note-overflow').css({
-        'background': 'linear-gradient(transparent, ' + self.noteColor + ')'
-      })
     } else {
       self.overflow = false
     }
