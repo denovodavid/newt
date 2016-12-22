@@ -4,7 +4,8 @@
     <br>
     <div class="ui fluid container">
       <noteform></noteform>
-      <notes></notes>
+      <notes v-on:editnote="editNote($event)"></notes>
+      <noteeditor v-bind:editor="editor"></noteeditor>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ import Hello from './components/Hello'
 import Navbar from './components/Navbar'
 import Noteform from './components/Noteform'
 import Notes from './components/Notes'
+import Noteeditor from './components/NoteEditor'
 
 export default {
   name: 'app',
@@ -21,7 +23,24 @@ export default {
     Hello,
     Navbar,
     Noteform,
-    Notes
+    Notes,
+    Noteeditor
+  },
+  data () {
+    return {
+      editor: {
+        show: false,
+        note: {}
+      }
+    }
+  },
+  methods: {
+    editNote (note) {
+      this.editor = {
+        show: true,
+        note: note
+      }
+    }
   }
 }
 </script>

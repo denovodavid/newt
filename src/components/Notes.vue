@@ -1,6 +1,6 @@
 <template>
   <div class="newt-notes">
-    <note v-for="note in notes" v-bind:note="note" v-on:zindex="updateZindex"></note>
+    <note v-for="note in notes" v-bind:note="note" v-on:zindex="updateZindex" v-on:editnote="editNote(note)"></note>
   </div>
 </template>
 
@@ -41,6 +41,9 @@ export default {
     },
     updateZindex () {
       $(this.$el).children('.newt-note').css('z-index', '')
+    },
+    editNote (note) {
+      this.$emit('editnote', note)
     }
   }
 }
