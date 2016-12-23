@@ -8,7 +8,7 @@
           </div>
           <div class="ui divider"></div>
           <div class="field">
-            <textarea id="note-text" rows="3" placeholder="Take a note..." v-model="newNote.text" style="border: 0; padding: 0;"></textarea>
+            <textarea id="note-text" v-autosize rows="3" placeholder="Take a note..." v-model="newNote.text"></textarea>
           </div>
         </div>
         <div class="extra content" v-bind:style="newNoteColor">
@@ -45,7 +45,6 @@
 import Vue from 'vue'
 import db from '../database.js'
 import Colors from '../colors'
-import AutoSize from 'autosize'
 
 export default {
   name: 'noteform',
@@ -67,12 +66,6 @@ export default {
         'background-color': Colors[this.newNote.color]
       }
     }
-  },
-  mounted () {
-    AutoSize($('#note-text'))
-  },
-  beforeDestroy () {
-    AutoSize.destroy($('#note-text'))
   },
   methods: {
     toggleMarkdown () {
@@ -102,4 +95,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+#note-text {
+  border: 0;
+  padding: 0;
+}
+</style>
