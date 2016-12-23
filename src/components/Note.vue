@@ -1,5 +1,5 @@
 <template>
-  <div class="newt-note">
+  <div class="newt-note" v-bind:data-key="key">
     <div class="ui raised card" v-bind:style="{ backgroundColor: noteColor }">
       <div class="content">
         <div class="right floated meta drag-handle" style="visibility: hidden;">
@@ -78,6 +78,9 @@ export default {
     },
     overflowGradient () {
       return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
+    },
+    key () {
+      return this.note['.key']
     }
   },
   mounted () {
@@ -175,6 +178,17 @@ export default {
 </script>
 
 <style scoped>
+  .newt-note {
+    background: #CCC;
+    position: absolute;
+    transition: left 0.4s ease, top 0.4s ease;
+    z-index: 1;
+  }
+
+  .ui-draggable-dragging {
+    transition: none;
+  }
+
   .description {
     position: relative;
   }
@@ -202,14 +216,5 @@ export default {
 
   .drag-handle {
     cursor: move;
-  }
-
-  .ss-placeholder-child {
-    border: 1px dashed #999;
-    border-radius: 4px;
-    position: absolute;
-    transition: left 0.4s ease, top 0.4s ease;
-    width: 290px;
-    z-index: 0;
   }
 </style>
