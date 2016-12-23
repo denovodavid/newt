@@ -178,6 +178,17 @@ export default {
 </script>
 
 <style scoped>
+  .newt-note {
+    background: #CCC;
+    position: absolute;
+    transition: left 0.4s ease, top 0.4s ease;
+    z-index: 1;
+  }
+
+  .ui-draggable-dragging {
+    transition: none;
+  }
+
   .description {
     position: relative;
   }
@@ -205,14 +216,5 @@ export default {
 
   .drag-handle {
     cursor: move;
-  }
-
-  .ss-placeholder-child {
-    border: 1px dashed #999;
-    border-radius: 4px;
-    position: absolute;
-    transition: left 0.4s ease, top 0.4s ease;
-    width: 290px;
-    z-index: 0;
   }
 </style>
