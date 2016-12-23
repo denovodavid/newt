@@ -1,5 +1,5 @@
 <template>
-  <div class="newt-note">
+  <div class="newt-note" v-bind:data-key="key">
     <div class="ui raised card" v-bind:style="{ backgroundColor: noteColor }">
       <div class="content">
         <div class="right floated meta drag-handle" style="visibility: hidden;">
@@ -78,6 +78,9 @@ export default {
     },
     overflowGradient () {
       return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
+    },
+    key () {
+      return this.note['.key']
     }
   },
   mounted () {
