@@ -1,5 +1,5 @@
 <template>
-  <div class="ui small modal" v-modal>
+  <div class="ui long modal" v-modal>
     <form id="edit-form" class="ui form" v-on:submit.prevent="">
       <div class="ui fluid card">
         <div class="content">
@@ -8,7 +8,7 @@
           </div>
           <div class="ui divider"></div>
           <div class="field">
-            <textarea id="edit-text" placeholder="Take a note..." style="border: 0; padding: 0;" v-model="editor.note.text" v-autosize="editor.note.text"></textarea>
+            <textarea id="edit-text" v-autosize rows="3" placeholder="Take a note..." v-model="editor.note.text"></textarea>
           </div>
         </div>
         <div class="extra content" v-bind:style="{ backgroundColor: noteColor }">
@@ -67,6 +67,9 @@ export default {
     $(self.$el).modal({
       onHidden: self.updateNote
     })
+    $('#edit-text').on('autosize:resized', () => {
+      $(this.$el).modal('refresh')
+    })
   },
   beforeDestroy () {
   },
@@ -77,6 +80,7 @@ export default {
         $(this.$el).modal('show')
         Vue.nextTick(() => {
           AutoSize.update($('#edit-text'))
+          $(this.$el).modal('refresh')
         })
       }
     }
@@ -108,5 +112,8 @@ export default {
 </script>
 
 <style scoped>
-
+#edit-text {
+  border: 0;
+  padding: 0;
+}
 </style>
