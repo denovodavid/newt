@@ -1,18 +1,32 @@
 # Newt
 
-A [Google Keep](https://keep.google.com/) clone I am making for `teh lolz`.
+[![Build Status](https://travis-ci.org/smeagolem/newt.svg?branch=develop)](https://travis-ci.org/smeagolem/newt)
 
-### [DEMO](https://newt.davidjholland.net/)
+> A note taking web app.
 
-### Built On
-- [Vue.js](https://vuejs.org/)
-- [Firebase](https://firebase.google.com/)
-- [Vuefire](https://github.com/vuejs/vuefire)
-- [jQuery](http://jquery.com/)
-- [jQuery UI](http://jqueryui.com/)
-- [Semantic UI](http://semantic-ui.com/)
-- [imagesLoaded](http://imagesloaded.desandro.com/)
-- [marked](https://github.com/chjj/marked)
-- [jQuery Shapeshift](https://github.com/McPants/jquery.shapeshift)
+Built with [Vue.js & Webpack](https://github.com/vuejs-templates/webpack).  
+And a [Firebase](https://firebase.google.com/) backend.
 
+## Build Setup
 
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# run unit tests
+npm run unit
+
+# run e2e tests
+npm run e2e
+
+# run all tests
+npm test
+```
+
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
