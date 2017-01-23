@@ -1,7 +1,7 @@
 <template>
-  <div class="newt-notes">
-    <note v-for="note in orderedNotes" v-bind:key="note['.key']" v-bind:note="note" v-on:zindex="updateZindex" v-on:editnote="editNote(note)"></note>
-  </div>
+<div class="newt-notes">
+  <note v-for="note in orderedNotes" v-bind:key="note['.key']" v-bind:note="note" v-on:zindex="updateZindex" v-on:editnote="editNote(note)"></note>
+</div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
   components: {
     Note
   },
-  firebase () {
+  firebase() {
     return {
       notes: db.ref('notes'),
       notesOrder: {
@@ -32,7 +32,7 @@ export default {
     }
   },
   computed: {
-    orderedNotes () {
+    orderedNotes() {
       return this.notes.sort((a, b) => {
         var self = this
         var aOrder = self.notesOrder[a['.key']]
@@ -44,7 +44,7 @@ export default {
       })
     }
   },
-  mounted () {
+  mounted() {
     var self = this
     var $notes = $(self.$el)
     $notes.on('ss-drop-complete', (e) => {
@@ -53,20 +53,20 @@ export default {
     })
   },
   methods: {
-    shapeshift () {
+    shapeshift() {
       $(this.$el).shapeshift(shapeshiftOptions)
       console.log('SHAPESHIPT')
     },
-    updateZindex () {
+    updateZindex() {
       $(this.$el).children('.newt-note').css('z-index', '')
     },
-    editNote (note) {
+    editNote(note) {
       this.$emit('editnote', note)
     },
-    arrange () {
+    arrange() {
       $(this.$el).trigger('ss-rearrange')
     },
-    setNotesOrder () {
+    setNotesOrder() {
       var self = this
       var order = {}
       $(self.$el).children('.newt-note').each((i, itemElem) => {
@@ -82,7 +82,7 @@ export default {
     }
   },
   watch: {
-    notesOrder () {
+    notesOrder() {
       Vue.nextTick(() => {
         this.arrange()
       })
@@ -92,19 +92,19 @@ export default {
 </script>
 
 <style scoped>
-  .newt-notes {
-    position: relative;
-    margin-bottom: 2.4em;
-  }
+.newt-notes {
+  position: relative;
+  margin-bottom: 2.4em;
+}
 </style>
 
 <style>
-  .ss-placeholder-child {
-    border: 1px dashed #999;
-    border-radius: 4px;
-    position: absolute;
-    transition: left 0.4s ease, top 0.4s ease;
-    width: 290px;
-    z-index: 0;
-  }
+.ss-placeholder-child {
+  border: 1px dashed #999;
+  border-radius: 4px;
+  position: absolute;
+  transition: left 0.4s ease, top 0.4s ease;
+  width: 290px;
+  z-index: 0;
+}
 </style>

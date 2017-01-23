@@ -1,47 +1,47 @@
 <template>
-  <div class="newt-note" v-bind:data-key="key">
-    <div class="ui raised card" v-bind:style="{ backgroundColor: noteColor }">
-      <div class="content">
-        <div class="right floated meta drag-handle" style="visibility: hidden;">
-          <i class="block layout icon"></i>
-        </div>
-        <div class="header" v-show="note.title">{{ note.title }}</div>
-        <div class="description">
-          <div v-show="overflow" class="note-overflow" v-bind:style="{ background: overflowGradient }"></div>
-          <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
-          <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
-        </div>
-        <p v-show="overflow">...</p>
+<div class="newt-note" v-bind:data-key="key">
+  <div class="ui raised card" v-bind:style="{ backgroundColor: noteColor }">
+    <div class="content">
+      <div class="right floated meta drag-handle" style="visibility: hidden;">
+        <i class="block layout icon"></i>
       </div>
-      <div class="extra content" style="visibility: hidden;">
-        <span class="left floated">
-          <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
-            <i class="icon write"></i>
-          </div>
-          <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
-            <i class="icon theme"></i>
-            <div class="menu">
-              <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
-                <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-                {{ color | capitalise }}
-              </div>
+      <div class="header" v-show="note.title">{{ note.title }}</div>
+      <div class="description">
+        <div v-show="overflow" class="note-overflow" v-bind:style="{ background: overflowGradient }"></div>
+        <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
+        <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
+      </div>
+      <p v-show="overflow">...</p>
+    </div>
+    <div class="extra content" style="visibility: hidden;">
+      <span class="left floated">
+        <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
+          <i class="icon write"></i>
+        </div>
+        <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
+          <i class="icon theme"></i>
+          <div class="menu">
+            <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
+              <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
+              {{ color | capitalise }}
             </div>
           </div>
-        </span>
-        <span class="right floated">
-          <span>{{ note.created_at | formatDate }}</span>
-          <div class="ui icon dropdown" v-dropdown>
-            <i class="icon ellipsis vertical"></i>
-            <div class="menu">
-              <div class="item" v-on:click="removeNote()">Delete note</div>
-              <!-- <div class="item">Add label</div> -->
-              <div class="item" v-on:click="copyNote()">Make a copy</div>
-            </div>
+        </div>
+      </span>
+      <span class="right floated">
+        <span>{{ note.created_at | formatDate }}</span>
+        <div class="ui icon dropdown" v-dropdown>
+          <i class="icon ellipsis vertical"></i>
+          <div class="menu">
+            <div class="item" v-on:click="removeNote()">Delete note</div>
+            <!-- <div class="item">Add label</div> -->
+            <div class="item" v-on:click="copyNote()">Make a copy</div>
           </div>
-        </span>
-      </div>
+        </div>
+      </span>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -50,10 +50,10 @@ import Marked from 'marked'
 import Colors from '../colors.js'
 
 var mdRenderer = new Marked.Renderer()
-mdRenderer.image = function (href, title, text) {
+mdRenderer.image = function(href, title, text) {
   return '<p><img src="' + href + '" alt="' + text + '" class="ui image"></p>'
 }
-mdRenderer.link = function (href, title, text) {
+mdRenderer.link = function(href, title, text) {
   return '<a href="' + href + '" target="_blank">' + text + '</a>'
 }
 Marked.setOptions({
@@ -63,39 +63,47 @@ Marked.setOptions({
 export default {
   name: 'note',
   props: ['note'],
-  data () {
+  data() {
     return {
       overflow: false,
       colors: Colors
     }
   },
   computed: {
-    markedText () {
+    markedText() {
       return Marked(this.note.text)
     },
-    noteColor () {
+    noteColor() {
       return Colors[this.note.color]
     },
-    overflowGradient () {
+    overflowGradient() {
       return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
     },
-    key () {
+    key() {
       return this.note['.key']
     }
   },
-  mounted () {
+  mounted() {
     var self = this
     var $note = $(self.$el)
     $note.on({
-      mouseenter: function () {
-        $(this).find('.extra.content').css({'visibility': 'visible'})
-        $(this).find('.drag-handle').css({'visibility': 'visible'})
+      mouseenter: function() {
+        $(this).find('.extra.content').css({
+          'visibility': 'visible'
+        })
+        $(this).find('.drag-handle').css({
+          'visibility': 'visible'
+        })
       },
-      mouseleave: function () {
-        $(this).find('.extra.content').css({'visibility': 'hidden'})
-        $(this).find('.drag-handle').css({'visibility': 'hidden'})
+      mouseleave: function() {
+        $(this).find('.extra.content').css({
+          'visibility': 'hidden'
+        })
+        $(this).find('.drag-handle').css({
+          'visibility': 'hidden'
+        })
       },
-      click: function () {
+      click: function() {
         self.$emit('zindex')
         $(this).css('z-index', '2')
       }
@@ -117,7 +125,7 @@ export default {
 
     self.$parent.shapeshift()
   },
-  updated () {
+  updated() {
     var self = this
     var $note = $(self.$el)
     var $noteMarkdown = $note.find('.note-markdown')
@@ -134,11 +142,11 @@ export default {
 
     self.$parent.shapeshift()
   },
-  beforeDestroy () {
+  beforeDestroy() {
     $('.description, .note-markdown').trigger('destroy.dot')
   },
   methods: {
-    copyNote () {
+    copyNote() {
       var self = this
       db.ref('notes').push({
         title: self.note.title,
@@ -150,7 +158,7 @@ export default {
         console.log('Note Copied!')
       })
     },
-    removeNote () {
+    removeNote() {
       var self = this
       var key = self.note['.key']
       db.ref('notes').child(key).remove()
@@ -161,7 +169,7 @@ export default {
           console.log('remove failed:' + error.message)
         })
     },
-    setNoteColor (color) {
+    setNoteColor(color) {
       var self = this
       var key = self.note['.key']
       db.ref('notes').child(key).update({
@@ -170,7 +178,7 @@ export default {
         console.log('update color success')
       })
     },
-    editNote () {
+    editNote() {
       this.$emit('editnote')
     }
   }
@@ -178,43 +186,43 @@ export default {
 </script>
 
 <style scoped>
-  .newt-note {
-    background: #CCC;
-    position: absolute;
-    transition: left 0.4s ease, top 0.4s ease;
-    z-index: 1;
-  }
+.newt-note {
+  background: #CCC;
+  position: absolute;
+  transition: left 0.4s ease, top 0.4s ease;
+  z-index: 1;
+}
 
-  .ui-draggable-dragging {
-    transition: none;
-  }
+.ui-draggable-dragging {
+  transition: none;
+}
 
-  .description {
-    position: relative;
-  }
+.description {
+  position: relative;
+}
 
-  .note-text {
-    max-height: 24em;
-    overflow: hidden;
-    white-space: pre-wrap;
-  }
+.note-text {
+  max-height: 24em;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
 
-  .note-markdown {
-    max-height: 24em;
-    overflow: hidden;
-    word-wrap: break-word;
-  }
+.note-markdown {
+  max-height: 24em;
+  overflow: hidden;
+  word-wrap: break-word;
+}
 
-  .note-overflow {
-    pointer-events: none;
-    position: absolute;
-    height: 5em;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
+.note-overflow {
+  pointer-events: none;
+  position: absolute;
+  height: 5em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
-  .drag-handle {
-    cursor: move;
-  }
+.drag-handle {
+  cursor: move;
+}
 </style>
