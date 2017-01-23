@@ -79,13 +79,13 @@ describe('Noteform.vue', () => {
   })
 })
 
-function hasClass (element, cls) {
+function hasClass(element, cls) {
   return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
 }
 
 // convert a hexidecimal color string to 0..255 R,G,B
 // https://gist.github.com/lrvick/2080648
-function hexToRGB (hex) {
+function hexToRGB(hex) {
   if (hex.length < 7) {
     var r = hex.slice(1, 2)
     var g = hex.slice(2, 3)

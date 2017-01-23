@@ -1,30 +1,30 @@
 <template>
-  <div class="ui long modal" v-modal>
-    <form id="edit-form" class="ui form" v-on:submit.prevent="">
-      <div class="ui fluid card">
-        <div class="content">
-          <div class="ui large transparent left input fluid">
-            <input id="edit-title" type="text" placeholder="Title" v-model="editor.note.title">
-          </div>
-          <div class="ui divider"></div>
-          <div class="field">
-            <textarea id="edit-text" v-autosize rows="3" placeholder="Take a note..." v-model="editor.note.text"></textarea>
-          </div>
+<div class="ui long modal" v-modal>
+  <form id="edit-form" class="ui form" v-on:submit.prevent="">
+    <div class="ui fluid card">
+      <div class="content">
+        <div class="ui large transparent left input fluid">
+          <input id="edit-title" type="text" placeholder="Title" v-model="editor.note.title">
         </div>
-        <div class="extra content" v-bind:style="{ backgroundColor: noteColor }">
-          <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
-            <i class="icon theme"></i>
-            <div class="menu">
-              <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
-                <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-                {{ color | capitalise }}
-              </div>
+        <div class="ui divider"></div>
+        <div class="field">
+          <textarea id="edit-text" v-autosize rows="3" placeholder="Take a note..." v-model="editor.note.text"></textarea>
+        </div>
+      </div>
+      <div class="extra content" v-bind:style="{ backgroundColor: noteColor }">
+        <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
+          <i class="icon theme"></i>
+          <div class="menu">
+            <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
+              <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
+              {{ color | capitalise }}
             </div>
           </div>
-          <div class="right floated">
-            <div class="ui icon basic tiny buttons compact">
-              <button class="ui toggle button" type="button" v-on:click="toggleMarkdown()" v-bind:class="{ active: editor.note.markdown }">Markdown</button>
-              <!--<div class="ui icon dropdown button">
+        </div>
+        <div class="right floated">
+          <div class="ui icon basic tiny buttons compact">
+            <button class="ui toggle button" type="button" v-on:click="toggleMarkdown()" v-bind:class="{ active: editor.note.markdown }">Markdown</button>
+            <!--<div class="ui icon dropdown button">
                 <i class="icon ellipsis vertical"></i>
                 <div class="menu">
                   <div class="item">Delete note</div>
@@ -32,15 +32,15 @@
                   <div class="item">Make a copy</div>
                 </div>
               </div>-->
-            </div>
           </div>
         </div>
-        <div class="actions">
-          <div class="ui ok bottom attached button" style="margin-left: 0;">Done</div>
-        </div>
       </div>
-    </form>
-  </div>
+      <div class="actions">
+        <div class="ui ok bottom attached button" style="margin-left: 0;">Done</div>
+      </div>
+    </div>
+  </form>
+</div>
 </template>
 
 <script>
@@ -52,17 +52,17 @@ import AutoSize from 'autosize'
 export default {
   name: 'noteeditor',
   props: ['editor'],
-  data () {
+  data() {
     return {
       colors: Colors
     }
   },
   computed: {
-    noteColor () {
+    noteColor() {
       return Colors[this.editor.note.color]
     }
   },
-  mounted () {
+  mounted() {
     var self = this
     $(self.$el).modal({
       onHidden: self.updateNote
@@ -71,10 +71,9 @@ export default {
       $(this.$el).modal('refresh')
     })
   },
-  beforeDestroy () {
-  },
+  beforeDestroy() {},
   watch: {
-    editor () {
+    editor() {
       console.log('EDITOR')
       if (this.editor.show) {
         $(this.$el).modal('show')
@@ -86,7 +85,7 @@ export default {
     }
   },
   methods: {
-    updateNote () {
+    updateNote() {
       var self = this
       var key = self.editor.note['.key']
       db.ref('notes').child(key).update({
@@ -101,10 +100,10 @@ export default {
         })
       })
     },
-    setNoteColor (color) {
+    setNoteColor(color) {
       this.editor.note.color = color
     },
-    toggleMarkdown () {
+    toggleMarkdown() {
       this.editor.note.markdown = !this.editor.note.markdown
     }
   }

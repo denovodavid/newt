@@ -17,30 +17,30 @@ Vue.use(VueFire)
 
 // Register a global custom directive called v-dropdown
 Vue.directive('dropdown', {
-  bind (el) {
+  bind(el) {
     $(el).dropdown()
   },
-  unbind (el) {
+  unbind(el) {
     $(el).dropdown('destroy')
   }
 })
 
 // Register a global custom directive called v-autosize
 Vue.directive('autosize', {
-  bind (el) {
+  bind(el) {
     AutoSize($(el))
   },
-  unbind (el) {
+  unbind(el) {
     AutoSize.destroy($(el))
   }
 })
 
 // Register a global custom directive called v-modal
 Vue.directive('modal', {
-  bind (el) {
+  bind(el) {
     $(el).modal()
   },
-  unbind (el) {
+  unbind(el) {
     $(el).modal('destroy')
   }
 })
@@ -61,5 +61,7 @@ import App from './App'
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 })

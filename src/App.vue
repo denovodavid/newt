@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
-    <navbar></navbar>
-    <br>
-    <div class="ui fluid container">
-      <noteform></noteform>
-      <notes v-on:editnote="editNote($event)"></notes>
-      <noteeditor v-bind:editor="editor"></noteeditor>
-    </div>
+<div id="app">
+  <navbar></navbar>
+  <br>
+  <div class="ui fluid container">
+    <noteform></noteform>
+    <notes v-on:editnote="editNote($event)"></notes>
+    <noteeditor v-bind:editor="editor"></noteeditor>
   </div>
+</div>
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
     Notes,
     Noteeditor
   },
-  data () {
+  data() {
     return {
       editor: {
         show: false,
@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    editNote (note) {
+    editNote(note) {
       this.editor = {
         show: true,
         note: note
@@ -46,13 +46,13 @@ export default {
 </script>
 
 <style>
-  body {
-    background: #eee;
-  }
-  
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+body {
+  background: #eee;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>
