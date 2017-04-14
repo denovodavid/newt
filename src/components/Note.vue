@@ -50,10 +50,10 @@ import Marked from 'marked'
 import Colors from '../colors.js'
 
 var mdRenderer = new Marked.Renderer()
-mdRenderer.image = function(href, title, text) {
+mdRenderer.image = function (href, title, text) {
   return '<p><img src="' + href + '" alt="' + text + '" class="ui image"></p>'
 }
-mdRenderer.link = function(href, title, text) {
+mdRenderer.link = function (href, title, text) {
   return '<a href="' + href + '" target="_blank">' + text + '</a>'
 }
 Marked.setOptions({
@@ -63,31 +63,31 @@ Marked.setOptions({
 export default {
   name: 'note',
   props: ['note'],
-  data() {
+  data () {
     return {
       overflow: false,
       colors: Colors
     }
   },
   computed: {
-    markedText() {
+    markedText () {
       return Marked(this.note.text)
     },
-    noteColor() {
+    noteColor () {
       return Colors[this.note.color]
     },
-    overflowGradient() {
+    overflowGradient () {
       return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
     },
-    key() {
+    key () {
       return this.note['.key']
     }
   },
-  mounted() {
+  mounted () {
     var self = this
     var $note = $(self.$el)
     $note.on({
-      mouseenter: function() {
+      mouseenter: function () {
         $(this).find('.extra.content').css({
           'visibility': 'visible'
         })
@@ -95,7 +95,7 @@ export default {
           'visibility': 'visible'
         })
       },
-      mouseleave: function() {
+      mouseleave: function () {
         $(this).find('.extra.content').css({
           'visibility': 'hidden'
         })
@@ -103,7 +103,7 @@ export default {
           'visibility': 'hidden'
         })
       },
-      click: function() {
+      click: function () {
         self.$emit('zindex')
         $(this).css('z-index', '2')
       }
@@ -125,7 +125,7 @@ export default {
 
     self.$parent.shapeshift()
   },
-  updated() {
+  updated () {
     var self = this
     var $note = $(self.$el)
     var $noteMarkdown = $note.find('.note-markdown')
@@ -142,11 +142,11 @@ export default {
 
     self.$parent.shapeshift()
   },
-  beforeDestroy() {
+  beforeDestroy () {
     $('.description, .note-markdown').trigger('destroy.dot')
   },
   methods: {
-    copyNote() {
+    copyNote () {
       var self = this
       db.ref('notes').push({
         title: self.note.title,
@@ -158,7 +158,7 @@ export default {
         console.log('Note Copied!')
       })
     },
-    removeNote() {
+    removeNote () {
       var self = this
       var key = self.note['.key']
       db.ref('notes').child(key).remove()
@@ -169,7 +169,7 @@ export default {
           console.log('remove failed:' + error.message)
         })
     },
-    setNoteColor(color) {
+    setNoteColor (color) {
       var self = this
       var key = self.note['.key']
       db.ref('notes').child(key).update({
@@ -178,7 +178,7 @@ export default {
         console.log('update color success')
       })
     },
-    editNote() {
+    editNote () {
       this.$emit('editnote')
     }
   }

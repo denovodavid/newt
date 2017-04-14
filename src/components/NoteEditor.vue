@@ -52,17 +52,17 @@ import AutoSize from 'autosize'
 export default {
   name: 'noteeditor',
   props: ['editor'],
-  data() {
+  data () {
     return {
       colors: Colors
     }
   },
   computed: {
-    noteColor() {
+    noteColor () {
       return Colors[this.editor.note.color]
     }
   },
-  mounted() {
+  mounted () {
     var self = this
     $(self.$el).modal({
       onHidden: self.updateNote
@@ -71,9 +71,9 @@ export default {
       $(this.$el).modal('refresh')
     })
   },
-  beforeDestroy() {},
+  beforeDestroy () {},
   watch: {
-    editor() {
+    editor () {
       console.log('EDITOR')
       if (this.editor.show) {
         $(this.$el).modal('show')
@@ -85,7 +85,7 @@ export default {
     }
   },
   methods: {
-    updateNote() {
+    updateNote () {
       var self = this
       var key = self.editor.note['.key']
       db.ref('notes').child(key).update({
@@ -100,10 +100,10 @@ export default {
         })
       })
     },
-    setNoteColor(color) {
+    setNoteColor (color) {
       this.editor.note.color = color
     },
-    toggleMarkdown() {
+    toggleMarkdown () {
       this.editor.note.markdown = !this.editor.note.markdown
     }
   }

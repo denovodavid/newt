@@ -48,7 +48,7 @@ import Colors from '../colors'
 
 export default {
   name: 'noteform',
-  data() {
+  data () {
     return {
       newNote: {
         title: '',
@@ -61,20 +61,20 @@ export default {
     }
   },
   computed: {
-    newNoteColor() {
+    newNoteColor () {
       return {
         'background-color': Colors[this.newNote.color]
       }
     }
   },
   methods: {
-    toggleMarkdown() {
+    toggleMarkdown () {
       this.newNote.markdown = !this.newNote.markdown
     },
-    changeColor(color) {
+    changeColor (color) {
       this.newNote.color = color
     },
-    createNote() {
+    createNote () {
       var self = this
       db.ref('notes').push({
         title: self.newNote.title.trim(),

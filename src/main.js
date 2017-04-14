@@ -1,6 +1,11 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueFire from 'vuefire'
+import App from './App'
+import router from './router'
 
+Vue.config.productionTip = false
 import 'jquery-ui/jquery-ui.min.js'
 
 // import imagesLoaded from 'imagesloaded'
@@ -17,30 +22,30 @@ Vue.use(VueFire)
 
 // Register a global custom directive called v-dropdown
 Vue.directive('dropdown', {
-  bind(el) {
+  bind (el) {
     $(el).dropdown()
   },
-  unbind(el) {
+  unbind (el) {
     $(el).dropdown('destroy')
   }
 })
 
 // Register a global custom directive called v-autosize
 Vue.directive('autosize', {
-  bind(el) {
+  bind (el) {
     AutoSize($(el))
   },
-  unbind(el) {
+  unbind (el) {
     AutoSize.destroy($(el))
   }
 })
 
 // Register a global custom directive called v-modal
 Vue.directive('modal', {
-  bind(el) {
+  bind (el) {
     $(el).modal()
   },
-  unbind(el) {
+  unbind (el) {
     $(el).modal('destroy')
   }
 })
@@ -56,12 +61,10 @@ Vue.filter('formatDate', (value) => {
 
 console.log('NEWT!')
 
-import App from './App'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   template: '<App/>',
-  components: {
-    App
-  }
+  components: { App }
 })
