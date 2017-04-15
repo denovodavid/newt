@@ -48,10 +48,11 @@ import Vue from 'vue'
 import db from '../database.js'
 import Colors from '../colors'
 import AutoSize from 'autosize'
+import { mapState, mapMutations } from 'vuex'
+import * as types from '../store/mutation-types'
 
 export default {
   name: 'noteeditor',
-  props: ['editor'],
   data () {
     return {
       colors: Colors
@@ -60,12 +61,18 @@ export default {
   computed: {
     noteColor () {
       return Colors[this.editor.note.color]
-    }
+    },
+    ...mapState([
+      'editor'
+    ])
   },
   mounted () {
     var self = this
     $(self.$el).modal({
-      onHidden: self.updateNote
+      onHidden: () => {
+        self.updateNote
+        self.EDIT_NOTE({ note: {}, show: false })
+      }
     })
     $('#edit-text').on('autosize:resized', () => {
       $(this.$el).modal('refresh')
@@ -81,6 +88,8 @@ export default {
           AutoSize.update($('#edit-text'))
           $(this.$el).modal('refresh')
         })
+      } else {
+        $(this.$el).modal('hide')
       }
     }
   },
@@ -105,7 +114,10 @@ export default {
     },
     toggleMarkdown () {
       this.editor.note.markdown = !this.editor.note.markdown
-    }
+    },
+    ...mapMutations([
+      types.EDIT_NOTE
+    ])
   }
 }
 </script>

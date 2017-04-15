@@ -3,6 +3,9 @@ import { firebaseMutations } from 'vuexfire'
 import * as types from './mutation-types'
 
 export default {
+  [types.EDIT_NOTE] (state, payload) {
+    state.editor = payload
+  },
   ...firebaseMutations
 //   [types.RECEIVE_ALL] (state, { messages }) {
 //     let latestMessage

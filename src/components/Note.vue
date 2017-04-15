@@ -15,7 +15,7 @@
     </div>
     <div class="extra content" style="visibility: hidden;">
       <span class="left floated">
-        <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
+        <div class="compact ui circular icon basic mini button" @click="EDIT_NOTE({ note, show: true })">
           <i class="icon write"></i>
         </div>
         <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
@@ -48,6 +48,8 @@
 import db from '../database.js'
 import Marked from 'marked'
 import Colors from '../colors.js'
+import * as types from '../store/mutation-types'
+import { mapMutations } from 'vuex'
 
 var mdRenderer = new Marked.Renderer()
 mdRenderer.image = function (href, title, text) {
@@ -178,9 +180,9 @@ export default {
         console.log('update color success')
       })
     },
-    editNote () {
-      this.$emit('editnote')
-    }
+    ...mapMutations([
+      types.EDIT_NOTE
+    ])
   }
 }
 </script>

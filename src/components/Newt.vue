@@ -5,7 +5,7 @@
   <div class="ui fluid container">
     <noteform></noteform>
     <notes v-on:editnote="editNote($event)"></notes>
-    <noteeditor v-bind:editor="editor"></noteeditor>
+    <noteeditor></noteeditor>
   </div>
 </div>
 </template>
@@ -16,6 +16,8 @@ import Navbar from './Navbar'
 import Noteform from './Noteform'
 import Notes from './Notes'
 import Noteeditor from './NoteEditor'
+// import { mapState, mapMutations } from 'vuex'
+// import * as types from '../store/mutation-types'
 
 export default {
   name: 'newt',
@@ -25,22 +27,11 @@ export default {
     Noteform,
     Notes,
     Noteeditor
-  },
-  data () {
-    return {
-      editor: {
-        show: false,
-        note: {}
-      }
-    }
-  },
-  methods: {
-    editNote (note) {
-      this.editor = {
-        show: true,
-        note: note
-      }
-    }
+  // },
+  // computed: {
+  //   ...mapState([
+  //     'editor'
+  //   ])
   }
 }
 </script>
