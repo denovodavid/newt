@@ -1,7 +1,9 @@
 // import Vue from 'vue'
-// import * as types from './mutation-types'
+import { firebaseMutations } from 'vuexfire'
+import * as types from './mutation-types'
 
 export default {
+  ...firebaseMutations
 //   [types.RECEIVE_ALL] (state, { messages }) {
 //     let latestMessage
 //     messages.forEach(message => {
