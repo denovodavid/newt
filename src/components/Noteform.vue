@@ -1,6 +1,6 @@
 <template>
 <div class="ui text container">
-  <form id="note-form" class="ui form" v-on:submit.prevent="createNote()">
+  <form id="note-form" class="ui form" v-on:submit.prevent="createNote(newNote)">
     <div class="ui fluid card">
       <div class="content">
         <div class="ui large transparent left input fluid">
@@ -42,21 +42,15 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import db from '../database.js'
+// import Vue from 'vue'
+// import db from '../database.js'
 import Colors from '../colors'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'noteform',
   data () {
     return {
-      newNote: {
-        title: '',
-        text: '',
-        markdown: false,
-        color: 'none',
-        created_at: ''
-      },
       colors: Colors
     }
   },
@@ -65,7 +59,10 @@ export default {
       return {
         'background-color': Colors[this.newNote.color]
       }
-    }
+    },
+    ...mapState([
+      'newNote'
+    ])
   },
   methods: {
     toggleMarkdown () {
@@ -74,23 +71,26 @@ export default {
     changeColor (color) {
       this.newNote.color = color
     },
-    createNote () {
-      var self = this
-      db.ref('notes').push({
-        title: self.newNote.title.trim(),
-        text: self.newNote.text.trim(),
-        markdown: self.newNote.markdown,
-        color: self.newNote.color,
-        created_at: new Date().toJSON()
-      }, () => {
-        console.log('Note Created!')
-        Vue.nextTick(() => {
-          self.$emit('noteCreated')
-        })
-        self.newNote.title = self.newNote.text = ''
-        $('#note-title').focus()
-      })
-    }
+    // createNote () {
+    //   var self = this
+    //   db.ref('notes').push({
+    //     title: self.newNote.title.trim(),
+    //     text: self.newNote.text.trim(),
+    //     markdown: self.newNote.markdown,
+    //     color: self.newNote.color,
+    //     created_at: new Date().toJSON()
+    //   }, () => {
+    //     console.log('Note Created!')
+    //     Vue.nextTick(() => {
+    //       self.$emit('noteCreated')
+    //     })
+    //     self.newNote.title = self.newNote.text = ''
+    //     $('#note-title').focus()
+    //   })
+    // },
+    ...mapActions([
+      'createNote'
+    ])
   }
 }
 </script>

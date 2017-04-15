@@ -18,8 +18,7 @@ const state = {
     title: '',
     text: '',
     markdown: false,
-    color: 'none',
-    created_at: ''
+    color: 'none'
   }
 }
 

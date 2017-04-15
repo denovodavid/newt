@@ -6,6 +6,9 @@ export default {
   [types.EDIT_NOTE] (state, payload) {
     state.editor = payload
   },
+  [types.CLEAR_NOTE_FORM] (state) {
+    state.newNote.title = state.newNote.text = ''
+  },
   ...firebaseMutations
 //   [types.RECEIVE_ALL] (state, { messages }) {
 //     let latestMessage
