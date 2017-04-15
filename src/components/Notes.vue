@@ -69,10 +69,13 @@ export default {
     }
   },
   watch: {
-    notesOrder () {
-      Vue.nextTick(() => {
-        this.arrange()
-      })
+    notesOrder: {
+      handler: function () {
+        Vue.nextTick(() => {
+          this.arrange()
+        })
+      },
+      deep: true
     }
   }
 }
