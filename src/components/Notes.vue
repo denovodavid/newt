@@ -7,8 +7,8 @@
 <script>
 import Vue from 'vue'
 import Note from './Note'
-import db from '../database.js'
 import 'jquery-shapeshift'
+import { mapState, mapGetters } from 'vuex'
 
 var shapeshiftOptions = {
   selector: '.newt-note',
@@ -22,27 +22,14 @@ export default {
   components: {
     Note
   },
-  firebase () {
-    return {
-      notes: db.ref('notes'),
-      notesOrder: {
-        source: db.ref('notesOrder'),
-        asObject: true
-      }
-    }
-  },
   computed: {
-    orderedNotes () {
-      return this.notes.sort((a, b) => {
-        var self = this
-        var aOrder = self.notesOrder[a['.key']]
-        var bOrder = self.notesOrder[b['.key']]
-        if (aOrder === undefined || aOrder === null) return -1
-        if (aOrder === bOrder) return 0
-        if (aOrder < bOrder) return -1
-        return 1
-      })
-    }
+    ...mapState([
+      'notes',
+      'notesOrder'
+    ]),
+    ...mapGetters([
+      'orderedNotes'
+    ])
   },
   mounted () {
     var self = this

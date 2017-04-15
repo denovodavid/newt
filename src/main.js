@@ -1,11 +1,18 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import store from './store'
 import VueFire from 'vuefire'
 import App from './App'
 import router from './router'
 import db from './database.js'
 import firebase from 'firebase'
+
+import { sync } from 'vuex-router-sync'
+sync(store, router) // done.
+// store.state.route.path   // current path (string)
+// store.state.route.params // current params (object)
+// store.state.route.query  // current query (object)
 
 db.app
 
@@ -76,6 +83,11 @@ firebase.auth().onAuthStateChanged(function (user) {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  created () {
+    this.$store.dispatch('setNotesRef', db.ref('notes'))
+    this.$store.dispatch('setNotesOrderRef', db.ref('notesOrder'))
+  }
 })
