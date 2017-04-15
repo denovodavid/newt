@@ -4,6 +4,10 @@ import Vue from 'vue'
 import VueFire from 'vuefire'
 import App from './App'
 import router from './router'
+import db from './database.js'
+import firebase from 'firebase'
+
+db.app
 
 Vue.config.productionTip = false
 import 'jquery-ui/jquery-ui.min.js'
@@ -60,6 +64,13 @@ Vue.filter('formatDate', (value) => {
 })
 
 console.log('NEWT!')
+
+firebase.auth().onAuthStateChanged(function (user) {
+  if (!user) {
+    console.log('User is signed out!')
+    router.replace('signin')
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

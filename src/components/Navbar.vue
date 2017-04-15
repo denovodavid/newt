@@ -8,20 +8,37 @@
     <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">React</a>
     <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Ember</a>
     <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Meteor</a> -->
-  <!--<div class="right menu">
-      <div class="ui item">
+  <div class="right menu">
+      <!--<div class="ui item">
         <i id="loading-icon" class="icon large checkmark" style="color: #222 !important;"></i>
-      </div>
-    </div>-->
+      </div>-->
+      <a class="item" v-on:click="handleSignOut()">Sign Out</a>
+    </div>
 </div>
 </template>
 
 <script>
+import db from '../database.js'
+import firebase from 'firebase'
+
+db.app
+
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  methods: {
+    handleSignOut () {
+      firebase.auth().signOut()
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
+.ui.inverted.menu .item {
+  color: #444;
+}
 
+.ui.inverted.menu .item:hover {
+  color: #000;
+}
 </style>
