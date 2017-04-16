@@ -28,7 +28,7 @@
             <div class="menu">
               <div class="item"
                    v-for="(hex, color) in colors"
-                   @click="NOTEFORM_COLOR(color)">
+                   @click="NOTE_FORM_COLOR(color)">
                 <div class="ui large empty circular label"
                      :style="{ backgroundColor: hex }"></div>
                 {{ color | capitalise }}
@@ -41,7 +41,7 @@
                       type="button"
                       class="ui toggle button"
                       :class="{ active: newNote.markdown }"
-                      @click="NOTEFORM_MARKDOWN(!newNote.markdown)">Markdown</button>
+                      @click="NOTE_FORM_MARKDOWN(!newNote.markdown)">Markdown</button>
               <!--<div class="ui icon dropdown button"
                    v-dropdown>
                 <i class="icon ellipsis vertical"></i>
@@ -73,7 +73,7 @@ export default {
         return this.newNote.title
       },
       set (value) {
-        this.NOTEFORM_TITLE(value)
+        this.NOTE_FORM_TITLE(value)
       }
     },
     text: {
@@ -81,7 +81,7 @@ export default {
         return this.newNote.text
       },
       set (value) {
-        this.NOTEFORM_TEXT(value)
+        this.NOTE_FORM_TEXT(value)
       }
     },
     newNoteColor () {
@@ -96,10 +96,10 @@ export default {
   },
   methods: {
     ...mapMutations([
-      mutations.NOTEFORM_TITLE,
-      mutations.NOTEFORM_TEXT,
-      mutations.NOTEFORM_COLOR,
-      mutations.NOTEFORM_MARKDOWN
+      mutations.NOTE_FORM_TITLE,
+      mutations.NOTE_FORM_TEXT,
+      mutations.NOTE_FORM_COLOR,
+      mutations.NOTE_FORM_MARKDOWN
     ]),
     ...mapActions([
       'createNote'

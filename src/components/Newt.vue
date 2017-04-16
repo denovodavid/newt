@@ -13,7 +13,7 @@
 <script>
 import Hello from './Hello'
 import Navbar from './Navbar'
-import Noteform from './Noteform'
+import Noteform from './NoteForm'
 import Notes from './Notes'
 import Noteeditor from './NoteEditor'
 // import { mapState, mapMutations } from 'vuex'

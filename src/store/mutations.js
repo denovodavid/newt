@@ -5,16 +5,19 @@ export default {
   [types.CLEAR_NOTE_FORM] (state) {
     state.newNote.title = state.newNote.text = ''
   },
-  [types.NOTEFORM_TITLE] (state, title) {
+  [types.NOTE_FORM] (state, payload) {
+    state.newNote = payload
+  },
+  [types.NOTE_FORM_TITLE] (state, title) {
     state.newNote.title = title
   },
-  [types.NOTEFORM_TEXT] (state, text) {
+  [types.NOTE_FORM_TEXT] (state, text) {
     state.newNote.text = text
   },
-  [types.NOTEFORM_COLOR] (state, color) {
+  [types.NOTE_FORM_COLOR] (state, color) {
     state.newNote.color = color
   },
-  [types.NOTEFORM_MARKDOWN] (state, markdown) {
+  [types.NOTE_FORM_MARKDOWN] (state, markdown) {
     state.newNote.markdown = markdown
   },
   [types.NOTE_EDITOR] (state, payload) {
