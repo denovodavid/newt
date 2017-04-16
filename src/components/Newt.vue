@@ -1,13 +1,13 @@
 <template>
-<div id="newt">
-  <navbar></navbar>
-  <br>
-  <div class="ui fluid container">
-    <noteform></noteform>
-    <notes v-on:editnote="editNote($event)"></notes>
-    <noteeditor></noteeditor>
+  <div id="newt">
+    <navbar></navbar>
+    <br>
+    <div class="ui fluid container">
+      <noteform></noteform>
+      <notes></notes>
+      <noteeditor></noteeditor>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -16,8 +16,6 @@ import Navbar from './Navbar'
 import Noteform from './NoteForm'
 import Notes from './Notes'
 import Noteeditor from './NoteEditor'
-// import { mapState, mapMutations } from 'vuex'
-// import * as types from '../store/mutation-types'
 
 export default {
   name: 'newt',
@@ -27,11 +25,6 @@ export default {
     Noteform,
     Notes,
     Noteeditor
-  // },
-  // computed: {
-  //   ...mapState([
-  //     'editor'
-  //   ])
   }
 }
 </script>
