@@ -4,8 +4,7 @@
           :key="note['.key']"
           :note="note"
           @shapeshift="shapeshift"
-          @zindex="updateZindex"
-          @editnote="editNote(note)"></note>
+          @zindex="updateZindex"></note>
   </div>
 </template>
 
@@ -37,8 +36,8 @@ export default {
     ])
   },
   mounted () {
-    var self = this
-    var $notes = $(self.$el)
+    const self = this
+    const $notes = $(self.$el)
     $notes.on('ss-drop-complete', (e) => {
       self.setNotesOrder()
     })
@@ -51,18 +50,15 @@ export default {
     updateZindex () {
       $(this.$el).children('.newt-note').css('z-index', '')
     },
-    editNote (note) {
-      this.$emit('editnote', note)
-    },
     arrange () {
       $(this.$el).trigger('ss-rearrange')
     },
     setNotesOrder () {
       console.log('setNotesOrder')
-      var self = this
-      var order = {}
+      const self = this
+      let order = {}
       $(self.$el).children('.newt-note').each((i, itemElem) => {
-        var noteKey = $(itemElem).data('key')
+        const noteKey = $(itemElem).data('key')
         order[noteKey] = i + 1
       })
       self.updateNotesOrder(order)
