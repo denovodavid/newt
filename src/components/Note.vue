@@ -33,7 +33,7 @@
         <div class="ui icon dropdown" v-dropdown>
           <i class="icon ellipsis vertical"></i>
           <div class="menu">
-            <div class="item" v-on:click="removeNote()">Delete note</div>
+            <div class="item" @click="removeNote(note)">Delete note</div>
             <!-- <div class="item">Add label</div> -->
             <div class="item" @click="createNote(note)">Make a copy</div>
           </div>
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import db from '../database.js'
 import Marked from 'marked'
 import * as types from '../store/mutation-types'
 import { mapState, mapMutations, mapActions } from 'vuex'
@@ -149,22 +148,12 @@ export default {
     $('.description, .note-markdown').trigger('destroy.dot')
   },
   methods: {
-    removeNote () {
-      var self = this
-      var key = self.note['.key']
-      db.ref('notes').child(key).remove()
-        .then(() => {
-          console.log('remove success')
-        })
-        .catch((error) => {
-          console.log('remove failed:' + error.message)
-        })
-    },
     ...mapMutations([
       types.EDIT_NOTE
     ]),
     ...mapActions([
       'createNote',
+      'removeNote',
       'updateNoteColor'
     ])
   }

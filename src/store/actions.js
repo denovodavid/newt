@@ -37,6 +37,16 @@ export const updateNote = ({ commit }, note) => {
   })
 }
 
+export const removeNote = ({ commit }, note) => {
+  db.ref('notes').child(note['.key']).remove()
+    .then(() => {
+      console.log('Note Removed!')
+    })
+    .catch((error) => {
+      console.error('Note Remove Failed', error.message)
+    })
+}
+
 export const updateNoteColor = ({ commit }, note) => {
   db.ref('notes').child(note['.key']).update({
     color: note.color
