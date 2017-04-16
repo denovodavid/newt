@@ -1,17 +1,7 @@
-// import Vue from 'vue'
 import { firebaseMutations } from 'vuexfire'
 import * as types from './mutation-types'
 
 export default {
-  [types.EDIT_NOTE] (state, payload) {
-    state.editor = payload
-  },
-  [types.EDIT_NOTE_COLOR] (state, color) {
-    state.editor.note.color = color
-  },
-  [types.EDIT_NOTE_MARKDOWN] (state, markdown) {
-    state.editor.note.markdown = markdown
-  },
   [types.CLEAR_NOTE_FORM] (state) {
     state.newNote.title = state.newNote.text = ''
   },
@@ -26,6 +16,21 @@ export default {
   },
   [types.NOTEFORM_MARKDOWN] (state, markdown) {
     state.newNote.markdown = markdown
+  },
+  [types.NOTE_EDITOR] (state, payload) {
+    state.editor = payload
+  },
+  [types.NOTE_EDITOR_TITLE] (state, title) {
+    state.editor.note.title = title
+  },
+  [types.NOTE_EDITOR_TEXT] (state, text) {
+    state.editor.note.text = text
+  },
+  [types.NOTE_EDITOR_COLOR] (state, color) {
+    state.editor.note.color = color
+  },
+  [types.NOTE_EDITOR_MARKDOWN] (state, markdown) {
+    state.editor.note.markdown = markdown
   },
   ...firebaseMutations
 }

@@ -26,7 +26,7 @@
            style="visibility: hidden;">
         <span class="left floated">
           <div class="compact ui circular icon basic mini button"
-               @click="EDIT_NOTE({ note, show: true })">
+               @click="NOTE_EDITOR({ note, show: true })">
             <i class="icon write"></i>
           </div>
           <div class="compact ui icon dropdown circular basic mini button"
@@ -142,7 +142,7 @@ export default {
       }
     },
     ...mapMutations([
-      types.EDIT_NOTE
+      types.NOTE_EDITOR
     ]),
     ...mapActions([
       'createNote',
