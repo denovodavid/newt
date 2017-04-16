@@ -47,9 +47,8 @@
 <script>
 import db from '../database.js'
 import Marked from 'marked'
-import Colors from '../colors.js'
 import * as types from '../store/mutation-types'
-import { mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 var mdRenderer = new Marked.Renderer()
 mdRenderer.image = function (href, title, text) {
@@ -67,8 +66,7 @@ export default {
   props: ['note'],
   data () {
     return {
-      overflow: false,
-      colors: Colors
+      overflow: false
     }
   },
   computed: {
@@ -76,14 +74,17 @@ export default {
       return Marked(this.note.text)
     },
     noteColor () {
-      return Colors[this.note.color]
+      return this.colors[this.note.color]
     },
     overflowGradient () {
       return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
     },
     key () {
       return this.note['.key']
-    }
+    },
+    ...mapState([
+      'colors'
+    ])
   },
   mounted () {
     var self = this

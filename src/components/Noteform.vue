@@ -44,24 +44,19 @@
 <script>
 // import Vue from 'vue'
 // import db from '../database.js'
-import Colors from '../colors'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'noteform',
-  data () {
-    return {
-      colors: Colors
-    }
-  },
   computed: {
     newNoteColor () {
       return {
-        'background-color': Colors[this.newNote.color]
+        'background-color': this.colors[this.newNote.color]
       }
     },
     ...mapState([
-      'newNote'
+      'newNote',
+      'colors'
     ])
   },
   methods: {

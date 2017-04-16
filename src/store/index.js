@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import * as getters from './getters'
 import * as actions from './actions'
 import mutations from './mutations'
+import colors from '../colors'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ const state = {
     text: '',
     markdown: false,
     color: 'none'
-  }
+  },
+  colors
 }
 
 export default new Vuex.Store({

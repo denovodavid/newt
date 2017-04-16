@@ -46,24 +46,19 @@
 <script>
 import Vue from 'vue'
 // import db from '../database.js'
-import Colors from '../colors'
 import AutoSize from 'autosize'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 
 export default {
   name: 'noteeditor',
-  data () {
-    return {
-      colors: Colors
-    }
-  },
   computed: {
     noteColor () {
-      return Colors[this.editor.note.color]
+      return this.colors[this.editor.note.color]
     },
     ...mapState([
-      'editor'
+      'editor',
+      'colors'
     ])
   },
   mounted () {
