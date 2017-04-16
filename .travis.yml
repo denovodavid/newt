@@ -1,10 +1,17 @@
 language: node_js
 node_js: "6"
 cache: yarn
+addons:
+  code_climate:
+    repo_token: ${CODE_CLIMATE_TOKEN}
 
 script:
   - yarn unit
   - yarn build
+
+after_success:
+  - npm i -g codeclimate-test-reporter
+  - codeclimate-test-reporter < ./test/unit/coverage/lcov.info
 
 before_deploy:
   - npm i -g firebase-tools
