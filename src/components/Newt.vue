@@ -3,9 +3,9 @@
     <navbar></navbar>
     <br>
     <div class="ui fluid container">
-      <noteform></noteform>
+      <note-form></note-form>
       <notes></notes>
-      <noteeditor></noteeditor>
+      <note-editor></note-editor>
     </div>
   </div>
 </template>
@@ -13,18 +13,18 @@
 <script>
 import Hello from './Hello'
 import Navbar from './Navbar'
-import Noteform from './NoteForm'
+import NoteForm from './NoteForm'
 import Notes from './Notes'
-import Noteeditor from './NoteEditor'
+import NoteEditor from './NoteEditor'
 
 export default {
   name: 'newt',
   components: {
     Hello,
     Navbar,
-    Noteform,
+    NoteForm,
     Notes,
-    Noteeditor
+    NoteEditor
   }
 }
 </script>
