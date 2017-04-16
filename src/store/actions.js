@@ -12,17 +12,36 @@ export const setNotesOrderRef = firebaseAction(({ bindFirebaseRef }, { ref }) =>
   bindFirebaseRef('notesOrder', ref)
 })
 
-export const createNote = ({ commit }, payload) => {
+export const createNote = ({ commit }, note) => {
   db.ref('notes').push({
-    title: payload.title.trim(),
-    text: payload.text.trim(),
-    markdown: payload.markdown,
-    color: payload.color,
+    title: note.title.trim(),
+    text: note.text.trim(),
+    markdown: note.markdown,
+    color: note.color,
     created_at: firebase.database.ServerValue.TIMESTAMP
   }, () => {
     console.log('Note Created!')
     commit(types.CLEAR_NOTE_FORM)
     // reset newNote using some mutation
+  })
+}
+
+export const updateNote = ({ commit }, note) => {
+  db.ref('notes').child(note['.key']).update({
+    title: note.title.trim(),
+    text: note.text.trim(),
+    markdown: note.markdown,
+    color: note.color
+  }, () => {
+    console.log('Note Updated!')
+  })
+}
+
+export const updateNoteColor = ({ commit }, note) => {
+  db.ref('notes').child(note['.key']).update({
+    color: note.color
+  }, () => {
+    console.log('Note Color Updated!')
   })
 }
 

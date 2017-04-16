@@ -15,7 +15,7 @@
         <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
           <i class="icon theme"></i>
           <div class="menu">
-            <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
+            <div class="item" v-for="(hex, color) in colors" @click="EDIT_NOTE_COLOR(color)">
               <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
               {{ color | capitalise }}
             </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="right floated">
           <div class="ui icon basic tiny buttons compact">
-            <button class="ui toggle button" type="button" v-on:click="toggleMarkdown()" v-bind:class="{ active: editor.note.markdown }">Markdown</button>
+            <button class="ui toggle button" type="button" @click="EDIT_NOTE_MARKDOWN(!editor.note.markdown)" v-bind:class="{ active: editor.note.markdown }">Markdown</button>
             <!--<div class="ui icon dropdown button">
                 <i class="icon ellipsis vertical"></i>
                 <div class="menu">
@@ -45,10 +45,10 @@
 
 <script>
 import Vue from 'vue'
-import db from '../database.js'
+// import db from '../database.js'
 import Colors from '../colors'
 import AutoSize from 'autosize'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 
 export default {
@@ -70,7 +70,7 @@ export default {
     var self = this
     $(self.$el).modal({
       onHidden: () => {
-        self.updateNote
+        self.updateNote(self.editor.note)
         self.EDIT_NOTE({ note: {}, show: false })
       }
     })
@@ -94,29 +94,13 @@ export default {
     }
   },
   methods: {
-    updateNote () {
-      var self = this
-      var key = self.editor.note['.key']
-      db.ref('notes').child(key).update({
-        title: self.editor.note.title.trim(),
-        text: self.editor.note.text.trim(),
-        markdown: self.editor.note.markdown,
-        color: self.editor.note.color
-      }, () => {
-        console.log('Note Updated!')
-        Vue.nextTick(() => {
-          self.$emit('noteUpdated')
-        })
-      })
-    },
-    setNoteColor (color) {
-      this.editor.note.color = color
-    },
-    toggleMarkdown () {
-      this.editor.note.markdown = !this.editor.note.markdown
-    },
     ...mapMutations([
-      types.EDIT_NOTE
+      types.EDIT_NOTE,
+      types.EDIT_NOTE_COLOR,
+      types.EDIT_NOTE_MARKDOWN
+    ]),
+    ...mapActions([
+      'updateNote'
     ])
   }
 }

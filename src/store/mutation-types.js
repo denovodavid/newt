@@ -1,2 +1,4 @@
 export const EDIT_NOTE = 'EDIT_NOTE'
+export const EDIT_NOTE_COLOR = 'EDIT_NOTE_COLOR'
+export const EDIT_NOTE_MARKDOWN = 'EDIT_NOTE_MARKDOWN'
 export const CLEAR_NOTE_FORM = 'CLEAR_NOTE_FORM'
