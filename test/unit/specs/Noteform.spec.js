@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import NoteForm from '@/components/NoteForm'
 import Colors from '@/colors'
+// trying to trigger a build on travis
 
 describe('NoteForm.vue', () => {
   // Evaluate the results of functions in
