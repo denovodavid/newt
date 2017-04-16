@@ -26,6 +26,12 @@ export const createNote = ({ commit }, payload) => {
   })
 }
 
+export const updateNotesOrder = ({ commit }, order) => {
+  db.ref('notesOrder').update(order, () => {
+    console.log('update order success')
+  })
+}
+
 // export const getAllMessages = ({ commit }) => {
 //   api.getAllMessages(messages => {
 //     commit(types.RECEIVE_ALL, {

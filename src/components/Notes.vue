@@ -8,7 +8,7 @@
 import Vue from 'vue'
 import Note from './Note'
 import 'jquery-shapeshift'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 var shapeshiftOptions = {
   selector: '.newt-note',
@@ -35,7 +35,6 @@ export default {
     var self = this
     var $notes = $(self.$el)
     $notes.on('ss-drop-complete', (e) => {
-      console.log('setNotesOrder')
       self.setNotesOrder()
     })
   },
@@ -54,19 +53,18 @@ export default {
       $(this.$el).trigger('ss-rearrange')
     },
     setNotesOrder () {
+      console.log('setNotesOrder')
       var self = this
       var order = {}
       $(self.$el).children('.newt-note').each((i, itemElem) => {
         var noteKey = $(itemElem).data('key')
         order[noteKey] = i + 1
       })
-      self.$firebaseRefs.notesOrder.update(order, () => {
-        console.log('update order success')
-      })
-      Vue.nextTick(() => {
-        self.arrange()
-      })
-    }
+      self.updateNotesOrder(order)
+    },
+    ...mapActions([
+      'updateNotesOrder'
+    ])
   },
   watch: {
     notesOrder: {
