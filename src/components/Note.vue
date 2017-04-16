@@ -35,7 +35,7 @@
           <div class="menu">
             <div class="item" v-on:click="removeNote()">Delete note</div>
             <!-- <div class="item">Add label</div> -->
-            <div class="item" v-on:click="copyNote()">Make a copy</div>
+            <div class="item" @click="createNote(note)">Make a copy</div>
           </div>
         </div>
       </span>
@@ -149,18 +149,6 @@ export default {
     $('.description, .note-markdown').trigger('destroy.dot')
   },
   methods: {
-    copyNote () {
-      var self = this
-      db.ref('notes').push({
-        title: self.note.title,
-        text: self.note.text,
-        markdown: self.note.markdown,
-        color: self.note.color,
-        created_at: self.note.created_at
-      }, () => {
-        console.log('Note Copied!')
-      })
-    },
     removeNote () {
       var self = this
       var key = self.note['.key']
@@ -176,6 +164,7 @@ export default {
       types.EDIT_NOTE
     ]),
     ...mapActions([
+      'createNote',
       'updateNoteColor'
     ])
   }
