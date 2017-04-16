@@ -1,13 +1,13 @@
 import Vue from 'vue'
-import Noteform from 'src/components/Noteform'
-import Colors from 'src/colors'
+import NoteForm from '@/components/NoteForm'
+import Colors from '@/colors'
 
-describe('Noteform.vue', () => {
+describe('NoteForm.vue', () => {
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
-    expect(typeof Noteform.data).to.equal('function')
-    const defaultData = Noteform.data()
+    expect(typeof NoteForm.data).to.equal('function')
+    const defaultData = NoteForm.data()
     expect(defaultData.newNote).to.deep.equal({
       title: '',
       text: '',
@@ -19,7 +19,7 @@ describe('Noteform.vue', () => {
 
   // Inspect the component instance on mount
   // it('correctly sets the message when created', () => {
-  //   const vm = new Vue(Noteform).$mount()
+  //   const vm = new Vue(NoteForm).$mount()
   //   expect(vm.newNote).to.deep.equal({
   //     title: '',
   //     text: '',
@@ -31,7 +31,7 @@ describe('Noteform.vue', () => {
 
   // Mount an instance and inspect the render output
   it('renders the correct title', done => {
-    const Ctor = Vue.extend(Noteform)
+    const Ctor = Vue.extend(NoteForm)
     const vm = new Ctor().$mount()
     const title = 'Correct Title'
     vm.newNote.title = title
@@ -43,7 +43,7 @@ describe('Noteform.vue', () => {
 
   // Mount an instance and inspect the render output
   it('renders the correct text', done => {
-    const Ctor = Vue.extend(Noteform)
+    const Ctor = Vue.extend(NoteForm)
     const vm = new Ctor().$mount()
     const text = 'Correct Text'
     vm.newNote.text = text
@@ -55,7 +55,7 @@ describe('Noteform.vue', () => {
 
   // Mount an instance and inspect the render output
   it('renders the correct markdown', done => {
-    const Ctor = Vue.extend(Noteform)
+    const Ctor = Vue.extend(NoteForm)
     const vm = new Ctor().$mount()
     const markdown = true
     vm.newNote.markdown = markdown
@@ -68,7 +68,7 @@ describe('Noteform.vue', () => {
 
   // Mount an instance and inspect the render output
   it('renders the correct color', done => {
-    const Ctor = Vue.extend(Noteform)
+    const Ctor = Vue.extend(NoteForm)
     const vm = new Ctor().$mount()
     vm.newNote.color = 'red'
     var expected = (vm.newNote.color === 'none') ? '' : hexToRGB(Colors[vm.newNote.color])
@@ -79,13 +79,13 @@ describe('Noteform.vue', () => {
   })
 })
 
-function hasClass(element, cls) {
+function hasClass (element, cls) {
   return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
 }
 
 // convert a hexidecimal color string to 0..255 R,G,B
 // https://gist.github.com/lrvick/2080648
-function hexToRGB(hex) {
+function hexToRGB (hex) {
   if (hex.length < 7) {
     var r = hex.slice(1, 2)
     var g = hex.slice(2, 3)
