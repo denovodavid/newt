@@ -1,91 +1,99 @@
 <template>
-<div class="newt-note" v-bind:data-key="key">
-  <div class="ui raised card" v-bind:style="{ backgroundColor: noteColor }">
-    <div class="content">
-      <div class="right floated meta drag-handle" style="visibility: hidden;">
-        <i class="block layout icon"></i>
-      </div>
-      <div class="header" v-show="note.title">{{ note.title }}</div>
-      <div class="description">
-        <div v-show="overflow" class="note-overflow" v-bind:style="{ background: overflowGradient }"></div>
-        <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
-        <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
-      </div>
-      <p v-show="overflow">...</p>
-    </div>
-    <div class="extra content" style="visibility: hidden;">
-      <span class="left floated">
-        <div class="compact ui circular icon basic mini button" v-on:click="editNote()">
-          <i class="icon write"></i>
+  <div class="newt-note"
+       :data-key="key">
+    <div class="ui raised card"
+         :style="{ backgroundColor: noteColor }">
+      <div class="content">
+        <div class="right floated meta drag-handle"
+             style="visibility: hidden;">
+          <i class="block layout icon"></i>
         </div>
-        <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
-          <i class="icon theme"></i>
-          <div class="menu">
-            <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
-              <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-              {{ color | capitalise }}
+        <div class="header"
+             v-show="note.title">{{ note.title }}</div>
+        <div class="description">
+          <div class="note-overflow"
+               v-show="overflow"
+               :style="{ background: overflowGradient }"></div>
+          <p v-show="!note.markdown"
+             class="note-text">{{ note.text }}</p>
+          <div class="note-markdown"
+               v-show="note.markdown"
+               v-html="markdown(note.text)"></div>
+        </div>
+        <p v-show="overflow">...</p>
+      </div>
+      <div class="extra content"
+           style="visibility: hidden;">
+        <span class="left floated">
+          <div class="compact ui circular icon basic mini button"
+               @click="NOTE_EDITOR({ note, show: true })">
+            <i class="icon write"></i>
+          </div>
+          <div class="compact ui icon dropdown circular basic mini button"
+               v-dropdown>
+            <i class="icon theme"></i>
+            <div class="menu">
+              <div class="item"
+                   v-for="(hex, color) in colors"
+                   @click="updateNoteColor({ '.key': key, color})">
+                <div class="ui large empty circular label"
+                     :style="{ backgroundColor: hex }"></div>
+                {{ color | capitalise }}
+              </div>
             </div>
           </div>
-        </div>
-      </span>
-      <span class="right floated">
-        <span>{{ note.created_at | formatDate }}</span>
-        <div class="ui icon dropdown" v-dropdown>
+        </span>
+        <span class="right floated">
+          <span>{{ note.created_at | formatDate }}</span>
+        <div class="ui icon dropdown"
+             v-dropdown>
           <i class="icon ellipsis vertical"></i>
           <div class="menu">
-            <div class="item" v-on:click="removeNote()">Delete note</div>
+            <div class="item"
+                 @click="removeNote(note)">Delete note</div>
             <!-- <div class="item">Add label</div> -->
-            <div class="item" v-on:click="copyNote()">Make a copy</div>
+            <div class="item"
+                 @click="createNote(note)">Make a copy</div>
           </div>
         </div>
-      </span>
+        </span>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import db from '../database.js'
-import Marked from 'marked'
-import Colors from '../colors.js'
-
-var mdRenderer = new Marked.Renderer()
-mdRenderer.image = function (href, title, text) {
-  return '<p><img src="' + href + '" alt="' + text + '" class="ui image"></p>'
-}
-mdRenderer.link = function (href, title, text) {
-  return '<a href="' + href + '" target="_blank">' + text + '</a>'
-}
-Marked.setOptions({
-  renderer: mdRenderer
-})
+import * as types from '../store/mutation-types'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'note',
   props: ['note'],
   data () {
     return {
-      overflow: false,
-      colors: Colors
+      overflow: false
     }
   },
   computed: {
-    markedText () {
-      return Marked(this.note.text)
-    },
     noteColor () {
-      return Colors[this.note.color]
+      return this.colors[this.note.color]
     },
     overflowGradient () {
       return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
     },
     key () {
       return this.note['.key']
-    }
+    },
+    ...mapState([
+      'colors'
+    ]),
+    ...mapGetters([
+      'markdown'
+    ])
   },
   mounted () {
-    var self = this
-    var $note = $(self.$el)
+    const self = this
+    const $note = $(self.$el)
     $note.on({
       mouseenter: function () {
         $(this).find('.extra.content').css({
@@ -108,79 +116,39 @@ export default {
         $(this).css('z-index', '2')
       }
     })
-
-    var $noteMarkdown = $note.find('.note-markdown')
-    var $noteText = $note.find('.note-text')
-    if (
-      $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
-      $noteText[0].scrollHeight > $noteText.innerHeight()
-    ) {
-      // Text has over-flowed
-      console.log('text overflow')
-      self.overflow = true
-      $note.find('.note-overflow').css({
-        'background': 'linear-gradient(transparent, ' + self.noteColor + ')'
-      })
-    }
-
-    self.$parent.shapeshift()
+    self.fixOverflow()
+    self.$emit('shapeshift')
   },
   updated () {
-    var self = this
-    var $note = $(self.$el)
-    var $noteMarkdown = $note.find('.note-markdown')
-    var $noteText = $note.find('.note-text')
-    if (
-      $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
-      $noteText[0].scrollHeight > $noteText.innerHeight()
-    ) {
-      // Text has over-flowed
-      self.overflow = true
-    } else {
-      self.overflow = false
-    }
-
-    self.$parent.shapeshift()
+    this.fixOverflow()
+    this.$emit('shapeshift')
   },
   beforeDestroy () {
     $('.description, .note-markdown').trigger('destroy.dot')
   },
   methods: {
-    copyNote () {
-      var self = this
-      db.ref('notes').push({
-        title: self.note.title,
-        text: self.note.text,
-        markdown: self.note.markdown,
-        color: self.note.color,
-        created_at: self.note.created_at
-      }, () => {
-        console.log('Note Copied!')
-      })
+    fixOverflow () {
+      const self = this
+      const $note = $(self.$el)
+      const $noteMarkdown = $note.find('.note-markdown')
+      const $noteText = $note.find('.note-text')
+      if (
+        $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
+        $noteText[0].scrollHeight > $noteText.innerHeight()
+      ) {
+        self.overflow = true
+      } else {
+        self.overflow = false
+      }
     },
-    removeNote () {
-      var self = this
-      var key = self.note['.key']
-      db.ref('notes').child(key).remove()
-        .then(() => {
-          console.log('remove success')
-        })
-        .catch((error) => {
-          console.log('remove failed:' + error.message)
-        })
-    },
-    setNoteColor (color) {
-      var self = this
-      var key = self.note['.key']
-      db.ref('notes').child(key).update({
-        color: color
-      }, () => {
-        console.log('update color success')
-      })
-    },
-    editNote () {
-      this.$emit('editnote')
-    }
+    ...mapMutations([
+      types.NOTE_EDITOR
+    ]),
+    ...mapActions([
+      'createNote',
+      'removeNote',
+      'updateNoteColor'
+    ])
   }
 }
 </script>

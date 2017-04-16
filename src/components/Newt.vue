@@ -1,19 +1,19 @@
 <template>
-<div id="newt">
-  <navbar></navbar>
-  <br>
-  <div class="ui fluid container">
-    <noteform></noteform>
-    <notes v-on:editnote="editNote($event)"></notes>
-    <noteeditor v-bind:editor="editor"></noteeditor>
+  <div id="newt">
+    <navbar></navbar>
+    <br>
+    <div class="ui fluid container">
+      <noteform></noteform>
+      <notes></notes>
+      <noteeditor></noteeditor>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 import Hello from './Hello'
 import Navbar from './Navbar'
-import Noteform from './Noteform'
+import Noteform from './NoteForm'
 import Notes from './Notes'
 import Noteeditor from './NoteEditor'
 
@@ -25,22 +25,6 @@ export default {
     Noteform,
     Notes,
     Noteeditor
-  },
-  data () {
-    return {
-      editor: {
-        show: false,
-        note: {}
-      }
-    }
-  },
-  methods: {
-    editNote (note) {
-      this.editor = {
-        show: true,
-        note: note
-      }
-    }
   }
 }
 </script>
