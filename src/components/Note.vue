@@ -11,8 +11,8 @@
         <div class="header"
              v-show="note.title">{{ note.title }}</div>
         <div class="description">
-          <div v-show="overflow"
-               class="note-overflow"
+          <div class="note-overflow"
+               v-show="overflow"
                :style="{ background: overflowGradient }"></div>
           <p v-show="!note.markdown"
              class="note-text">{{ note.text }}</p>
@@ -92,8 +92,8 @@ export default {
     ])
   },
   mounted () {
-    var self = this
-    var $note = $(self.$el)
+    const self = this
+    const $note = $(self.$el)
     $note.on({
       mouseenter: function () {
         $(this).find('.extra.content').css({
@@ -116,44 +116,31 @@ export default {
         $(this).css('z-index', '2')
       }
     })
-
-    var $noteMarkdown = $note.find('.note-markdown')
-    var $noteText = $note.find('.note-text')
-    if (
-      $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
-      $noteText[0].scrollHeight > $noteText.innerHeight()
-    ) {
-      // Text has over-flowed
-      console.log('text overflow')
-      self.overflow = true
-      $note.find('.note-overflow').css({
-        'background': 'linear-gradient(transparent, ' + self.noteColor + ')'
-      })
-    }
-
+    self.fixOverflow()
     self.$parent.shapeshift()
   },
   updated () {
-    var self = this
-    var $note = $(self.$el)
-    var $noteMarkdown = $note.find('.note-markdown')
-    var $noteText = $note.find('.note-text')
-    if (
-      $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
-      $noteText[0].scrollHeight > $noteText.innerHeight()
-    ) {
-      // Text has over-flowed
-      self.overflow = true
-    } else {
-      self.overflow = false
-    }
-
-    self.$parent.shapeshift()
+    this.fixOverflow()
+    this.$parent.shapeshift()
   },
   beforeDestroy () {
     $('.description, .note-markdown').trigger('destroy.dot')
   },
   methods: {
+    fixOverflow () {
+      const self = this
+      const $note = $(self.$el)
+      const $noteMarkdown = $note.find('.note-markdown')
+      const $noteText = $note.find('.note-text')
+      if (
+        $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
+        $noteText[0].scrollHeight > $noteText.innerHeight()
+      ) {
+        self.overflow = true
+      } else {
+        self.overflow = false
+      }
+    },
     ...mapMutations([
       types.EDIT_NOTE
     ]),
