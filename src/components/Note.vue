@@ -1,47 +1,65 @@
 <template>
-<div class="newt-note" v-bind:data-key="key">
-  <div class="ui raised card" v-bind:style="{ backgroundColor: noteColor }">
-    <div class="content">
-      <div class="right floated meta drag-handle" style="visibility: hidden;">
-        <i class="block layout icon"></i>
-      </div>
-      <div class="header" v-show="note.title">{{ note.title }}</div>
-      <div class="description">
-        <div v-show="overflow" class="note-overflow" v-bind:style="{ background: overflowGradient }"></div>
-        <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
-        <div v-show="note.markdown" v-html="markdown(note.text)" class="note-markdown"></div>
-      </div>
-      <p v-show="overflow">...</p>
-    </div>
-    <div class="extra content" style="visibility: hidden;">
-      <span class="left floated">
-        <div class="compact ui circular icon basic mini button" @click="EDIT_NOTE({ note, show: true })">
-          <i class="icon write"></i>
+  <div class="newt-note"
+       :data-key="key">
+    <div class="ui raised card"
+         :style="{ backgroundColor: noteColor }">
+      <div class="content">
+        <div class="right floated meta drag-handle"
+             style="visibility: hidden;">
+          <i class="block layout icon"></i>
         </div>
-        <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
-          <i class="icon theme"></i>
-          <div class="menu">
-            <div class="item" v-for="(hex, color) in colors" @click="updateNoteColor({ '.key': note['.key'], color})">
-              <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-              {{ color | capitalise }}
+        <div class="header"
+             v-show="note.title">{{ note.title }}</div>
+        <div class="description">
+          <div v-show="overflow"
+               class="note-overflow"
+               :style="{ background: overflowGradient }"></div>
+          <p v-show="!note.markdown"
+             class="note-text">{{ note.text }}</p>
+          <div class="note-markdown"
+               v-show="note.markdown"
+               v-html="markdown(note.text)"></div>
+        </div>
+        <p v-show="overflow">...</p>
+      </div>
+      <div class="extra content"
+           style="visibility: hidden;">
+        <span class="left floated">
+          <div class="compact ui circular icon basic mini button"
+               @click="EDIT_NOTE({ note, show: true })">
+            <i class="icon write"></i>
+          </div>
+          <div class="compact ui icon dropdown circular basic mini button"
+               v-dropdown>
+            <i class="icon theme"></i>
+            <div class="menu">
+              <div class="item"
+                   v-for="(hex, color) in colors"
+                   @click="updateNoteColor({ '.key': key, color})">
+                <div class="ui large empty circular label"
+                     :style="{ backgroundColor: hex }"></div>
+                {{ color | capitalise }}
+              </div>
             </div>
           </div>
-        </div>
-      </span>
-      <span class="right floated">
-        <span>{{ note.created_at | formatDate }}</span>
-        <div class="ui icon dropdown" v-dropdown>
+        </span>
+        <span class="right floated">
+          <span>{{ note.created_at | formatDate }}</span>
+        <div class="ui icon dropdown"
+             v-dropdown>
           <i class="icon ellipsis vertical"></i>
           <div class="menu">
-            <div class="item" @click="removeNote(note)">Delete note</div>
+            <div class="item"
+                 @click="removeNote(note)">Delete note</div>
             <!-- <div class="item">Add label</div> -->
-            <div class="item" @click="createNote(note)">Make a copy</div>
+            <div class="item"
+                 @click="createNote(note)">Make a copy</div>
           </div>
         </div>
-      </span>
+        </span>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
