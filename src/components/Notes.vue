@@ -1,7 +1,12 @@
 <template>
-<div class="newt-notes">
-  <note v-for="note in orderedNotes" v-bind:key="note['.key']" v-bind:note="note" v-on:zindex="updateZindex" v-on:editnote="editNote(note)"></note>
-</div>
+  <div class="newt-notes">
+    <note v-for="note in orderedNotes"
+          :key="note['.key']"
+          :note="note"
+          @shapeshift="shapeshift"
+          @zindex="updateZindex"
+          @editnote="editNote(note)"></note>
+  </div>
 </template>
 
 <script>

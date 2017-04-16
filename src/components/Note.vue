@@ -117,11 +117,11 @@ export default {
       }
     })
     self.fixOverflow()
-    self.$parent.shapeshift()
+    self.$emit('shapeshift')
   },
   updated () {
     this.fixOverflow()
-    this.$parent.shapeshift()
+    this.$emit('shapeshift')
   },
   beforeDestroy () {
     $('.description, .note-markdown').trigger('destroy.dot')
