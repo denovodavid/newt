@@ -9,7 +9,7 @@
       <div class="description">
         <div v-show="overflow" class="note-overflow" v-bind:style="{ background: overflowGradient }"></div>
         <p v-show="!note.markdown" class="note-text">{{ note.text }}</p>
-        <div v-show="note.markdown" v-html="markedText" class="note-markdown"></div>
+        <div v-show="note.markdown" v-html="markdown(note.text)" class="note-markdown"></div>
       </div>
       <p v-show="overflow">...</p>
     </div>
@@ -45,20 +45,8 @@
 </template>
 
 <script>
-import Marked from 'marked'
 import * as types from '../store/mutation-types'
-import { mapState, mapMutations, mapActions } from 'vuex'
-
-var mdRenderer = new Marked.Renderer()
-mdRenderer.image = function (href, title, text) {
-  return '<p><img src="' + href + '" alt="' + text + '" class="ui image"></p>'
-}
-mdRenderer.link = function (href, title, text) {
-  return '<a href="' + href + '" target="_blank">' + text + '</a>'
-}
-Marked.setOptions({
-  renderer: mdRenderer
-})
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'note',
@@ -69,9 +57,6 @@ export default {
     }
   },
   computed: {
-    markedText () {
-      return Marked(this.note.text)
-    },
     noteColor () {
       return this.colors[this.note.color]
     },
@@ -83,6 +68,9 @@ export default {
     },
     ...mapState([
       'colors'
+    ]),
+    ...mapGetters([
+      'markdown'
     ])
   },
   mounted () {

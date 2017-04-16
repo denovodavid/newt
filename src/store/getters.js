@@ -1,13 +1,4 @@
-// export const cartProducts = state => {
-//   return state.cart.added.map(({ id, quantity }) => {
-//     const product = state.products.all.find(p => p.id === id)
-//     return {
-//       title: product.title,
-//       price: product.price,
-//       quantity
-//     }
-//   })
-// }
+import Marked from 'marked'
 
 export const orderedNotes = state => {
   return state.notes.sort((a, b) => {
@@ -19,3 +10,18 @@ export const orderedNotes = state => {
     return 1
   })
 }
+
+export const markdown = state => text => {
+  return Marked(text)
+}
+
+let mdRenderer = new Marked.Renderer()
+mdRenderer.image = function (href, title, text) {
+  return '<p><img src="' + href + '" alt="' + text + '" class="ui image"></p>'
+}
+mdRenderer.link = function (href, title, text) {
+  return '<a href="' + href + '" target="_blank">' + text + '</a>'
+}
+Marked.setOptions({
+  renderer: mdRenderer
+})
