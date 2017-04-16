@@ -76,6 +76,11 @@ export default {
         })
       },
       deep: true
+    },
+    notes () {
+      Vue.nextTick(() => {
+        this.arrange()
+      })
     }
   }
 }
