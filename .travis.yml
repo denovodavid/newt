@@ -10,8 +10,8 @@ script:
   - yarn build
 
 after_success:
-  - if [ "${TRAVIS_BRANCH}" == "master" ]; then npm i -g codeclimate-test-reporter; fi
-  - if [ "${TRAVIS_BRANCH}" == "master" ]; then codeclimate-test-reporter < ./test/unit/coverage/lcov.info; fi
+  - if [ "${TRAVIS_BRANCH}" == "feature/code-climate" ]; then npm i -g codeclimate-test-reporter; fi
+  - if [ "${TRAVIS_BRANCH}" == "featurecode-climate" ]; then codeclimate-test-reporter < ./test/unit/coverage/lcov.info; fi
 
 deploy:
   skip_cleanup: true
