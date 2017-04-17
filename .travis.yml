@@ -10,7 +10,9 @@ script:
   - yarn build
 
 after_success:
-  - test $TRAVIS_BRANCH = "master" && npm i -g codeclimate-test-reporter && codeclimate-test-reporter < ./test/unit/coverage/lcov.info
+  - test $TRAVIS_BRANCH = "master" &&
+    npm i -g codeclimate-test-reporter &&
+    codeclimate-test-reporter < ./test/unit/coverage/lcov.info
 
 deploy:
   skip_cleanup: true
