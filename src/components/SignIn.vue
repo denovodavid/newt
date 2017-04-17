@@ -28,10 +28,7 @@
 
 <script>
 import router from '../router'
-import db from '../database.js'
-import firebase from 'firebase'
-
-db.app
+import { firebaseApp } from '../firebase'
 
 export default {
   name: 'signin',
@@ -49,9 +46,9 @@ export default {
   },
   methods: {
     toggleSignIn () {
-      if (firebase.auth().currentUser) {
+      if (firebaseApp.auth().currentUser) {
         // [START signout]
-        firebase.auth().signOut()
+        firebaseApp.auth().signOut()
         // [END signout]
       } else {
         var email = this.login.email
@@ -66,7 +63,7 @@ export default {
         }
         // Sign in with email and pass.
         // [START authwithemail]
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+        firebaseApp.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code
           var errorMessage = error.message
@@ -97,7 +94,7 @@ export default {
       }
       // Sign in with email and pass.
       // [START createwithemail]
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+      firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code
         var errorMessage = error.message
@@ -115,7 +112,7 @@ export default {
   }
 }
 
-firebase.auth().onAuthStateChanged(function (user) {
+firebaseApp.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
     // var displayName = user.displayName

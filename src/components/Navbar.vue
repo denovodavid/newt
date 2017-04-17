@@ -18,16 +18,13 @@
 </template>
 
 <script>
-import db from '../database.js'
-import firebase from 'firebase'
-
-db.app
+import { firebaseApp } from '../firebase'
 
 export default {
   name: 'navbar',
   methods: {
     handleSignOut () {
-      firebase.auth().signOut()
+      firebaseApp.auth().signOut()
     }
   }
 }

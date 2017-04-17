@@ -2,7 +2,7 @@
 import * as types from './mutation-types'
 import firebase from 'firebase'
 import { firebaseAction } from 'vuexfire'
-import db from '../database'
+import { db } from '../firebase'
 
 export const setNotesRef = firebaseAction(({ bindFirebaseRef }, { ref }) => {
   bindFirebaseRef('notes', ref)

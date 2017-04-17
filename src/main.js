@@ -6,16 +6,13 @@ import './directives'
 import './filters'
 import App from './App'
 import router from './router'
-import db from './database.js'
-import firebase from 'firebase'
+import { firebaseApp, db } from './firebase'
 
 import { sync } from 'vuex-router-sync'
 sync(store, router) // done.
 // store.state.route.path   // current path (string)
 // store.state.route.params // current params (object)
 // store.state.route.query  // current query (object)
-
-db.app
 
 Vue.config.productionTip = false
 import 'jquery-ui/jquery-ui.min.js'
@@ -28,7 +25,7 @@ import 'semantic-ui-css/semantic.css'
 
 console.log('NEWT!')
 
-firebase.auth().onAuthStateChanged(function (user) {
+firebaseApp.auth().onAuthStateChanged(function (user) {
   if (!user) {
     console.log('User is signed out!')
     router.replace('signin')
