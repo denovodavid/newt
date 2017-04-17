@@ -10,18 +10,14 @@ script:
   - yarn build
 
 after_success:
-  - npm i -g codeclimate-test-reporter
-  - codeclimate-test-reporter < ./test/unit/coverage/lcov.info
-  on:
-    branch: master
-
-before_deploy:
-  - npm i -g firebase-tools
+  - if [ "${TRAVIS_BRANCH}" == "master" ]; then npm i -g codeclimate-test-reporter; fi
+  - if [ "${TRAVIS_BRANCH}" == "master" ]; then codeclimate-test-reporter < ./test/unit/coverage/lcov.info; fi
 
 deploy:
   skip_cleanup: true
-  provider: script
-  script: firebase deploy --token "${FIREBASE_TOKEN}"
+  provider: firebase
+  token:
+    secure: "${FIREBASE_TOKEN}"
   on:
     branch: master
 
