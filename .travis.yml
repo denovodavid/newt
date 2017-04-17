@@ -1,18 +1,24 @@
 language: node_js
 node_js: "6"
 cache: yarn
+addons:
+  code_climate:
+    repo_token: ${CODE_CLIMATE_TOKEN}
 
 script:
   - yarn unit
   - yarn build
 
-before_deploy:
-  - npm i -g firebase-tools
+after_success:
+  - test $TRAVIS_BRANCH = "master" &&
+    npm i -g codeclimate-test-reporter &&
+    codeclimate-test-reporter < ./test/unit/coverage/lcov.info
 
 deploy:
   skip_cleanup: true
-  provider: script
-  script: firebase deploy --token "${FIREBASE_TOKEN}"
+  provider: firebase
+  token:
+    secure: "${FIREBASE_TOKEN}"
   on:
     branch: master
 
