@@ -12,6 +12,8 @@ script:
 after_success:
   - npm i -g codeclimate-test-reporter
   - codeclimate-test-reporter < ./test/unit/coverage/lcov.info
+  on:
+    branch: master
 
 before_deploy:
   - npm i -g firebase-tools
