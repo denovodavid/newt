@@ -10,6 +10,8 @@ script:
   - yarn build
 
 after_success:
+  - yarn global add codecov
+  - codecov
   - test $TRAVIS_BRANCH = "master" &&
     npm i -g codeclimate-test-reporter &&
     codeclimate-test-reporter < ./test/unit/coverage/lcov.info
