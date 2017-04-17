@@ -24,10 +24,12 @@ const state = {
   colors
 }
 
-export default new Vuex.Store({
+export const options = {
   state,
   getters,
   actions,
   mutations,
   strict: process.env.NODE_ENV !== 'production'
-})
+}
+
+export default new Vuex.Store(options)
