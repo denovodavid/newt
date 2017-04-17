@@ -51,7 +51,7 @@ describe('Testing', () => {
     new Component().$mount() // eslint-disable-line no-new
   })
 
-  it('submits form on button click', (done) => {
+  it('calls action on form submit', (done) => {
     // We stub our createNote action to make sure we're listening to the
     // correct EventEmitter
     sinon.stub(testOptions.actions, 'createNote').callsFake(({ commit }) => {
