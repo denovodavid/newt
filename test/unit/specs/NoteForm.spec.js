@@ -29,17 +29,19 @@ describe('NoteForm', () => {
       done()
     }
     const stubbedStore = new Vuex.Store(testOptions)
-    const mounted = function mounted () {
-      this.title = TEST_TITLE
-      this.text = TEST_TEXT
-      this.NOTE_FORM_COLOR(TEST_COLOR)
+    const mixin = {
+      mounted () {
+        this.title = TEST_TITLE
+        this.text = TEST_TEXT
+        this.NOTE_FORM_COLOR(TEST_COLOR)
+      },
+      updated () {
+        Vue.nextTick()
+          .then(assertions.bind(this))
+          .catch(done)
+      }
     }
-    const updated = function updated () {
-      Vue.nextTick()
-        .then(assertions.bind(this))
-        .catch(done)
-    }
-    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, updated, mounted })
+    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mixins: [mixin] })
     new Component().$mount()
   })
 
@@ -48,10 +50,12 @@ describe('NoteForm', () => {
       done()
     })
     const stubbedStore = new Vuex.Store(testOptions)
-    const mounted = function mounted () {
-      $(this.$el.querySelector('button[type=submit]')).click()
+    const mixin = {
+      mounted () {
+        $(this.$el.querySelector('button[type=submit]')).click()
+      }
     }
-    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mounted })
+    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mixins: [mixin] })
     new Component().$mount()
   })
 })
