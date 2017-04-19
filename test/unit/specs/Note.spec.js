@@ -55,7 +55,7 @@ describe('Note', () => {
     new Component({ propsData }).$mount()
   })
 
-  it('has correct overflow gradient', (done) => {
+  it.skip('has correct overflow gradient', (done) => {
     const TEST_COLOR_1 = ''
     const TEST_COLOR_2 = 'purple'
     function mountedAssertions () {
@@ -90,17 +90,5 @@ describe('Note', () => {
     }
     const Component = Vue.extend({ ...Note, store: stubbedStore, mixins: [mixin] })
     new Component({ propsData }).$mount()
-  })
-
-  it.skip('calls action on form submit', (done) => {
-    sinon.stub(testOptions.actions, 'createNote').callsFake(({ commit }) => {
-      done()
-    })
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mounted = function mounted () {
-      $(this.$el.querySelector('button[type=submit]')).click()
-    }
-    const Component = Vue.extend({ ...Note, store: stubbedStore, mounted })
-    new Component().$mount()
   })
 })
