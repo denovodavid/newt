@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import '@/directives'
+import '@/filters'
 import cloneDeep from 'lodash/cloneDeep'
 import { options } from '@/store'
-import Testing from '@/components/Testing'
+import NoteForm from '@/components/NoteForm'
 import 'semantic-ui-css/semantic.js'
 import 'semantic-ui-css/semantic.css'
 
-// THIS HELPED A LOT
-// https://github.com/johnnynotsolucky/samples/blob/master/vuejs-sample-1/test/unit/specs/List.spec.js
-
-describe('Testing', () => {
+describe('NoteForm', () => {
   let testOptions
 
   beforeEach(() => {
@@ -18,24 +16,19 @@ describe('Testing', () => {
   })
 
   it('has the correct name', () => {
-    expect(Testing.name).to.equal('testing')
+    expect(NoteForm.name).to.equal('noteform')
   })
 
-  // We mock out the functionality which connects to and
-  // listens for events from the fake event stream. This gives us full control
-  // over emitted data, and mitigates uncontrollable dependencies.
   it('has dependable mutations', (done) => {
     const TEST_TITLE = 'Test Title'
     const TEST_TEXT = 'Test Text'
     const TEST_COLOR = 'red'
-
     function assertions () {
       expect(this.title).to.equal(TEST_TITLE)
       expect(this.text).to.equal(TEST_TEXT)
       expect(this.newNoteColor).to.deep.equal({ 'background-color': this.colors[TEST_COLOR] })
       done()
     }
-
     const stubbedStore = new Vuex.Store(testOptions)
     const mixin = {
       mounted () {
@@ -49,24 +42,21 @@ describe('Testing', () => {
           .catch(done)
       }
     }
-    const Component = Vue.extend({ ...Testing, store: stubbedStore, mixins: [mixin] })
-    new Component().$mount() // eslint-disable-line no-new
+    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mixins: [mixin] })
+    new Component().$mount()
   })
 
   it('calls action on form submit', (done) => {
-    // We stub our createNote action to make sure we're listening to the
-    // correct EventEmitter
     sinon.stub(testOptions.actions, 'createNote').callsFake(({ commit }) => {
       done()
     })
-
     const stubbedStore = new Vuex.Store(testOptions)
     const mixin = {
       mounted () {
         $(this.$el.querySelector('button[type=submit]')).click()
       }
     }
-    const Component = Vue.extend({ ...Testing, store: stubbedStore, mixins: [mixin] })
-    new Component().$mount() // eslint-disable-line no-new
+    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mixins: [mixin] })
+    new Component().$mount()
   })
 })

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import '@/directives'
+import '@/filters'
 import cloneDeep from 'lodash/cloneDeep'
 import { options } from '@/store'
 import NoteEditor from '@/components/NoteEditor'
