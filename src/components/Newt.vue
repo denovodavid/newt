@@ -31,7 +31,7 @@ export default {
 
 <style>
 body {
-  background: #eee;
+  background: #f9f9f9 !important;
 }
 
 #newt {

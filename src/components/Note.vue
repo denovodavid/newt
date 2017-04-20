@@ -79,7 +79,7 @@ export default {
       return this.colors[this.note.color]
     },
     overflowGradient () {
-      return 'linear-gradient(transparent, ' + (this.noteColor === '' ? '#fff' : this.noteColor) + ')'
+      return 'linear-gradient(transparent, ' + (this.note.color === '' ? '#fff' : this.noteColor) + ')'
     },
     key () {
       return this.note['.key']

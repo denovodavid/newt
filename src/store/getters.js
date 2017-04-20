@@ -16,11 +16,11 @@ export const markdown = state => text => {
 }
 
 let mdRenderer = new Marked.Renderer()
-mdRenderer.image = function (href, title, text) {
-  return '<p><img src="' + href + '" alt="' + text + '" class="ui image"></p>'
+mdRenderer.image = function (href, title, altText) {
+  return `<img src="${href}" alt="${altText}" title="${title}" class="ui image">`
 }
 mdRenderer.link = function (href, title, text) {
-  return '<a href="' + href + '" target="_blank">' + text + '</a>'
+  return `<a href="${href}" title="${title}" target="_blank">${text}</a>`
 }
 Marked.setOptions({
   renderer: mdRenderer
