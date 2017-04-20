@@ -108,7 +108,7 @@ describe('Getters', () => {
     const TITLE = 'Logo Title Text 1'
     const ALT_TEXT = 'alt text'
     const INPUT = `![${ALT_TEXT}](${HREF} "${TITLE}")`
-    const EXPECTED = `<p><p><img src="${HREF}" alt="${ALT_TEXT}" title="${TITLE}" class="ui image"></p></p>\n`
+    const EXPECTED = `<p><img src="${HREF}" alt="${ALT_TEXT}" title="${TITLE}" class="ui image"></p>\n`
     const ACTUAL = getters.markdown(state)(INPUT)
     expect(ACTUAL).to.equal(EXPECTED)
   })
