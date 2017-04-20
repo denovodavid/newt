@@ -1,6 +1,9 @@
 # Newt
 
-[![Build Status](https://travis-ci.org/smeagolem/newt.svg?branch=develop)](https://travis-ci.org/smeagolem/newt)
+[![Build Status](https://img.shields.io/travis/smeagolem/newt/develop.svg)](https://travis-ci.org/smeagolem/newt)
+[![Code Coverage](https://img.shields.io/codecov/c/github/smeagolem/newt/develop.svg)](https://codecov.io/gh/smeagolem/newt)
+[![David](https://img.shields.io/david/smeagolem/newt/develop.svg)](https://david-dm.org/smeagolem/newt/develop)
+[![David Dev](https://img.shields.io/david/dev/smeagolem/newt/develop.svg)](https://david-dm.org/smeagolem/newt/develop?type=dev)
 
 > A note taking web app.
 
