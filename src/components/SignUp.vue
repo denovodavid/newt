@@ -26,7 +26,7 @@
           </div>
         </button>
       </div>
-      <p><small>(Coming soon) Sign in with...</small></p>
+      <p><small>Sign in with...</small></p>
       <div class="ui stackable centered four column grid">
         <div class="column">
           <button type="button" class="ui google plus large fluid button disabled">
@@ -53,7 +53,7 @@
           </button>
         </div>
         <div class="sixteen wide center aligned column">
-          <button type="button" class="ui large basic button disabled">
+          <button type="button" class="ui large basic button">
             <i class="mail icon"></i>
             Sign up with email and password
           </button>
@@ -73,6 +73,10 @@ export default {
   data () {
     return {
       login: {
+        email: '',
+        password: ''
+      },
+      signup: {
         email: '',
         password: ''
       },
@@ -112,6 +116,34 @@ export default {
         self.isLoading = true
       }
     },
+    handleSignUp () {
+      var email = this.signup.email
+      var password = this.signup.password
+      if (email.length < 4) {
+        alert('Please enter an email address.')
+        return
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.')
+        return
+      }
+      // Sign in with email and pass.
+      // [START createwithemail]
+      firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // [START_EXCLUDE]
+        if (errorCode === 'auth/weak-password') {
+          alert('The password is too weak.')
+        } else {
+          alert(errorMessage)
+        }
+        console.log(error)
+        // [END_EXCLUDE]
+      })
+      // [END createwithemail]
+    },
     ...mapActions([
       'signInWithEmailAndPassword'
     ])
@@ -120,6 +152,15 @@ export default {
 
 firebaseApp.auth().onAuthStateChanged(function (user) {
   if (user) {
+    // User is signed in.
+    // var displayName = user.displayName
+    // var email = user.email
+    // var emailVerified = user.emailVerified
+    // var photoURL = user.photoURL
+    // var isAnonymous = user.isAnonymous
+    // var uid = user.uid
+    // var providerData = user.providerData
+    // ...
     console.log('LOGGED IN!')
     router.push({name: 'home'})
   }

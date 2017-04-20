@@ -1,8 +1,7 @@
-// import * as api from '../api'
 import * as types from './mutation-types'
 import firebase from 'firebase'
 import { firebaseAction } from 'vuexfire'
-import { db } from '../firebase'
+import { firebaseApp, db } from '../firebase'
 
 export const setNotesRef = firebaseAction(({ bindFirebaseRef }, { ref }) => {
   bindFirebaseRef('notes', ref)
@@ -11,6 +10,15 @@ export const setNotesRef = firebaseAction(({ bindFirebaseRef }, { ref }) => {
 export const setNotesOrderRef = firebaseAction(({ bindFirebaseRef }, { ref }) => {
   bindFirebaseRef('notesOrder', ref)
 })
+
+export const signInWithEmailAndPassword = ({ commit }, payload) => {
+  return new Promise((resolve, reject) => {
+    firebaseApp.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
 
 export const createNote = ({ commit }, note) => {
   db.ref('notes').push({
@@ -60,23 +68,3 @@ export const updateNotesOrder = ({ commit }, order) => {
     console.log('update order success')
   })
 }
-
-// export const getAllMessages = ({ commit }) => {
-//   api.getAllMessages(messages => {
-//     commit(types.RECEIVE_ALL, {
-//       messages
-//     })
-//   })
-// }
-
-// export const sendMessage = ({ commit }, payload) => {
-//   api.createMessage(payload, message => {
-//     commit(types.RECEIVE_MESSAGE, {
-//       message
-//     })
-//   })
-// }
-
-// export const switchThread = ({ commit }, payload) => {
-//   commit(types.SWITCH_THREAD, payload)
-// }
