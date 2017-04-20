@@ -103,7 +103,7 @@ describe('Getters', () => {
     expect(state.notes[0]['.key']).to.equal(orderedNotes[1]['.key'])
   })
 
-  it.skip('markdown returns correct image', () => {
+  it('markdown returns correct image', () => {
     const HREF = 'https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png'
     const TITLE = 'Logo Title Text 1'
     const ALT_TEXT = 'alt text'
@@ -113,7 +113,7 @@ describe('Getters', () => {
     expect(ACTUAL).to.equal(EXPECTED)
   })
 
-  it.skip('markdown returns correct link', () => {
+  it('markdown returns correct link', () => {
     const HREF = 'https://www.google.com'
     const TITLE = 'Google'
     const TEXT = 'Inline-style link with title'

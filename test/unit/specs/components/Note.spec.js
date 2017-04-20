@@ -56,7 +56,7 @@ describe('Note', () => {
     new Component({ propsData }).$mount()
   })
 
-  it.skip('has correct overflow gradient', (done) => {
+  it('has correct overflow gradient', (done) => {
     const TEST_COLOR_1 = ''
     const TEST_COLOR_2 = 'purple'
     function mountedAssertions () {
