@@ -63,6 +63,7 @@
 </template>
 
 <script src="semantic-ui-css/components/form.min.js"></script>
+<script src="semantic-ui-css/components/modal.min.js"></script>
 <script>
 import vue from 'vue'
 import AutoSize from 'autosize'
