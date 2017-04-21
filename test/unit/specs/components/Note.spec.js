@@ -20,7 +20,7 @@ describe('Note', () => {
   it('has correct default data', () => {
     expect(Note.data).to.be.a('function')
     const defaultData = Note.data()
-    expect(defaultData.overflow).to.be.false
+    expect(defaultData.overflow).to.equal(false)
   })
 
   it('has correct note color and key', (done) => {

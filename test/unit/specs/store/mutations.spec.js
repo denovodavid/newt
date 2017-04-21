@@ -45,7 +45,7 @@ describe('Mutations', () => {
   it(types.NOTE_FORM_MARKDOWN, () => {
     const PAYLOAD = true
     mutations[types.NOTE_FORM_MARKDOWN](state, PAYLOAD)
-    expect(state.newNote.markdown).to.be.true
+    expect(state.newNote.markdown).to.equal(true)
   })
 
   it(types.NOTE_EDITOR, () => {
@@ -75,6 +75,6 @@ describe('Mutations', () => {
   it(types.NOTE_EDITOR_MARKDOWN, () => {
     const PAYLOAD = true
     mutations[types.NOTE_EDITOR_MARKDOWN](state, PAYLOAD)
-    expect(state.editor.note.markdown).to.be.true
+    expect(state.editor.note.markdown).to.equal(true)
   })
 })

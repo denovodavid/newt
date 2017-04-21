@@ -7,6 +7,7 @@ import './filters'
 import App from './App'
 import router from './router'
 import { firebaseApp, db } from './firebase'
+import 'jquery-ui/jquery-ui.min.js'
 
 import { sync } from 'vuex-router-sync'
 sync(store, router) // done.
@@ -15,7 +16,6 @@ sync(store, router) // done.
 // store.state.route.query  // current query (object)
 
 Vue.config.productionTip = false
-import 'jquery-ui/jquery-ui.min.js'
 
 // import imagesLoaded from 'imagesloaded'
 // imagesLoaded.makeJQueryPlugin($)
