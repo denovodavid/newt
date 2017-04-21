@@ -1,5 +1,5 @@
 export default {
-  none: '',
+  white: '#ffffff',
   red: '#ff8a80',
   orange: '#ffd180',
   yellow: '#ffff8d',

@@ -57,21 +57,16 @@ describe('Note', () => {
   })
 
   it('has correct overflow gradient', (done) => {
-    const TEST_COLOR_1 = ''
-    const TEST_COLOR_2 = 'purple'
-    function mountedAssertions () {
-      expect(this.overflowGradient).to.equal('linear-gradient(transparent, #fff)')
-      this.note.color = TEST_COLOR_2
-    }
-    function updatedAssertions () {
-      expect(this.overflowGradient).to.equal('linear-gradient(transparent, ' + this.noteColor + ')')
+    const TEST_COLOR = 'purple'
+    function assertions () {
+      expect(this.overflowGradient).to.equal(`linear-gradient(transparent, ${this.noteColor})`)
       done()
     }
     const propsData = {
       note: {
         '.key': 'akey',
         checked: false,
-        color: TEST_COLOR_1,
+        color: TEST_COLOR,
         created_at: '2016-08-20T04:38:10.082Z',
         markdown: false,
         text: 'Test text',
@@ -81,11 +76,8 @@ describe('Note', () => {
     const stubbedStore = new Vuex.Store(testOptions)
     const mixin = {
       mounted () {
-        Vue.nextTick(mountedAssertions.bind(this))
-      },
-      updated () {
         Vue.nextTick()
-          .then(updatedAssertions.bind(this))
+          .then(assertions.bind(this))
           .catch(done)
       }
     }
