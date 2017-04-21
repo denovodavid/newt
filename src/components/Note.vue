@@ -44,7 +44,7 @@
           </div>
         </span>
         <span class="right floated">
-          <span>{{ note.created_at | formatDate }}</span>
+          <span>{{ createdDate }}</span>
         <div class="ui icon dropdown"
              v-dropdown>
           <i class="icon ellipsis vertical"></i>
@@ -65,6 +65,7 @@
 <script>
 import * as types from '../store/mutation-types'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+import formatDate from 'date-fns/format'
 
 export default {
   name: 'note',
@@ -83,6 +84,9 @@ export default {
     },
     key () {
       return this.note['.key']
+    },
+    createdDate () {
+      return formatDate(this.note.created_at, 'DD/MM/YY')
     },
     ...mapState([
       'colors'
