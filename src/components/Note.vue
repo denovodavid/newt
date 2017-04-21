@@ -8,7 +8,7 @@
              style="visibility: hidden;">
           <i class="block layout icon"></i>
         </div>
-        <div class="header"
+        <div class="header note-title"
              v-show="note.title">{{ note.title }}</div>
         <div class="description">
           <div class="note-overflow"
@@ -79,7 +79,7 @@ export default {
       return this.colors[this.note.color]
     },
     overflowGradient () {
-      return 'linear-gradient(transparent, ' + (this.note.color === '' ? '#fff' : this.noteColor) + ')'
+      return `linear-gradient(transparent, ${this.noteColor})`
     },
     key () {
       return this.note['.key']
@@ -167,6 +167,10 @@ export default {
 
 .description {
   position: relative;
+}
+
+.note-title {
+  word-wrap: break-word;
 }
 
 .note-text {

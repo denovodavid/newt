@@ -5,21 +5,30 @@
       NEWT
       <div class="sub header">dem notes yo</div>
     </h1>
-    <form class="ui form" @submit.prevent="toggleSignIn" :class="{ loading: isLoading }">
+    <form class="ui form"
+          @submit.prevent="toggleSignIn"
+          :class="{ loading: isLoading }">
       <div class="field">
         <div class="ui left icon input">
-          <input type="email" name="email" placeholder="Email" v-model="login.email">
+          <input type="email"
+                 name="email"
+                 placeholder="Email"
+                 v-model.trim="login.email">
           <i class="user icon"></i>
         </div>
       </div>
       <div class="field">
         <div class="ui left icon input">
-          <input type="password" name="password" placeholder="Password" v-model="login.password">
+          <input type="password"
+                 name="password"
+                 placeholder="Password"
+                 v-model="login.password">
           <i class="lock icon"></i>
         </div>
       </div>
       <div class="field">
-        <button class="ui grey large animated fade button" type="submit">
+        <button class="ui grey large animated fade button"
+                type="submit">
           <div class="visible content">Sign in</div>
           <div class="hidden content">
             <i class="sign in icon"></i>
@@ -29,31 +38,36 @@
       <p><small>(Coming soon) Sign in with...</small></p>
       <div class="ui stackable centered four column grid">
         <div class="column">
-          <button type="button" class="ui google plus large fluid button disabled">
+          <button type="button"
+                  class="ui google plus large fluid button disabled">
             <i class="google icon"></i>
             Google
           </button>
         </div>
         <div class="column">
-          <button type="button" class="ui facebook large fluid button disabled">
+          <button type="button"
+                  class="ui facebook large fluid button disabled">
             <i class="facebook icon"></i>
             Facebook
           </button>
         </div>
         <div class="column">
-          <button type="button" class="ui twitter large fluid button disabled">
+          <button type="button"
+                  class="ui twitter large fluid button disabled">
             <i class="twitter icon"></i>
             Twitter
           </button>
         </div>
         <div class="column">
-          <button type="button" class="ui black large fluid button disabled">
+          <button type="button"
+                  class="ui black large fluid button disabled">
             <i class="github icon"></i>
             Github
           </button>
         </div>
         <div class="sixteen wide center aligned column">
-          <button type="button" class="ui large basic button disabled">
+          <button type="button"
+                  class="ui large basic button disabled">
             <i class="mail icon"></i>
             Sign up with email and password
           </button>

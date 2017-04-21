@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import vue from 'vue'
 import Note from './Note'
 import 'jquery-shapeshift'
 import { mapState, mapGetters, mapActions } from 'vuex'
@@ -70,14 +70,14 @@ export default {
   watch: {
     notesOrder: {
       handler: function () {
-        Vue.nextTick(() => {
+        vue.nextTick(() => {
           this.arrange()
         })
       },
       deep: true
     },
     notes () {
-      Vue.nextTick(() => {
+      vue.nextTick(() => {
         this.arrange()
       })
     }

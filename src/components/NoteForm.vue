@@ -9,7 +9,7 @@
             <input id="note-title"
                    type="text"
                    placeholder="Title"
-                   v-model="title">
+                   v-model.trim="title">
           </div>
           <div class="ui divider"></div>
           <div class="field">
@@ -17,7 +17,7 @@
                       rows="3"
                       placeholder="Take a note..."
                       v-autosize
-                      v-model="text"></textarea>
+                      v-model.trim="text"></textarea>
           </div>
         </div>
         <div class="extra content"

@@ -10,7 +10,7 @@
             <input id="edit-title"
                    type="text"
                    placeholder="Title"
-                   v-model="title">
+                   v-model.trim="title">
           </div>
           <div class="ui divider"></div>
           <div class="field">
@@ -18,7 +18,7 @@
                       rows="3"
                       placeholder="Take a note..."
                       v-autosize
-                      v-model="text"></textarea>
+                      v-model.trim="text"></textarea>
           </div>
         </div>
         <div class="extra content"
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import vue from 'vue'
 import AutoSize from 'autosize'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
@@ -113,7 +113,7 @@ export default {
       console.log('EDITOR')
       if (this.editor.show) {
         $(this.$el).modal('show')
-        Vue.nextTick(() => {
+        vue.nextTick(() => {
           AutoSize.update($('#edit-text'))
           $(this.$el).modal('refresh')
         })
