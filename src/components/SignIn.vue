@@ -8,7 +8,7 @@
     <form class="ui form" @submit.prevent="toggleSignIn" :class="{ loading: isLoading }">
       <div class="field">
         <div class="ui left icon input">
-          <input type="email" name="email" placeholder="Email" v-model="login.email">
+          <input type="email" name="email" placeholder="Email" v-model.trim="login.email">
           <i class="user icon"></i>
         </div>
       </div>
