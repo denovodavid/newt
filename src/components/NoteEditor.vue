@@ -62,6 +62,7 @@
   </div>
 </template>
 
+<script src="semantic-ui-css/components/form.min.js"></script>
 <script>
 import vue from 'vue'
 import AutoSize from 'autosize'
@@ -137,6 +138,17 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/modal.min.css"></style>
+<style src="semantic-ui-css/components/dimmer.min.css"></style>
+<style src="semantic-ui-css/components/container.min.css"></style>
+<style src="semantic-ui-css/components/form.min.css"></style>
+<style src="semantic-ui-css/components/card.min.css"></style>
+<style src="semantic-ui-css/components/input.min.css"></style>
+<style src="semantic-ui-css/components/divider.min.css"></style>
+<style src="semantic-ui-css/components/dropdown.min.css"></style>
+<style src="semantic-ui-css/components/button.min.css"></style>
+<style src="semantic-ui-css/components/menu.min.css"></style>
+<style src="semantic-ui-css/components/label.min.css"></style>
 <style scoped>
 #edit-text {
   border: 0;

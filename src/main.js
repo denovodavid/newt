@@ -20,9 +20,6 @@ import 'jquery-ui/jquery-ui.min.js'
 // import imagesLoaded from 'imagesloaded'
 // imagesLoaded.makeJQueryPlugin($)
 
-import 'semantic-ui-css/semantic.js'
-import 'semantic-ui-css/semantic.css'
-
 console.log('NEWT!')
 
 firebaseApp.auth().onAuthStateChanged(function (user) {

@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
 import { options } from '@/store'
 import Notes from '@/components/Notes'
-import 'semantic-ui-css/semantic.js'
-import 'semantic-ui-css/semantic.css'
 
 describe('Notes', () => {
   let testOptions

@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import AutoSize from 'autosize'
+import 'semantic-ui-css/components/dropdown.min.js'
+import 'semantic-ui-css/components/transition.min.js'
+import 'semantic-ui-css/components/modal.min.js'
+import 'semantic-ui-css/components/dimmer.min.js'
 
 // Register a global custom directive called v-dropdown
 Vue.directive('dropdown', {

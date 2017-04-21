@@ -5,8 +5,6 @@ import '@/filters'
 import cloneDeep from 'lodash/cloneDeep'
 import { options } from '@/store'
 import Testing from '@/components/Testing'
-import 'semantic-ui-css/semantic.js'
-import 'semantic-ui-css/semantic.css'
 
 // THIS HELPED A LOT
 // https://github.com/johnnynotsolucky/samples/blob/master/vuejs-sample-1/test/unit/specs/List.spec.js

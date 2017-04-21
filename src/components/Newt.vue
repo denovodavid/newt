@@ -29,6 +29,7 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/container.min.css"></style>
 <style>
 body {
   background: #f9f9f9 !important;

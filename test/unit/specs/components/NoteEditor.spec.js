@@ -5,8 +5,6 @@ import '@/filters'
 import cloneDeep from 'lodash/cloneDeep'
 import { options } from '@/store'
 import NoteEditor from '@/components/NoteEditor'
-import 'semantic-ui-css/semantic.js'
-import 'semantic-ui-css/semantic.css'
 
 describe('NoteEditor', () => {
   let testOptions

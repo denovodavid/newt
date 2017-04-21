@@ -30,6 +30,7 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/menu.min.css"></style>
 <style scoped>
 .ui.inverted.menu .item {
   color: #444;

@@ -157,6 +157,13 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/card.min.css"></style>
+<style src="semantic-ui-css/components/icon.min.css"></style>
+<style src="semantic-ui-css/components/button.min.css"></style>
+<style src="semantic-ui-css/components/dropdown.min.css"></style>
+<style src="semantic-ui-css/components/menu.min.css"></style>
+<style src="semantic-ui-css/components/transition.min.css"></style>
+<style src="semantic-ui-css/components/label.min.css"></style>
 <style scoped>
 .newt-note {
   background: #CCC;

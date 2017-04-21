@@ -77,6 +77,8 @@
   </div>
 </template>
 
+<script src="semantic-ui-css/components/form.min.js"></script>
+<script src="semantic-ui-css/components/transition.min.js"></script>
 <script>
 import router from '../router'
 import { firebaseApp } from '../firebase'
@@ -140,6 +142,14 @@ firebaseApp.auth().onAuthStateChanged(function (user) {
 })
 </script>
 
+<style src="semantic-ui-css/components/container.min.css"></style>
+<style src="semantic-ui-css/components/icon.min.css"></style>
+<style src="semantic-ui-css/components/header.min.css"></style>
+<style src="semantic-ui-css/components/form.min.css"></style>
+<style src="semantic-ui-css/components/input.min.css"></style>
+<style src="semantic-ui-css/components/button.min.css"></style>
+<style src="semantic-ui-css/components/transition.min.css"></style>
+<style src="semantic-ui-css/components/grid.min.css"></style>
 <style scoped>
 .ui.form .field {
   max-width: 20em;
