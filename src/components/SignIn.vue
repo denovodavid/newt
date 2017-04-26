@@ -77,12 +77,12 @@
   </div>
 </template>
 
-<script src="semantic-ui-css/components/form.min.js"></script>
-<script src="semantic-ui-css/components/transition.min.js"></script>
 <script>
 import router from '../router'
 import { firebaseApp } from '../firebase'
 import { mapActions } from 'vuex'
+import 'semantic-ui-css/components/form'
+import 'semantic-ui-css/components/transition'
 
 export default {
   name: 'signin',
@@ -142,14 +142,14 @@ firebaseApp.auth().onAuthStateChanged(function (user) {
 })
 </script>
 
-<style src="semantic-ui-css/components/container.min.css"></style>
-<style src="semantic-ui-css/components/icon.min.css"></style>
-<style src="semantic-ui-css/components/header.min.css"></style>
-<style src="semantic-ui-css/components/form.min.css"></style>
-<style src="semantic-ui-css/components/input.min.css"></style>
-<style src="semantic-ui-css/components/button.min.css"></style>
-<style src="semantic-ui-css/components/transition.min.css"></style>
-<style src="semantic-ui-css/components/grid.min.css"></style>
+<style src="semantic-ui-css/components/container.css"></style>
+<style src="semantic-ui-css/components/icon.css"></style>
+<style src="semantic-ui-css/components/header.css"></style>
+<style src="semantic-ui-css/components/form.css"></style>
+<style src="semantic-ui-css/components/input.css"></style>
+<style src="semantic-ui-css/components/button.css"></style>
+<style src="semantic-ui-css/components/transition.css"></style>
+<style src="semantic-ui-css/components/grid.css"></style>
 <style scoped>
 .ui.form .field {
   max-width: 20em;
