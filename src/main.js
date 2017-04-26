@@ -7,7 +7,6 @@ import './filters'
 import App from './App'
 import router from './router'
 import { firebaseApp, db } from './firebase'
-import 'jquery-ui/jquery-ui.min.js'
 
 import { sync } from 'vuex-router-sync'
 sync(store, router) // done.
