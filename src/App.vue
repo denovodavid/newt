@@ -4,12 +4,13 @@
   </div>
 </template>
 
-<script src="semantic-ui-css/components/site.min.js"></script>
 <script>
+import 'semantic-ui-css/components/site'
+
 export default {
   name: 'app'
 }
 </script>
 
-<style src="semantic-ui-css/components/reset.min.css"></style>
-<style src="semantic-ui-css/components/site.min.css"></style>
+<style src="semantic-ui-css/components/reset.css"></style>
+<style src="semantic-ui-css/components/site.css"></style>

@@ -127,9 +127,6 @@ export default {
     this.fixOverflow()
     this.$emit('shapeshift')
   },
-  beforeDestroy () {
-    $('.description, .note-markdown').trigger('destroy.dot')
-  },
   methods: {
     fixOverflow () {
       const self = this
@@ -157,13 +154,13 @@ export default {
 }
 </script>
 
-<style src="semantic-ui-css/components/card.min.css"></style>
-<style src="semantic-ui-css/components/icon.min.css"></style>
-<style src="semantic-ui-css/components/button.min.css"></style>
-<style src="semantic-ui-css/components/dropdown.min.css"></style>
-<style src="semantic-ui-css/components/menu.min.css"></style>
-<style src="semantic-ui-css/components/transition.min.css"></style>
-<style src="semantic-ui-css/components/label.min.css"></style>
+<style src="semantic-ui-css/components/card.css"></style>
+<style src="semantic-ui-css/components/icon.css"></style>
+<style src="semantic-ui-css/components/button.css"></style>
+<style src="semantic-ui-css/components/dropdown.css"></style>
+<style src="semantic-ui-css/components/menu.css"></style>
+<style src="semantic-ui-css/components/transition.css"></style>
+<style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 .newt-note {
   background: #CCC;

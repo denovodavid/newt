@@ -61,10 +61,10 @@
   </div>
 </template>
 
-<script src="semantic-ui-css/components/form.min.js"></script>
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
 import * as mutations from '../store/mutation-types'
+import 'semantic-ui-css/components/form'
 
 export default {
   name: 'noteform',
@@ -109,15 +109,15 @@ export default {
 }
 </script>
 
-<style src="semantic-ui-css/components/container.min.css"></style>
-<style src="semantic-ui-css/components/form.min.css"></style>
-<style src="semantic-ui-css/components/card.min.css"></style>
-<style src="semantic-ui-css/components/input.min.css"></style>
-<style src="semantic-ui-css/components/divider.min.css"></style>
-<style src="semantic-ui-css/components/dropdown.min.css"></style>
-<style src="semantic-ui-css/components/button.min.css"></style>
-<style src="semantic-ui-css/components/menu.min.css"></style>
-<style src="semantic-ui-css/components/label.min.css"></style>
+<style src="semantic-ui-css/components/container.css"></style>
+<style src="semantic-ui-css/components/form.css"></style>
+<style src="semantic-ui-css/components/card.css"></style>
+<style src="semantic-ui-css/components/input.css"></style>
+<style src="semantic-ui-css/components/divider.css"></style>
+<style src="semantic-ui-css/components/dropdown.css"></style>
+<style src="semantic-ui-css/components/button.css"></style>
+<style src="semantic-ui-css/components/menu.css"></style>
+<style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 #note-text {
   border: 0;

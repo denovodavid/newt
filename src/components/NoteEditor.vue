@@ -62,13 +62,13 @@
   </div>
 </template>
 
-<script src="semantic-ui-css/components/form.min.js"></script>
-<script src="semantic-ui-css/components/modal.min.js"></script>
 <script>
-import vue from 'vue'
+import Vue from 'vue'
 import AutoSize from 'autosize'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
+import 'semantic-ui-css/components/form'
+import 'semantic-ui-css/components/modal'
 
 export default {
   name: 'noteeditor',
@@ -115,7 +115,7 @@ export default {
       console.log('EDITOR')
       if (this.editor.show) {
         $(this.$el).modal('show')
-        vue.nextTick(() => {
+        Vue.nextTick(() => {
           AutoSize.update($('#edit-text'))
           $(this.$el).modal('refresh')
         })
@@ -139,17 +139,17 @@ export default {
 }
 </script>
 
-<style src="semantic-ui-css/components/modal.min.css"></style>
-<style src="semantic-ui-css/components/dimmer.min.css"></style>
-<style src="semantic-ui-css/components/container.min.css"></style>
-<style src="semantic-ui-css/components/form.min.css"></style>
-<style src="semantic-ui-css/components/card.min.css"></style>
-<style src="semantic-ui-css/components/input.min.css"></style>
-<style src="semantic-ui-css/components/divider.min.css"></style>
-<style src="semantic-ui-css/components/dropdown.min.css"></style>
-<style src="semantic-ui-css/components/button.min.css"></style>
-<style src="semantic-ui-css/components/menu.min.css"></style>
-<style src="semantic-ui-css/components/label.min.css"></style>
+<style src="semantic-ui-css/components/modal.css"></style>
+<style src="semantic-ui-css/components/dimmer.css"></style>
+<style src="semantic-ui-css/components/container.css"></style>
+<style src="semantic-ui-css/components/form.css"></style>
+<style src="semantic-ui-css/components/card.css"></style>
+<style src="semantic-ui-css/components/input.css"></style>
+<style src="semantic-ui-css/components/divider.css"></style>
+<style src="semantic-ui-css/components/dropdown.css"></style>
+<style src="semantic-ui-css/components/button.css"></style>
+<style src="semantic-ui-css/components/menu.css"></style>
+<style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 #edit-text {
   border: 0;
