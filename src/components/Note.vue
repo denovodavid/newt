@@ -127,9 +127,6 @@ export default {
     this.fixOverflow()
     this.$emit('shapeshift')
   },
-  beforeDestroy () {
-    $('.description, .note-markdown').trigger('destroy.dot')
-  },
   methods: {
     fixOverflow () {
       const self = this
