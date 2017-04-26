@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import vue from 'vue'
+import Vue from 'vue'
 import AutoSize from 'autosize'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
@@ -115,7 +115,7 @@ export default {
       console.log('EDITOR')
       if (this.editor.show) {
         $(this.$el).modal('show')
-        vue.nextTick(() => {
+        Vue.nextTick(() => {
           AutoSize.update($('#edit-text'))
           $(this.$el).modal('refresh')
         })
