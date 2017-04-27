@@ -30,14 +30,3 @@ export default {
 </script>
 
 <style src="semantic-ui-css/components/container.css"></style>
-<style>
-body {
-  background: #f9f9f9 !important;
-}
-
-#newt {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>
