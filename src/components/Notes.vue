@@ -1,15 +1,17 @@
 <template>
-  <transition-group class="newt-notes"
-                    tag="div"
-                    @before-enter="beforeEnter"
-                    @enter="enter">
-    <note v-for="(note, index) in orderedNotes"
-          :key="note['.key']"
-          :note="note"
-          :data-index="index"
-          @shapeshift="shapeshift"
-          @zindex="updateZindex"></note>
-  </transition-group>
+  <div>
+    <transition-group class="newt-notes"
+                      tag="div"
+                      @before-enter="beforeEnter"
+                      @enter="enter">
+      <note v-for="(note, index) in orderedNotes"
+            :key="note['.key']"
+            :note="note"
+            :data-index="index"
+            @shapeshift="shapeshift"
+            @zindex="updateZindex"></note>
+    </transition-group>
+  </div>
 </template>
 
 <script>
@@ -44,7 +46,7 @@ export default {
   },
   mounted () {
     const self = this
-    const $notes = $(self.$el)
+    const $notes = $('.newt-notes')
     $notes.shapeshift(shapeshiftOptions)
     $notes.on('ss-drop-complete', (e) => {
       self.setNotesOrder()
@@ -54,21 +56,21 @@ export default {
     shapeshift () {
       if (shapeshiftTimer !== null) clearTimeout(shapeshiftTimer)
       shapeshiftTimer = setTimeout(() => {
-        $(this.$el).shapeshift(shapeshiftOptions)
+        $('.newt-notes').shapeshift(shapeshiftOptions)
         console.log('SHAPESHIPT')
       }, 200)
     },
     updateZindex () {
-      $(this.$el).children('.newt-note').css('z-index', '')
+      $('.newt-notes').children('.newt-note').css('z-index', '')
     },
     arrange () {
-      $(this.$el).trigger('ss-rearrange')
+      $('.newt-notes').trigger('ss-rearrange')
     },
     setNotesOrder () {
       console.log('setNotesOrder')
       const self = this
       let order = {}
-      $(self.$el).children('.newt-note').each((i, itemElem) => {
+      $('.newt-notes').children('.newt-note').each((i, itemElem) => {
         const noteKey = $(itemElem).data('key')
         order[noteKey] = i + 1
       })
