@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="extra content"
-             v-bind:style="newNoteColor">
+             :style="newNoteColor">
           <div class="compact ui icon dropdown circular basic tiny button"
                v-dropdown>
             <i class="icon theme"></i>
