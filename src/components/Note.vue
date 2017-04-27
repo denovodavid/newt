@@ -165,7 +165,7 @@ export default {
 .newt-note {
   background: #CCC;
   position: absolute;
-  transition: left 0.4s ease, top 0.4s ease;
+  transition: left 0.4s ease, top 0.4s ease, opacity 0.4s;
   z-index: 1;
 }
 
