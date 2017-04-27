@@ -1,11 +1,15 @@
 <template>
-  <div class="newt-notes">
-    <note v-for="note in orderedNotes"
+  <transition-group class="newt-notes"
+                    tag="div"
+                    @before-enter="beforeEnter"
+                    @enter="enter">
+    <note v-for="(note, index) in orderedNotes"
           :key="note['.key']"
           :note="note"
+          :data-index="index"
           @shapeshift="shapeshift"
           @zindex="updateZindex"></note>
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -15,12 +19,14 @@ import 'jquery-ui-dist/jquery-ui'
 import 'jquery-shapeshift'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
-var shapeshiftOptions = {
+const shapeshiftOptions = {
   selector: '.newt-note',
   colWidth: 290,
   animated: false,
   handle: '.drag-handle'
 }
+
+let shapeshiftTimer = null
 
 export default {
   name: 'notes',
@@ -39,14 +45,18 @@ export default {
   mounted () {
     const self = this
     const $notes = $(self.$el)
+    $notes.shapeshift(shapeshiftOptions)
     $notes.on('ss-drop-complete', (e) => {
       self.setNotesOrder()
     })
   },
   methods: {
     shapeshift () {
-      $(this.$el).shapeshift(shapeshiftOptions)
-      console.log('SHAPESHIPT')
+      if (shapeshiftTimer !== null) clearTimeout(shapeshiftTimer)
+      shapeshiftTimer = setTimeout(() => {
+        $(this.$el).shapeshift(shapeshiftOptions)
+        console.log('SHAPESHIPT')
+      }, 200)
     },
     updateZindex () {
       $(this.$el).children('.newt-note').css('z-index', '')
@@ -63,6 +73,15 @@ export default {
         order[noteKey] = i + 1
       })
       self.updateNotesOrder(order)
+    },
+    beforeEnter (el) {
+      el.style.opacity = 0
+    },
+    enter (el, done) {
+      const delay = 400 + el.dataset.index * 20
+      setTimeout(() => {
+        el.style.opacity = 1
+      }, delay)
     },
     ...mapActions([
       'updateNotesOrder'
