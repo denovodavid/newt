@@ -95,6 +95,14 @@ export default {
       isLoading: false
     }
   },
+  beforeCreate () {
+    firebaseApp.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log('LOGGED IN!')
+        router.push({name: 'home'})
+      }
+    })
+  },
   methods: {
     toggleSignIn () {
       const self = this
@@ -133,13 +141,6 @@ export default {
     ])
   }
 }
-
-firebaseApp.auth().onAuthStateChanged(function (user) {
-  if (user) {
-    console.log('LOGGED IN!')
-    router.push({name: 'home'})
-  }
-})
 </script>
 
 <style src="semantic-ui-css/components/container.css"></style>

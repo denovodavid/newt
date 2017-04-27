@@ -1,6 +1,7 @@
 import colors from '../colors'
 
 export default {
+  loading: 0,
   notes: [
     /*
     {

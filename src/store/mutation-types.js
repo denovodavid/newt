@@ -1,3 +1,5 @@
+export const LOADING = 'LOADING'
+
 export const CLEAR_NOTE_FORM = 'CLEAR_NOTE_FORM'
 export const NOTE_FORM = 'NOTE_FORM'
 export const NOTE_FORM_TITLE = 'NOTE_FORM_TITLE'
