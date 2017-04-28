@@ -1,9 +1,11 @@
 <template>
   <div>
-    <transition-group class="newt-notes"
+    <transition-group id="note-wall"
+                      class="newt-notes"
                       tag="div"
                       @before-enter="beforeEnter"
-                      @enter="enter">
+                      @enter="enter"
+                      @leave="leave">
       <note v-for="(note, index) in orderedNotes"
             :key="note['.key']"
             :note="note"
@@ -29,6 +31,7 @@ const shapeshiftOptions = {
 }
 
 let shapeshiftTimer = null
+let $notes = null
 
 export default {
   name: 'notes',
@@ -46,8 +49,7 @@ export default {
   },
   mounted () {
     const self = this
-    const $notes = $('.newt-notes')
-    $notes.shapeshift(shapeshiftOptions)
+    $notes = $(self.$el.querySelector('#note-wall'))
     $notes.on('ss-drop-complete', (e) => {
       self.setNotesOrder()
     })
@@ -56,21 +58,21 @@ export default {
     shapeshift () {
       if (shapeshiftTimer !== null) clearTimeout(shapeshiftTimer)
       shapeshiftTimer = setTimeout(() => {
-        $('.newt-notes').shapeshift(shapeshiftOptions)
+        $notes.shapeshift(shapeshiftOptions)
         console.log('SHAPESHIPT')
       }, 200)
     },
     updateZindex () {
-      $('.newt-notes').children('.newt-note').css('z-index', '')
+      $notes.children('.newt-note').css('z-index', '')
     },
     arrange () {
-      $('.newt-notes').trigger('ss-rearrange')
+      $notes.trigger('ss-rearrange')
     },
     setNotesOrder () {
       console.log('setNotesOrder')
       const self = this
       let order = {}
-      $('.newt-notes').children('.newt-note').each((i, itemElem) => {
+      $notes.children('.newt-note').each((i, itemElem) => {
         const noteKey = $(itemElem).data('key')
         order[noteKey] = i + 1
       })
@@ -81,9 +83,13 @@ export default {
     },
     enter (el, done) {
       const delay = 400 + el.dataset.index * 20
+      $(el).one('transitionend', done)
       setTimeout(() => {
         el.style.opacity = 1
       }, delay)
+    },
+    leave (el, done) {
+      done()
     },
     ...mapActions([
       'updateNotesOrder'

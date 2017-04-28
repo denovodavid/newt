@@ -22,7 +22,9 @@ describe('Notes', () => {
     const stubbedStore = new Vuex.Store(testOptions)
     const mixin = {
       mounted () {
-        this.setNotesOrder()
+        Vue.nextTick(() => {
+          this.setNotesOrder()
+        })
       }
     }
     const Component = Vue.extend({ ...Notes, store: stubbedStore, mixins: [mixin] })
