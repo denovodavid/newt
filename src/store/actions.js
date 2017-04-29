@@ -38,7 +38,7 @@ export const asyncLoading = debounce(({ commit }, isLoading) => {
 
 export const createNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
-  db.ref('notes').push({
+  db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).push({
     title: note.title.trim(),
     text: note.text.trim(),
     markdown: note.markdown,
@@ -54,7 +54,7 @@ export const createNote = ({ dispatch, commit }, note) => {
 
 export const updateNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
-  db.ref('notes').child(note['.key']).update({
+  db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).update({
     title: note.title.trim(),
     text: note.text.trim(),
     markdown: note.markdown,
@@ -67,7 +67,7 @@ export const updateNote = ({ dispatch, commit }, note) => {
 
 export const removeNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
-  db.ref('notes').child(note['.key']).remove()
+  db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).remove()
     .then(() => {
       dispatch('asyncLoading', false)
       console.log('Note Removed!')
@@ -80,7 +80,7 @@ export const removeNote = ({ dispatch, commit }, note) => {
 
 export const updateNoteColor = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
-  db.ref('notes').child(note['.key']).update({
+  db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).update({
     color: note.color
   }, () => {
     dispatch('asyncLoading', false)
@@ -90,7 +90,7 @@ export const updateNoteColor = ({ dispatch, commit }, note) => {
 
 export const updateNotesOrder = ({ dispatch, commit }, order) => {
   dispatch('asyncLoading', true)
-  db.ref('notesOrder').update(order, () => {
+  db.ref(`${firebaseApp.auth().currentUser.uid}/notesOrder`).update(order, () => {
     dispatch('asyncLoading', false)
     console.log('update order success')
   })

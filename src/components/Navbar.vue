@@ -42,6 +42,7 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/icon.css"></style>
 <style src="semantic-ui-css/components/menu.css"></style>
 <style scoped>
 .ui.inverted.menu .item {

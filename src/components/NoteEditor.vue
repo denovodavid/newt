@@ -69,6 +69,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import 'semantic-ui-css/components/form'
 import 'semantic-ui-css/components/modal'
+import 'semantic-ui-css/components/transition'
 
 export default {
   name: 'noteeditor',
@@ -139,6 +140,7 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/icon.css"></style>
 <style src="semantic-ui-css/components/modal.css"></style>
 <style src="semantic-ui-css/components/dimmer.css"></style>
 <style src="semantic-ui-css/components/container.css"></style>
@@ -149,6 +151,7 @@ export default {
 <style src="semantic-ui-css/components/dropdown.css"></style>
 <style src="semantic-ui-css/components/button.css"></style>
 <style src="semantic-ui-css/components/menu.css"></style>
+<style src="semantic-ui-css/components/transition.css"></style>
 <style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 #edit-text {
