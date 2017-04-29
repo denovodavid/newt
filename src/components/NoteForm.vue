@@ -65,6 +65,7 @@
 import { mapState, mapActions, mapMutations } from 'vuex'
 import * as mutations from '../store/mutation-types'
 import 'semantic-ui-css/components/form'
+import 'semantic-ui-css/components/transition'
 
 export default {
   name: 'noteform',
@@ -109,6 +110,7 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/icon.css"></style>
 <style src="semantic-ui-css/components/container.css"></style>
 <style src="semantic-ui-css/components/form.css"></style>
 <style src="semantic-ui-css/components/card.css"></style>
@@ -117,6 +119,7 @@ export default {
 <style src="semantic-ui-css/components/dropdown.css"></style>
 <style src="semantic-ui-css/components/button.css"></style>
 <style src="semantic-ui-css/components/menu.css"></style>
+<style src="semantic-ui-css/components/transition.css"></style>
 <style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 #note-text {
