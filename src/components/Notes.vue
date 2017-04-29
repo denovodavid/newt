@@ -13,6 +13,14 @@
             @shapeshift="shapeshift"
             @zindex="updateZindex"></note>
     </transition-group>
+    <transition name="fade">
+      <h1 class="ui center aligned grey icon header"
+          v-show="!asyncLoading && notes.length === 0">
+        <i class="sticky note yellow icon"></i>
+        Welcome.
+        <div class="sub header">Make a note!</div>
+      </h1>
+    </transition>
   </div>
 </template>
 
@@ -41,7 +49,8 @@ export default {
   computed: {
     ...mapState([
       'notes',
-      'notesOrder'
+      'notesOrder',
+      'asyncLoading'
     ]),
     ...mapGetters([
       'orderedNotes'
@@ -113,10 +122,22 @@ export default {
 }
 </script>
 
+<style src="semantic-ui-css/components/header.css"></style>
+<style src="semantic-ui-css/components/icon.css"></style>
 <style scoped>
 .newt-notes {
   position: relative;
   margin-bottom: 2.4em;
+  height: 100px;
+  transition: height 0.4s ease;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
 
