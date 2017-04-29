@@ -2,8 +2,11 @@ import { firebaseMutations } from 'vuexfire'
 import * as types from './mutation-types'
 
 export default {
-  [types.LOADING] (state, percent) {
-    state.loading = percent
+  [types.ROUTE_LOADING] (state, percent) {
+    state.routeLoading = percent
+  },
+  [types.ASYNC_LOADING] (state, isLoading) {
+    state.asyncLoading = isLoading
   },
   [types.CLEAR_NOTE_FORM] (state) {
     state.newNote.title = state.newNote.text = ''

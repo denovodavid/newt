@@ -4,11 +4,11 @@ import store from '@/store'
 import * as mutationTypes from '@/store/mutation-types'
 
 function lazyLoadStart () {
-  store.commit(mutationTypes.LOADING, 30)
+  store.commit(mutationTypes.ROUTE_LOADING, 30)
 }
 
 function lazyLoadEnd () {
-  store.commit(mutationTypes.LOADING, 100)
+  store.commit(mutationTypes.ROUTE_LOADING, 100)
 }
 
 const SignIn = resolve => {

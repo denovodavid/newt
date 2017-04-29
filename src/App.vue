@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      mutations.LOADING
+      mutations.ROUTE_LOADING
     ])
   }
 }

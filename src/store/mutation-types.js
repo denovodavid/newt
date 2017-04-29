@@ -1,4 +1,5 @@
-export const LOADING = 'LOADING'
+export const ROUTE_LOADING = 'ROUTE_LOADING'
+export const ASYNC_LOADING = 'ASYNC_LOADING'
 
 export const CLEAR_NOTE_FORM = 'CLEAR_NOTE_FORM'
 export const NOTE_FORM = 'NOTE_FORM'

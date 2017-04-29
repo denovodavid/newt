@@ -1,7 +1,8 @@
 import colors from '../colors'
 
 export default {
-  loading: 0,
+  routeLoading: 0,
+  asyncLoading: true,
   notes: [
     /*
     {

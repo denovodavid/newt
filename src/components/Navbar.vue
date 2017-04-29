@@ -9,19 +9,31 @@
     <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Ember</a>
     <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Meteor</a> -->
   <div class="right menu">
-      <!--<div class="ui item">
-        <i id="loading-icon" class="icon large checkmark" style="color: #222 !important;"></i>
-      </div>-->
       <a class="item" v-on:click="handleSignOut()">Sign Out</a>
+      <div class="ui item">
+        <i id="loading-icon" :class="isLoading" class="icon large" style="color: #222 !important;"></i>
+      </div>
     </div>
 </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { firebaseApp } from '../firebase'
 
 export default {
   name: 'navbar',
+  computed: {
+    isLoading () {
+      return {
+        checkmark: !this.asyncLoading,
+        'notched circle loading': this.asyncLoading
+      }
+    },
+    ...mapState([
+      'asyncLoading'
+    ])
+  },
   methods: {
     handleSignOut () {
       firebaseApp.auth().signOut()
