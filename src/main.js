@@ -21,13 +21,6 @@ Vue.config.productionTip = false
 
 console.log('NEWT!')
 
-firebaseApp.auth().onAuthStateChanged(function (user) {
-  if (!user) {
-    console.log('User is signed out!')
-    router.replace('signin')
-  }
-})
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -36,7 +29,15 @@ new Vue({
   template: '<App/>',
   components: { App },
   created () {
-    this.$store.dispatch('setNotesRef', db.ref('notes'))
-    this.$store.dispatch('setNotesOrderRef', db.ref('notesOrder'))
+    const self = this
+    firebaseApp.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        self.$store.dispatch('setNotesRef', db.ref(`${user.uid}/notes`))
+        self.$store.dispatch('setNotesOrderRef', db.ref(`${user.uid}/notesOrder`))
+      } else {
+        console.log('User is signed out!')
+        router.replace('signin')
+      }
+    })
   }
 })
