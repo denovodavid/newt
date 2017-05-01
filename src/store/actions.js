@@ -22,14 +22,8 @@ export const setNotesOrderRef = firebaseAction(({ bindFirebaseRef, dispatch, com
   })
 })
 
-export const signInWithEmailAndPassword = ({ commit }, payload) => {
-  return new Promise((resolve, reject) => {
-    firebaseApp.auth().signInWithEmailAndPassword(payload.email, payload.password)
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
+export const signInWithEmailAndPassword = ({ commit }, { email, password }) =>
+  firebaseApp.auth().signInWithEmailAndPassword(email, password)
 
 export const asyncLoading = debounce(({ commit }, isLoading) => {
   // console.log(isLoading ? 'Loading...' : 'Done.')
