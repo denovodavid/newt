@@ -83,6 +83,7 @@ import { firebaseApp } from '../firebase'
 import { mapActions } from 'vuex'
 import 'semantic-ui-css/components/form'
 import 'semantic-ui-css/components/transition'
+import { notifySuccess, notifyError } from '@/notify'
 
 export default {
   name: 'signin',
@@ -109,28 +110,19 @@ export default {
       if (firebaseApp.auth().currentUser) {
         firebaseApp.auth().signOut()
       } else {
-        var email = self.login.email
-        var password = self.login.password
-        if (email.length < 4) {
-          alert('Please enter an email address.')
-          return
-        }
-        if (password.length < 4) {
-          alert('Please enter a password.')
-          return
-        }
-        this.signInWithEmailAndPassword({
-          email,
-          password
+        self.signInWithEmailAndPassword({
+          email: self.login.email,
+          password: self.login.password
+        }).then(() => {
+          notifySuccess({
+            name: 'Noice!',
+            message: 'You signed in.'
+          }).show()
         }).catch(error => {
-          var errorCode = error.code
-          var errorMessage = error.message
-          if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.')
-          } else {
-            alert(errorMessage)
-          }
-          console.log(error)
+          notifyError({
+            name: error.code,
+            message: error.message
+          }).show()
           self.isLoading = false
         })
         self.isLoading = true
