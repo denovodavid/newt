@@ -1,5 +1,7 @@
 # Newt
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/smeagolem/newt.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://img.shields.io/travis/smeagolem/newt/develop.svg)](https://travis-ci.org/smeagolem/newt)
 [![Code Coverage](https://img.shields.io/codecov/c/github/smeagolem/newt/develop.svg)](https://codecov.io/gh/smeagolem/newt)
 [![David Dev](https://img.shields.io/david/dev/smeagolem/newt/develop.svg)](https://david-dm.org/smeagolem/newt/develop?type=dev)
