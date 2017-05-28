@@ -1,10 +1,10 @@
 import Vuex from 'vuex'
 import { mount } from 'avoriaz'
 import cloneDeep from 'lodash/cloneDeep'
-import '../../../../src/directives'
-import '../../../../src/filters'
-import { options } from '../../../../src/store'
-import Testing from '../../../../src/components/Testing'
+import '@/directives'
+import '@/filters'
+import { options } from '@/store'
+import Testing from '@/components/Testing'
 
 // THIS HELPED A LOT
 // https://github.com/johnnynotsolucky/samples/blob/master/vuejs-sample-1/test/unit/specs/List.spec.js
