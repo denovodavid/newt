@@ -11,11 +11,34 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
+    "jest": "jest --no-cache"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/test/unit/"
+    ],
+    "coverageDirectory": "<rootDir>/test/unit/coverage",
+    "collectCoverageFrom": [
+      "src/*.{js,vue}"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+    },
+    "setupFiles": [
+      "<rootDir>/test/unit/jestSetup.js"
+    ]
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
     "autosize": "^3.0.20",
+    "avoriaz": "^1.14.0",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^7.0.0",
@@ -54,6 +77,8 @@
     "http-proxy-middleware": "^0.17.3",
     "imagesloaded": "^4.1.1",
     "inject-loader": "^3.0.0",
+    "jest": "^20.0.4",
+    "jest-vue-preprocessor": "^0.2.0",
     "jquery": "^3.2.1",
     "jquery-shapeshift": "^1.0.1",
     "jquery-ui-dist": "^1.12.1",
