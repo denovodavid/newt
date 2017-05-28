@@ -1,80 +1,81 @@
 import cloneDeep from 'lodash/cloneDeep'
-import { options } from '@/store'
-import * as types from '@/store/mutation-types'
+import stateOptions from '../../../../src/store/state'
+import mutationsOptions from '../../../../src/store/mutations'
+import * as types from '../../../../src/store/mutation-types'
 
-const mutations = cloneDeep(options.mutations)
+const mutations = cloneDeep(mutationsOptions)
 
 describe('Mutations', () => {
   let state
 
   beforeEach(() => {
-    state = cloneDeep(options.state)
+    state = cloneDeep(stateOptions)
   })
 
-  it(types.CLEAR_NOTE_FORM, () => {
+  xit(types.CLEAR_NOTE_FORM, () => {
     state.newNote.title = state.newNote.text = 'something'
     mutations[types.CLEAR_NOTE_FORM](state)
-    expect(state.newNote.title).to.equal('')
-    expect(state.newNote.text).to.equal('')
+    expect(state.newNote.title).toBe('')
+    expect(state.newNote.text).toBe('')
   })
 
-  it(types.NOTE_FORM, () => {
+  xit(types.NOTE_FORM, () => {
     const PAYLOAD = 'LOL'
     mutations[types.NOTE_FORM](state, PAYLOAD)
-    expect(state.newNote).to.equal(PAYLOAD)
+    expect(state.newNote).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_FORM_TITLE, () => {
+  xit(types.NOTE_FORM_TITLE, () => {
     const PAYLOAD = 'A Title'
     mutations[types.NOTE_FORM_TITLE](state, PAYLOAD)
-    expect(state.newNote.title).to.equal(PAYLOAD)
+    expect(state.newNote.title).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_FORM_TEXT, () => {
+  xit(types.NOTE_FORM_TEXT, () => {
     const PAYLOAD = 'Some Text'
     mutations[types.NOTE_FORM_TEXT](state, PAYLOAD)
-    expect(state.newNote.text).to.equal(PAYLOAD)
+    expect(state.newNote.text).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_FORM_COLOR, () => {
+  xit(types.NOTE_FORM_COLOR, () => {
     const PAYLOAD = 'blue'
     mutations[types.NOTE_FORM_COLOR](state, PAYLOAD)
-    expect(state.newNote.color).to.equal(PAYLOAD)
+    expect(state.newNote.color).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_FORM_MARKDOWN, () => {
+  xit(types.NOTE_FORM_MARKDOWN, () => {
     const PAYLOAD = true
     mutations[types.NOTE_FORM_MARKDOWN](state, PAYLOAD)
-    expect(state.newNote.markdown).to.equal(true)
+    expect(state.newNote.markdown).toBe(true)
   })
 
-  it(types.NOTE_EDITOR, () => {
+  xit(types.NOTE_EDITOR, () => {
     const PAYLOAD = 'LOL'
     mutations[types.NOTE_EDITOR](state, PAYLOAD)
-    expect(state.editor).to.equal(PAYLOAD)
+    expect(state.editor).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_EDITOR_TITLE, () => {
+  xit(types.NOTE_EDITOR_TITLE, () => {
     const PAYLOAD = 'A Title'
     mutations[types.NOTE_EDITOR_TITLE](state, PAYLOAD)
-    expect(state.editor.note.title).to.equal(PAYLOAD)
+    expect(state.editor.note.title).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_EDITOR_TEXT, () => {
+  xit(types.NOTE_EDITOR_TEXT, () => {
     const PAYLOAD = 'Some Text'
     mutations[types.NOTE_EDITOR_TEXT](state, PAYLOAD)
-    expect(state.editor.note.text).to.equal(PAYLOAD)
+    expect(state.editor.note.text).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_EDITOR_COLOR, () => {
+  xit(types.NOTE_EDITOR_COLOR, () => {
     const PAYLOAD = 'blue'
     mutations[types.NOTE_EDITOR_COLOR](state, PAYLOAD)
-    expect(state.editor.note.color).to.equal(PAYLOAD)
+    expect(state.editor.note.color).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_EDITOR_MARKDOWN, () => {
+  xit(types.NOTE_EDITOR_MARKDOWN, () => {
     const PAYLOAD = true
     mutations[types.NOTE_EDITOR_MARKDOWN](state, PAYLOAD)
-    expect(state.editor.note.markdown).to.equal(true)
+    expect(state.editor.note.markdown).toBe(true)
   })
 })
