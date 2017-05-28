@@ -15,13 +15,9 @@
     "jest": "jest --no-cache"
   },
   "jest": {
-    "roots": [
-      "<rootDir>/src/",
-      "<rootDir>/test/unit/"
-    ],
     "coverageDirectory": "<rootDir>/test/unit/coverage",
     "collectCoverageFrom": [
-      "src/*.{js,vue}"
+      "src/**/*.{js,vue}"
     ],
     "moduleFileExtensions": [
       "js",
