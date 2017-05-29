@@ -11,11 +11,11 @@ describe('Notes', () => {
     testOptions = cloneDeep(options)
   })
 
-  xit('has the correct name', () => {
+  it('has the correct name', () => {
     expect(Notes.name).toBe('notes')
   })
 
-  xit('calls action when setting order', (done) => {
+  it('calls action when setting order', (done) => {
     sinon.stub(testOptions.actions, 'updateNotesOrder').callsFake(({ commit }) => {
       done()
     })
@@ -31,7 +31,7 @@ describe('Notes', () => {
     new Component().$mount()
   })
 
-  xit('sets notes order correctly', (done) => {
+  it('sets notes order correctly', (done) => {
     const TEST_KEY_A = 'A'
     const TEST_KEY_B = 'B'
     sinon.stub(testOptions.actions, 'updateNotesOrder').callsFake(({ commit }, order) => {
@@ -75,7 +75,7 @@ describe('Notes', () => {
     const stubbedStore = new Vuex.Store(testOptions)
     const mixin = {
       mounted () {
-        this.$store.commxit('changeOrder')
+        this.$store.commit('changeOrder')
       },
       updated () {
         this.setNotesOrder()

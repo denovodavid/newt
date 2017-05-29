@@ -13,11 +13,11 @@ describe('NoteForm', () => {
     testOptions = cloneDeep(options)
   })
 
-  xit('has the correct name', () => {
+  it('has the correct name', () => {
     expect(NoteForm.name).toBe('noteform')
   })
 
-  xit('has dependable mutations', (done) => {
+  it('has dependable mutations', (done) => {
     const TEST_TITLE = 'Test Title'
     const TEST_TEXT = 'Test Text'
     const TEST_COLOR = 'red'
@@ -44,7 +44,7 @@ describe('NoteForm', () => {
     new Component().$mount()
   })
 
-  xit('calls action on form submit', (done) => {
+  it('calls action on form submit', (done) => {
     sinon.stub(testOptions.actions, 'createNote').callsFake(({ commit }) => {
       done()
     })

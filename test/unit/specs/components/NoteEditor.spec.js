@@ -13,11 +13,11 @@ describe('NoteEditor', () => {
     testOptions = cloneDeep(options)
   })
 
-  xit('has the correct name', () => {
+  it('has the correct name', () => {
     expect(NoteEditor.name).toBe('noteeditor')
   })
 
-  xit('has dependable mutations', (done) => {
+  it('has dependable mutations', (done) => {
     const TEST_TITLE = 'Test Title'
     const TEST_TEXT = 'Test Text'
     const TEST_COLOR = 'red'
@@ -55,7 +55,7 @@ describe('NoteEditor', () => {
     new Component().$mount()
   })
 
-  xit('calls action on hidden', (done) => {
+  it('calls action on hidden', (done) => {
     sinon.stub(testOptions.actions, 'updateNote').callsFake(({ commit }) => {
       done()
     })

@@ -11,7 +11,7 @@ describe('Getters', () => {
     state = cloneDeep(stateOptions)
   })
 
-  xit('orderedNotes: consecutive', () => {
+  it('orderedNotes: consecutive', () => {
     const TEST_KEY_A = 'A'
     const TEST_KEY_B = 'B'
     state.notes = [
@@ -43,7 +43,7 @@ describe('Getters', () => {
     expect(orderedNotes[0]['.key']).toBe(TEST_KEY_B)
   })
 
-  xit('orderedNotes: equal', () => {
+  it('orderedNotes: equal', () => {
     const TEST_KEY_A = 'A'
     const TEST_KEY_B = 'B'
     state.notes = [
@@ -74,7 +74,7 @@ describe('Getters', () => {
     expect(state.notes[0]['.key']).toBe(orderedNotes[0]['.key'])
   })
 
-  xit('orderedNotes: undefined or null', () => {
+  it('orderedNotes: undefined or null', () => {
     const TEST_KEY_A = 'A'
     const TEST_KEY_B = 'B'
     state.notes = [
@@ -104,7 +104,7 @@ describe('Getters', () => {
     expect(state.notes[0]['.key']).toBe(orderedNotes[1]['.key'])
   })
 
-  xit('markdown returns correct image', () => {
+  it('markdown returns correct image', () => {
     const HREF = 'https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png'
     const TITLE = 'Logo Title Text 1'
     const ALT_TEXT = 'alt text'
@@ -114,7 +114,7 @@ describe('Getters', () => {
     expect(ACTUAL).toBe(EXPECTED)
   })
 
-  xit('markdown returns correct link', () => {
+  it('markdown returns correct link', () => {
     const HREF = 'https://www.google.com'
     const TITLE = 'Google'
     const TEXT = 'Inline-style link with title'

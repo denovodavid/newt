@@ -6,9 +6,6 @@ import '@/filters'
 import { options } from '@/store'
 import Testing from '@/components/Testing'
 
-// THIS HELPED A LOT
-// https://github.com/johnnynotsolucky/samples/blob/master/vuejs-sample-1/test/unit/specs/List.spec.js
-
 describe('Testing', () => {
   let testOptions
 
