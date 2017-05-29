@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { mount } from 'avoriaz'
 import Vuex from 'vuex'
 import '@/directives'
 import '@/filters'
@@ -23,14 +23,9 @@ describe('Note', () => {
     expect(defaultData.overflow).toBe(false)
   })
 
-  it('has correct note color and key', (done) => {
+  it('has correct note color and key', () => {
     const TEST_KEY = 'TestKey'
     const TEST_COLOR = 'purple'
-    function assertions () {
-      expect(this.noteColor).toBe(this.colors[TEST_COLOR])
-      expect(this.key).toBe(TEST_KEY)
-      done()
-    }
     const propsData = {
       note: {
         '.key': TEST_KEY,
@@ -42,55 +37,15 @@ describe('Note', () => {
         title: 'Test title'
       }
     }
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        Vue.nextTick()
-          .then(assertions.bind(this))
-          .catch(done)
-      }
-    }
-    const Component = Vue.extend({ ...Note, store: stubbedStore, mixins: [mixin] })
-    new Component({ propsData }).$mount()
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(Note, { store, propsData })
+    expect(wrapper.vm.noteColor).toBe(wrapper.vm.colors[TEST_COLOR])
+    expect(wrapper.vm.key).toBe(TEST_KEY)
   })
 
-  fit('has correct note color and key', (done) => {
-    const TEST_KEY = 'TestKey'
-    const TEST_COLOR = 'purple'
-    function assertions () {
-      expect(this.noteColor).toBe(this.colors[TEST_COLOR])
-      expect(this.key).toBe(TEST_KEY)
-      done()
-    }
-    const propsData = {
-      note: {
-        '.key': TEST_KEY,
-        checked: false,
-        color: TEST_COLOR,
-        created_at: '2016-08-20T04:38:10.082Z',
-        markdown: false,
-        text: 'Test text',
-        title: 'Test title'
-      }
-    }
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        Vue.nextTick()
-          .then(assertions.bind(this))
-          .catch(done)
-      }
-    }
-    const Component = Vue.extend({ ...Note, store: stubbedStore, mixins: [mixin] })
-    new Component({ propsData }).$mount()
-  })
-
-  it('has correct overflow gradient', (done) => {
-    const TEST_COLOR = 'purple'
-    function assertions () {
-      expect(this.overflowGradient).toBe(`linear-gradient(transparent, ${this.noteColor})`)
-      done()
-    }
+  it('has correct overflow gradient', () => {
+    // Totally pointless test
+    const TEST_COLOR = 'cabbage'
     const propsData = {
       note: {
         '.key': 'akey',
@@ -102,15 +57,8 @@ describe('Note', () => {
         title: 'Test title'
       }
     }
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        Vue.nextTick()
-          .then(assertions.bind(this))
-          .catch(done)
-      }
-    }
-    const Component = Vue.extend({ ...Note, store: stubbedStore, mixins: [mixin] })
-    new Component({ propsData }).$mount()
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(Note, { store, propsData })
+    expect(wrapper.vm.overflowGradient).toBe(`linear-gradient(transparent, ${wrapper.vm.noteColor})`)
   })
 })
