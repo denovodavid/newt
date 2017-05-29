@@ -25,7 +25,7 @@
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
     },
     "setupFiles": [
-      "<rootDir>/test/unit/jestSetup.js"
+      "<rootDir>/test/unit/index.js"
     ]
   },
   "devDependencies": {
