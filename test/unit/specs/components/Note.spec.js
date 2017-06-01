@@ -42,23 +42,4 @@ describe('Note', () => {
     expect(wrapper.vm.noteColor).toBe(wrapper.vm.colors[TEST_COLOR])
     expect(wrapper.vm.key).toBe(TEST_KEY)
   })
-
-  it('has correct overflow gradient', () => {
-    // Totally pointless test
-    const TEST_COLOR = 'cabbage'
-    const propsData = {
-      note: {
-        '.key': 'akey',
-        checked: false,
-        color: TEST_COLOR,
-        created_at: '2016-08-20T04:38:10.082Z',
-        markdown: false,
-        text: 'Test text',
-        title: 'Test title'
-      }
-    }
-    const store = new Vuex.Store(testOptions)
-    const wrapper = mount(Note, { store, propsData })
-    expect(wrapper.vm.overflowGradient).toBe(`linear-gradient(transparent, ${wrapper.vm.noteColor})`)
-  })
 })
