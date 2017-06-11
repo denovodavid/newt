@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
-import stateOptions from '../../../../src/store/state'
-import gettersOptions from '../../../../src/store/getters'
+import stateOptions from '@/store/state'
+import gettersOptions from '@/store/getters'
 
 const getters = cloneDeep(gettersOptions)
 
