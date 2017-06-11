@@ -1,10 +1,12 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
-import '../../../../src/directives'
-import '../../../../src/filters'
+import { mount } from 'avoriaz'
 import cloneDeep from 'lodash/cloneDeep'
-import { options } from '../../../../src/store'
-import NoteForm from '../../../../src/components/NoteForm'
+import '@/directives'
+import '@/filters'
+import { options } from '@/store'
+import NoteForm from '@/components/NoteForm'
+
+jest.mock('@/firebaseApp')
 
 describe('NoteForm', () => {
   let testOptions
@@ -17,44 +19,39 @@ describe('NoteForm', () => {
     expect(NoteForm.name).toBe('noteform')
   })
 
-  it('has dependable mutations', (done) => {
+  it('has dependable mutations', () => {
     const TEST_TITLE = 'Test Title'
     const TEST_TEXT = 'Test Text'
-    const TEST_COLOR = 'red'
-    function assertions () {
-      expect(this.title).toBe(TEST_TITLE)
-      expect(this.text).toBe(TEST_TEXT)
-      expect(this.newNoteColor).toEqual({ 'background-color': this.colors[TEST_COLOR] })
-      done()
-    }
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        this.title = TEST_TITLE
-        this.text = TEST_TEXT
-        this.NOTE_FORM_COLOR(TEST_COLOR)
-      },
-      updated () {
-        Vue.nextTick()
-          .then(assertions.bind(this))
-          .catch(done)
-      }
-    }
-    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mixins: [mixin] })
-    new Component().$mount()
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(NoteForm, { store })
+    wrapper.vm.title = TEST_TITLE
+    wrapper.vm.text = TEST_TEXT
+    expect(wrapper.vm.title).toBe(TEST_TITLE)
+    expect(wrapper.vm.text).toBe(TEST_TEXT)
   })
 
-  it('calls action on form submit', (done) => {
-    sinon.stub(testOptions.actions, 'createNote').callsFake(({ commit }) => {
-      done()
+  it('calls store action createNote when button is clicked', () => {
+    // mock our selected function
+    testOptions.actions.createNote = jest.fn()
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(NoteForm, { store })
+    wrapper.find('button[type=submit]')[0].dispatch('click')
+    expect(testOptions.actions.createNote).toBeCalled()
+  })
+
+  it('has active class on markdown button when markdown is true', () => {
+    testOptions.state.newNote.markdown = true
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(NoteForm, { store })
+    expect(wrapper.find('#note-markdown')[0].hasClass('active')).toBe(true)
+  })
+
+  it('returns correct note color', () => {
+    testOptions.state.newNote.color = 'red'
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(NoteForm, { store })
+    expect(wrapper.vm.newNoteColor).toEqual({
+      'background-color': wrapper.vm.colors[testOptions.state.newNote.color]
     })
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        $(this.$el.querySelector('button[type=submit]')).click()
-      }
-    }
-    const Component = Vue.extend({ ...NoteForm, store: stubbedStore, mixins: [mixin] })
-    new Component().$mount()
   })
 })

@@ -1,5 +1,3 @@
-// import cloneDeep from 'lodash/cloneDeep'
-// import stateOptions from '@/store/state'
 import * as getters from '@/store/getters'
 
 describe('Getters', () => {

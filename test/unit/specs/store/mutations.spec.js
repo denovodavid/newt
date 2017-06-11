@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep'
-import stateOptions from '../../../../src/store/state'
-import mutationsOptions from '../../../../src/store/mutations'
-import * as types from '../../../../src/store/mutation-types'
+import stateOptions from '@/store/state'
+import mutationsOptions from '@/store/mutations'
+import * as types from '@/store/mutation-types'
 
 const mutations = cloneDeep(mutationsOptions)
 
