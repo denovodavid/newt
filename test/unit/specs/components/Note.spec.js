@@ -1,10 +1,12 @@
-import Vue from 'vue'
+import { mount } from 'avoriaz'
 import Vuex from 'vuex'
 import '@/directives'
 import '@/filters'
 import cloneDeep from 'lodash/cloneDeep'
 import { options } from '@/store'
 import Note from '@/components/Note'
+
+jest.mock('@/firebaseApp')
 
 describe('Note', () => {
   let testOptions
@@ -14,26 +16,20 @@ describe('Note', () => {
   })
 
   it('has the correct name', () => {
-    expect(Note.name).to.equal('note')
+    expect(Note.name).toBe('note')
   })
 
   it('has correct default data', () => {
-    expect(Note.data).to.be.a('function')
+    expect(typeof Note.data).toBe('function')
     const defaultData = Note.data()
-    expect(defaultData.overflow).to.equal(false)
+    expect(defaultData.overflow).toBe(false)
   })
 
-  it('has correct note color and key', (done) => {
-    const TEST_KEY = 'TestKey'
+  it('has correct note color', () => {
     const TEST_COLOR = 'purple'
-    function assertions () {
-      expect(this.noteColor).to.equal(this.colors[TEST_COLOR])
-      expect(this.key).to.equal(TEST_KEY)
-      done()
-    }
     const propsData = {
       note: {
-        '.key': TEST_KEY,
+        '.key': 'someKey',
         checked: false,
         color: TEST_COLOR,
         created_at: '2016-08-20T04:38:10.082Z',
@@ -42,44 +38,8 @@ describe('Note', () => {
         title: 'Test title'
       }
     }
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        Vue.nextTick()
-          .then(assertions.bind(this))
-          .catch(done)
-      }
-    }
-    const Component = Vue.extend({ ...Note, store: stubbedStore, mixins: [mixin] })
-    new Component({ propsData }).$mount()
-  })
-
-  it('has correct overflow gradient', (done) => {
-    const TEST_COLOR = 'purple'
-    function assertions () {
-      expect(this.overflowGradient).to.equal(`linear-gradient(transparent, ${this.noteColor})`)
-      done()
-    }
-    const propsData = {
-      note: {
-        '.key': 'akey',
-        checked: false,
-        color: TEST_COLOR,
-        created_at: '2016-08-20T04:38:10.082Z',
-        markdown: false,
-        text: 'Test text',
-        title: 'Test title'
-      }
-    }
-    const stubbedStore = new Vuex.Store(testOptions)
-    const mixin = {
-      mounted () {
-        Vue.nextTick()
-          .then(assertions.bind(this))
-          .catch(done)
-      }
-    }
-    const Component = Vue.extend({ ...Note, store: stubbedStore, mixins: [mixin] })
-    new Component({ propsData }).$mount()
+    const store = new Vuex.Store(testOptions)
+    const wrapper = mount(Note, { store, propsData })
+    expect(wrapper.vm.noteColor).toBe(wrapper.vm.colors[TEST_COLOR])
   })
 })

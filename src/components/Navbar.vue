@@ -34,7 +34,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { firebaseApp } from '../firebase'
+import { firebaseApp } from '../firebaseApp'
 
 export default {
   name: 'navbar',

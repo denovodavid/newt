@@ -1,11 +1,9 @@
-import Vue from 'vue'
+import { mount } from 'avoriaz'
 import Hello from '@/components/Hello'
 
-describe('Hello.vue', () => {
+describe('Hello', () => {
   it('should render correct contents', () => {
-    const Constructor = Vue.extend(Hello)
-    const vm = new Constructor().$mount()
-    expect(vm.$el.querySelector('.hello h1').textContent)
-      .to.equal('Welcome to Your Vue.js App')
+    const wrapper = mount(Hello)
+    expect(wrapper.find('.hello h1')[0].text()).toBe('Welcome to Your Vue.js App')
   })
 })

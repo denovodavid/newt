@@ -1,7 +1,7 @@
 import * as types from './mutation-types'
 import firebase from 'firebase'
 import { firebaseAction } from 'vuexfire'
-import { firebaseApp, db } from '../firebase'
+import { firebaseApp, db } from '../firebaseApp'
 import debounce from 'lodash/debounce'
 
 export const setNotesRef = firebaseAction(({ bindFirebaseRef, dispatch, commit }, { ref }) => {
@@ -61,17 +61,16 @@ export const updateNote = ({ dispatch, commit }, note) => {
 
 export const removeNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
-  db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).remove()
-    .then(() => {
-      dispatch('asyncLoading', false)
-      console.log('Note Removed!')
-    })
-    .catch((error) => {
-      dispatch('asyncLoading', false)
-      console.error('Note Remove Failed', error.message)
-    })
+  db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).remove(() => {
+    dispatch('asyncLoading', false)
+    console.log('Note Removed!')
+  }).catch((error) => {
+    dispatch('asyncLoading', false)
+    console.error('Note Remove Failed', error.message)
+  })
 }
 
+// TODO: remove
 export const updateNoteColor = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
   db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).update({

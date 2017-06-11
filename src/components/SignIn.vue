@@ -79,7 +79,7 @@
 
 <script>
 import router from '../router'
-import { firebaseApp } from '../firebase'
+import { firebaseApp } from '../firebaseApp'
 import { mapActions } from 'vuex'
 import 'semantic-ui-css/components/form'
 import 'semantic-ui-css/components/transition'
