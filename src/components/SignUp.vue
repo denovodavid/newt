@@ -65,7 +65,7 @@
 
 <script>
 import router from '../router'
-import { firebaseApp } from '../firebase'
+import { firebaseApp } from '../firebaseApp'
 import { mapActions } from 'vuex'
 
 export default {

@@ -6,7 +6,7 @@ import './directives'
 import './filters'
 import App from './App'
 import router from './router'
-import { firebaseApp, db } from './firebase'
+import { firebaseApp, db } from './firebaseApp'
 
 import { sync } from 'vuex-router-sync'
 sync(store, router) // done.

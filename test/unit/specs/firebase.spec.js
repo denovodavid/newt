@@ -1,4 +1,4 @@
-import { firebaseApp } from '../../../src/firebase'
+import { firebaseApp } from '@/firebaseApp'
 
 describe('Firebase', () => {
   it('should load the config without crashing', () => {
