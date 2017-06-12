@@ -46,7 +46,9 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapState, mapActions, mapMutations } from 'vuex'
+import autosize from 'autosize'
 import * as mutations from '../store/mutation-types'
 import 'semantic-ui-css/components/form'
 import 'semantic-ui-css/components/transition'
@@ -79,6 +81,16 @@ export default {
       'newNote',
       'colors'
     ])
+  },
+  watch: {
+    newNote: {
+      handler () {
+        Vue.nextTick(() => {
+          autosize.update($('#note-text'))
+        })
+      },
+      deep: true
+    }
   },
   methods: {
     ...mapMutations([
