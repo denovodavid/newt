@@ -163,10 +163,18 @@ export default {
 <style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 .newt-note {
-  background: #CCC;
+  background: none;
   position: absolute;
   transition: left 0.4s ease, top 0.4s ease, opacity 0.4s;
   z-index: 1;
+}
+
+.ui.raised.card {
+  box-shadow: none;
+}
+
+.extra.content {
+  border: none !important;
 }
 
 .ui-draggable-dragging {
