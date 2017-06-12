@@ -1,10 +1,8 @@
 <template>
-  <div class="ui text container">
+  <div class="ui container">
     <form id="note-form"
           class="ui form"
           @submit.prevent="createNote(newNote)">
-      <div class="ui fluid card">
-        <div class="content">
           <div class="ui large transparent left input fluid">
             <input id="note-title"
                    type="text"
@@ -19,44 +17,30 @@
                       v-autosize
                       v-model.trim="text"></textarea>
           </div>
-        </div>
-        <div class="extra content"
-             :style="newNoteColor">
-          <div class="compact ui icon dropdown circular basic tiny button"
-               v-dropdown>
-            <i class="icon theme"></i>
-            <div class="menu">
-              <div class="item"
-                   v-for="(hex, color) in colors"
-                   @click="NOTE_FORM_COLOR(color)">
-                <div class="ui large empty circular label"
-                     :style="{ backgroundColor: hex }"></div>
-                {{ color | capitalise }}
+        <div class="ui basic clearing segment">
+            <button id="post-note"
+                  class="ui right floated button"
+                  type="submit">Done</button>
+            <button id="note-markdown"
+                    type="button"
+                    class="ui right floated toggle button"
+                    :class="{ active: newNote.markdown }"
+                    @click="NOTE_FORM_MARKDOWN(!newNote.markdown)">Markdown</button>
+            <div class="ui right floated dropdown button"
+                v-dropdown
+                :style="newNoteColor">
+              Color
+              <div class="menu">
+                <div class="item"
+                    v-for="(hex, color) in colors"
+                    @click="NOTE_FORM_COLOR(color)">
+                  <div class="ui large empty circular label"
+                      :style="{ backgroundColor: hex }"></div>
+                  {{ color | capitalise }}
+                </div>
               </div>
             </div>
           </div>
-          <div class="right floated">
-            <div class="ui icon basic tiny buttons compact">
-              <button id="note-markdown"
-                      type="button"
-                      class="ui toggle button"
-                      :class="{ active: newNote.markdown }"
-                      @click="NOTE_FORM_MARKDOWN(!newNote.markdown)">Markdown</button>
-              <!--<div class="ui icon dropdown button"
-                   v-dropdown>
-                <i class="icon ellipsis vertical"></i>
-                <div class="menu">
-                  <div class="item">Option 1</div>
-                  <div class="item">Option 2</div>
-                  <div class="item">Option 3</div>
-                </div>
-              </div>-->
-            </div>
-          </div>
-        </div>
-        <button class="ui bottom attached button"
-                type="submit">Done</button>
-      </div>
     </form>
   </div>
 </template>
@@ -121,9 +105,37 @@ export default {
 <style src="semantic-ui-css/components/menu.css"></style>
 <style src="semantic-ui-css/components/transition.css"></style>
 <style src="semantic-ui-css/components/label.css"></style>
+<style src="semantic-ui-css/components/segment.css"></style>
 <style scoped>
 #note-text {
+  background: none;
   border: 0;
   padding: 0;
+  resize: none;
+}
+
+.ui.basic.clearing.segment {
+  padding: 0;
+}
+
+.ui.button {
+  background: none;
+}
+
+.ui.button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ui.button:active {
+  background: none;
+}
+
+.ui.button.button {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+#post-note {
+  margin-right: 0;
 }
 </style>
