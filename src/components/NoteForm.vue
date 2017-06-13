@@ -3,44 +3,32 @@
     <form id="note-form"
           class="ui form"
           @submit.prevent="createNote(newNote)">
-          <div class="ui large transparent left input fluid">
-            <input id="note-title"
-                   type="text"
-                   placeholder="Title"
-                   v-model.trim="title">
-          </div>
-          <div class="ui divider"></div>
-          <div class="field">
-            <textarea id="note-text"
-                      rows="3"
-                      placeholder="Take a note..."
-                      v-autosize
-                      v-model.trim="text"></textarea>
-          </div>
-        <div class="ui basic clearing segment">
-            <button id="post-note"
-                  class="ui right floated button"
-                  type="submit">Done</button>
-            <button id="note-markdown"
-                    type="button"
-                    class="ui right floated toggle button"
-                    :class="{ active: newNote.markdown }"
-                    @click="NOTE_FORM_MARKDOWN(!newNote.markdown)">Markdown</button>
-            <div class="ui right floated dropdown button"
-                v-dropdown
-                :style="newNoteColor">
-              Color
-              <div class="menu">
-                <div class="item"
-                    v-for="(hex, color) in colors"
-                    @click="NOTE_FORM_COLOR(color)">
-                  <div class="ui large empty circular label"
-                      :style="{ backgroundColor: hex }"></div>
-                  {{ color | capitalise }}
-                </div>
+      <div class="field">
+        <textarea id="note-text"
+                  rows="1"
+                  placeholder="Take a note..."
+                  v-autosize
+                  v-model.trim="text"></textarea>
+      </div>
+      <div class="ui basic clearing segment">
+          <button id="post-note"
+                class="ui right floated button"
+                type="submit">Done</button>
+          <div class="ui right floated dropdown button"
+              v-dropdown
+              :style="newNoteColor">
+            Color
+            <div class="menu">
+              <div class="item"
+                  v-for="(hex, color) in colors"
+                  @click="NOTE_FORM_COLOR(color)">
+                <div class="ui large empty circular label"
+                    :style="{ backgroundColor: hex }"></div>
+                {{ color | capitalise }}
               </div>
             </div>
           </div>
+        </div>
     </form>
   </div>
 </template>
@@ -120,6 +108,7 @@ export default {
 <style src="semantic-ui-css/components/segment.css"></style>
 <style scoped>
 #note-text {
+  font-size: 2em;
   background: none;
   border: 0;
   padding: 0;
