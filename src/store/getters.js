@@ -53,7 +53,6 @@ md.renderer.rules.image = (tokens, idx, options, env, slf) => {
     'class',
     'ui image'
   ])
-  console.dir(token)
 
   return slf.renderToken(tokens, idx, options)
 }
