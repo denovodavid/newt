@@ -7,12 +7,9 @@ export default {
     /*
     {
       '.key': ''
-      checked: false,
       color: '',
       created_at: '',
-      markdown: false,
-      text: '',
-      title: ''
+      text: ''
     }
     */
   ],
@@ -26,20 +23,15 @@ export default {
     note: {
       /*
       '.key': ''
-      checked: false,
       color: '',
       created_at: '',
-      markdown: false,
-      text: '',
-      title: ''
+      text: ''
       */
     }
   },
   newNote: {
-    title: '',
     text: '',
-    markdown: false,
-    color: 'none'
+    color: ''
   },
   colors
 }
