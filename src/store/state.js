@@ -22,11 +22,11 @@ export default {
     show: false,
     note: {
       /*
-      '.key': ''
+      '.key': '',
       color: '',
       created_at: '',
-      text: ''
       */
+      text: ''
     }
   },
   newNote: {
