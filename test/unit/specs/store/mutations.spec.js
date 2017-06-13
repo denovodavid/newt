@@ -36,10 +36,16 @@ describe('Mutations', () => {
     expect(state.editor).toBe(PAYLOAD)
   })
 
-  it(types.NOTE_EDITOR_TITLE, () => {
-    const PAYLOAD = 'A Title'
-    mutations[types.NOTE_EDITOR_TITLE](state, PAYLOAD)
-    expect(state.editor.note.title).toBe(PAYLOAD)
+  it(types.NOTE_EDITOR_SHOW, () => {
+    const PAYLOAD = true
+    mutations[types.NOTE_EDITOR_SHOW](state, PAYLOAD)
+    expect(state.editor.show).toBe(PAYLOAD)
+  })
+
+  it(types.NOTE_EDITOR_NOTE, () => {
+    const PAYLOAD = 'NEWT'
+    mutations[types.NOTE_EDITOR_NOTE](state, PAYLOAD)
+    expect(state.editor.note).toBe(PAYLOAD)
   })
 
   it(types.NOTE_EDITOR_TEXT, () => {
@@ -52,11 +58,5 @@ describe('Mutations', () => {
     const PAYLOAD = 'blue'
     mutations[types.NOTE_EDITOR_COLOR](state, PAYLOAD)
     expect(state.editor.note.color).toBe(PAYLOAD)
-  })
-
-  it(types.NOTE_EDITOR_MARKDOWN, () => {
-    const PAYLOAD = true
-    mutations[types.NOTE_EDITOR_MARKDOWN](state, PAYLOAD)
-    expect(state.editor.note.markdown).toBe(true)
   })
 })
