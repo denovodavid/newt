@@ -34,7 +34,7 @@ export const createNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
   db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).push({
     text: note.text.trim(),
-    color: note.color,
+    color: note.color === '' ? 'white' : note.color,
     created_at: firebase.database.ServerValue.TIMESTAMP
   }, () => {
     console.log('Note Created!')
