@@ -25,11 +25,11 @@
       <div class="extra content"
            style="visibility: hidden;">
         <span class="left floated">
-          <div class="compact ui circular icon basic mini button"
+          <div class="compact ui circular icon tiny button"
                @click="NOTE_EDITOR({ note, show: true })">
             <i class="icon write"></i>
           </div>
-          <div class="compact ui icon dropdown circular basic mini button"
+          <div class="compact ui icon dropdown circular tiny button"
                v-dropdown>
             <i class="icon theme"></i>
             <div class="menu">
@@ -44,7 +44,7 @@
           </div>
         </span>
         <span class="right floated">
-          <span>{{ createdDate }}</span>
+          <!--<span>{{ createdDate }}</span>-->
         <div class="ui icon dropdown"
              v-dropdown>
           <i class="icon ellipsis vertical"></i>
@@ -179,6 +179,18 @@ export default {
 
 .ui-draggable-dragging {
   transition: none;
+}
+
+.ui.button {
+  background: none;
+}
+
+.ui.button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ui.button:active {
+  background: none;
 }
 
 .description {
