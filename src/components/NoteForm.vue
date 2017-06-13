@@ -44,14 +44,6 @@ import 'semantic-ui-css/components/transition'
 export default {
   name: 'noteform',
   computed: {
-    title: {
-      get () {
-        return this.newNote.title
-      },
-      set (value) {
-        this.NOTE_FORM_TITLE(value)
-      }
-    },
     text: {
       get () {
         return this.newNote.text
@@ -82,10 +74,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      mutations.NOTE_FORM_TITLE,
       mutations.NOTE_FORM_TEXT,
-      mutations.NOTE_FORM_COLOR,
-      mutations.NOTE_FORM_MARKDOWN
+      mutations.NOTE_FORM_COLOR
     ]),
     ...mapActions([
       'createNote'
