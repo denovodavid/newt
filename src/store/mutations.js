@@ -20,17 +20,17 @@ export default {
   [types.NOTE_EDITOR] (state, payload) {
     state.editor = payload
   },
-  [types.NOTE_EDITOR_TITLE] (state, title) {
-    state.editor.note.title = title
+  [types.NOTE_EDITOR_SHOW] (state, payload) {
+    state.editor.show = payload
+  },
+  [types.NOTE_EDITOR_NOTE] (state, payload) {
+    state.editor.note = payload
   },
   [types.NOTE_EDITOR_TEXT] (state, text) {
     state.editor.note.text = text
   },
   [types.NOTE_EDITOR_COLOR] (state, color) {
     state.editor.note.color = color
-  },
-  [types.NOTE_EDITOR_MARKDOWN] (state, markdown) {
-    state.editor.note.markdown = markdown
   },
   ...firebaseMutations
 }
