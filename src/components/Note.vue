@@ -8,16 +8,11 @@
              style="visibility: hidden;">
           <i class="block layout icon"></i>
         </div>
-        <div class="header note-title"
-             v-show="note.title">{{ note.title }}</div>
         <div class="description">
           <div class="note-overflow"
                v-show="overflow"
                :style="{ background: overflowGradient }"></div>
-          <p v-show="!note.markdown"
-             class="note-text">{{ note.text }}</p>
           <div class="note-markdown"
-               v-show="note.markdown"
                v-html="markdown(note.text)"></div>
         </div>
         <p v-show="overflow">...</p>
@@ -132,10 +127,8 @@ export default {
       const self = this
       const $note = $(self.$el)
       const $noteMarkdown = $note.find('.note-markdown')
-      const $noteText = $note.find('.note-text')
       if (
-        $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
-        $noteText[0].scrollHeight > $noteText.innerHeight()
+        $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight()
       ) {
         self.overflow = true
       } else {
@@ -195,16 +188,6 @@ export default {
 
 .description {
   position: relative;
-}
-
-.note-title {
-  word-wrap: break-word;
-}
-
-.note-text {
-  max-height: 24em;
-  overflow: hidden;
-  white-space: pre-wrap;
 }
 
 .note-markdown {
