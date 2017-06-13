@@ -4,11 +4,11 @@
     <div class="ui raised card"
          :style="{ backgroundColor: noteColor }">
       <div class="content">
-        <div class="right floated meta drag-handle"
-             style="visibility: hidden;">
-          <i class="block layout icon"></i>
-        </div>
         <div class="description">
+          <div class="meta drag-handle"
+              style="visibility: hidden; position: absolute; right: 0;">
+            <i class="block layout icon"></i>
+          </div>
           <div class="note-overflow"
                v-show="overflow"
                :style="{ background: overflowGradient }"></div>

@@ -124,6 +124,7 @@ export default {
 
 <style src="semantic-ui-css/components/header.css"></style>
 <style src="semantic-ui-css/components/icon.css"></style>
+<style src="highlight.js/styles/atom-one-light.css"></style>
 <style scoped>
 .newt-notes {
   position: relative;
@@ -142,12 +143,45 @@ export default {
 </style>
 
 <style>
-.ss-placeholder-child {
+@font-face{
+  font-family: 'Fira Code';
+  src: url('~@/assets/fonts/FiraCode-Light/FiraCode-Light.eot');
+  src: url('~@/assets/fonts/FiraCode-Light/FiraCode-Light.eot') format('embedded-opentype'),
+       url('~@/assets/fonts/FiraCode-Light/FiraCode-Light.woff2') format('woff2'),
+       url('~@/assets/fonts/FiraCode-Light/FiraCode-Light.woff') format('woff'),
+       url('~@/assets/fonts/FiraCode-Light/FiraCode-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+#note-wall .ss-placeholder-child {
   border: 1px dashed #999;
   border-radius: 4px;
   position: absolute;
   transition: left 0.4s ease, top 0.4s ease;
   width: 290px;
   z-index: 0;
+}
+
+#note-wall .emoji {
+  height: 1.3em;
+}
+
+#note-wall .ui.image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#note-wall pre {
+  background: rgba(250, 250, 250, 0.5);
+  border-radius: 4px;
+  padding: 0.5em;
+  white-space: pre-wrap;
+}
+
+#note-wall code {
+  font-family: 'Fira Code';
+  font-feature-settings: "calt" 1;
+  font-variant-ligatures: contextual;
 }
 </style>
