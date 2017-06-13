@@ -81,7 +81,7 @@ describe('actions', () => {
       text: 'text',
       markdown: false,
       color: 'white'
-    }, {}, [{ type: 'CLEAR_NOTE_FORM' }], [{
+    }, {}, [{ type: 'NOTE_FORM_TEXT', payload: '' }], [{
       type: 'asyncLoading',
       payload: true
     }, {

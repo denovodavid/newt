@@ -33,15 +33,13 @@ export const asyncLoading = debounce(({ commit }, isLoading) => {
 export const createNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
   db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).push({
-    title: note.title.trim(),
     text: note.text.trim(),
-    markdown: note.markdown,
-    color: note.color,
+    color: note.color === '' ? 'white' : note.color,
     created_at: firebase.database.ServerValue.TIMESTAMP
   }, () => {
     console.log('Note Created!')
     dispatch('asyncLoading', false)
-    commit(types.CLEAR_NOTE_FORM)
+    commit(types.NOTE_FORM_TEXT, '')
     // reset newNote using some mutation
   })
 }
@@ -49,9 +47,7 @@ export const createNote = ({ dispatch, commit }, note) => {
 export const updateNote = ({ dispatch, commit }, note) => {
   dispatch('asyncLoading', true)
   db.ref(`${firebaseApp.auth().currentUser.uid}/notes`).child(note['.key']).update({
-    title: note.title.trim(),
     text: note.text.trim(),
-    markdown: note.markdown,
     color: note.color
   }, () => {
     dispatch('asyncLoading', false)

@@ -39,13 +39,6 @@ describe('NoteForm', () => {
     expect(testOptions.actions.createNote).toBeCalled()
   })
 
-  it('has active class on markdown button when markdown is true', () => {
-    testOptions.state.newNote.markdown = true
-    const store = new Vuex.Store(testOptions)
-    const wrapper = mount(NoteForm, { store })
-    expect(wrapper.find('#note-markdown')[0].hasClass('active')).toBe(true)
-  })
-
   it('returns correct note color', () => {
     testOptions.state.newNote.color = 'red'
     const store = new Vuex.Store(testOptions)

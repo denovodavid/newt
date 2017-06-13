@@ -12,23 +12,10 @@ describe('Mutations', () => {
     state = cloneDeep(stateOptions)
   })
 
-  it(types.CLEAR_NOTE_FORM, () => {
-    state.newNote.title = state.newNote.text = 'something'
-    mutations[types.CLEAR_NOTE_FORM](state)
-    expect(state.newNote.title).toBe('')
-    expect(state.newNote.text).toBe('')
-  })
-
   it(types.NOTE_FORM, () => {
     const PAYLOAD = 'LOL'
     mutations[types.NOTE_FORM](state, PAYLOAD)
     expect(state.newNote).toBe(PAYLOAD)
-  })
-
-  it(types.NOTE_FORM_TITLE, () => {
-    const PAYLOAD = 'A Title'
-    mutations[types.NOTE_FORM_TITLE](state, PAYLOAD)
-    expect(state.newNote.title).toBe(PAYLOAD)
   })
 
   it(types.NOTE_FORM_TEXT, () => {
@@ -41,12 +28,6 @@ describe('Mutations', () => {
     const PAYLOAD = 'blue'
     mutations[types.NOTE_FORM_COLOR](state, PAYLOAD)
     expect(state.newNote.color).toBe(PAYLOAD)
-  })
-
-  it(types.NOTE_FORM_MARKDOWN, () => {
-    const PAYLOAD = true
-    mutations[types.NOTE_FORM_MARKDOWN](state, PAYLOAD)
-    expect(state.newNote.markdown).toBe(true)
   })
 
   it(types.NOTE_EDITOR, () => {

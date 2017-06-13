@@ -1,23 +1,18 @@
 <template>
   <div class="newt-note"
        :data-key="key">
-    <div class="ui raised card"
+    <div class="ui card"
          :style="{ backgroundColor: noteColor }">
       <div class="content">
-        <div class="right floated meta drag-handle"
-             style="visibility: hidden;">
-          <i class="block layout icon"></i>
-        </div>
-        <div class="header note-title"
-             v-show="note.title">{{ note.title }}</div>
         <div class="description">
+          <div class="meta drag-handle"
+              style="visibility: hidden; position: absolute; right: 0;">
+            <i class="block layout icon"></i>
+          </div>
           <div class="note-overflow"
                v-show="overflow"
                :style="{ background: overflowGradient }"></div>
-          <p v-show="!note.markdown"
-             class="note-text">{{ note.text }}</p>
           <div class="note-markdown"
-               v-show="note.markdown"
                v-html="markdown(note.text)"></div>
         </div>
         <p v-show="overflow">...</p>
@@ -25,11 +20,11 @@
       <div class="extra content"
            style="visibility: hidden;">
         <span class="left floated">
-          <div class="compact ui circular icon basic mini button"
+          <div class="compact ui circular icon tiny button"
                @click="NOTE_EDITOR({ note, show: true })">
             <i class="icon write"></i>
           </div>
-          <div class="compact ui icon dropdown circular basic mini button"
+          <div class="compact ui icon dropdown circular tiny button"
                v-dropdown>
             <i class="icon theme"></i>
             <div class="menu">
@@ -44,7 +39,7 @@
           </div>
         </span>
         <span class="right floated">
-          <span>{{ createdDate }}</span>
+          <!--<span>{{ createdDate }}</span>-->
         <div class="ui icon dropdown"
              v-dropdown>
           <i class="icon ellipsis vertical"></i>
@@ -132,10 +127,8 @@ export default {
       const self = this
       const $note = $(self.$el)
       const $noteMarkdown = $note.find('.note-markdown')
-      const $noteText = $note.find('.note-text')
       if (
-        $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight() ||
-        $noteText[0].scrollHeight > $noteText.innerHeight()
+        $noteMarkdown[0].scrollHeight > $noteMarkdown.innerHeight()
       ) {
         self.overflow = true
       } else {
@@ -163,28 +156,41 @@ export default {
 <style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 .newt-note {
-  background: #CCC;
+  background: none;
   position: absolute;
   transition: left 0.4s ease, top 0.4s ease, opacity 0.4s;
   z-index: 1;
 }
 
+.ui.card {
+  box-shadow: none;
+}
+
+.extra.content {
+  border: none !important;
+}
+
 .ui-draggable-dragging {
   transition: none;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12),
+              0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+}
+
+.ui.button {
+  background: none;
+}
+
+.ui.button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ui.button:active {
+  background: none;
 }
 
 .description {
   position: relative;
-}
-
-.note-title {
-  word-wrap: break-word;
-}
-
-.note-text {
-  max-height: 24em;
-  overflow: hidden;
-  white-space: pre-wrap;
 }
 
 .note-markdown {
