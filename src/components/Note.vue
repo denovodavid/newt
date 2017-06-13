@@ -1,7 +1,7 @@
 <template>
   <div class="newt-note"
        :data-key="key">
-    <div class="ui raised card"
+    <div class="ui card"
          :style="{ backgroundColor: noteColor }">
       <div class="content">
         <div class="description">
@@ -162,7 +162,7 @@ export default {
   z-index: 1;
 }
 
-.ui.raised.card {
+.ui.card {
   box-shadow: none;
 }
 
@@ -172,6 +172,9 @@ export default {
 
 .ui-draggable-dragging {
   transition: none;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12),
+              0px 2px 10px 0px rgba(34, 36, 38, 0.15);
 }
 
 .ui.button {
