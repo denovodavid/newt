@@ -110,26 +110,4 @@ describe('Getters', () => {
     expect(state.notes[0]['.key']).toBe(orderedNotes[0]['.key'])
     console.dir(state)
   })
-
-  it('markdown returns correct image', () => {
-    const state = {}
-    const HREF = 'https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png'
-    const TITLE = 'Logo Title Text 1'
-    const ALT_TEXT = 'alt text'
-    const INPUT = `![${ALT_TEXT}](${HREF} "${TITLE}")`
-    const EXPECTED = `<p><img src="${HREF}" alt="${ALT_TEXT}" title="${TITLE}" class="ui image"></p>\n`
-    const ACTUAL = getters.markdown(state)(INPUT)
-    expect(ACTUAL).toBe(EXPECTED)
-  })
-
-  it('markdown returns correct link', () => {
-    const state = {}
-    const HREF = 'https://www.google.com'
-    const TITLE = 'Google'
-    const TEXT = 'Inline-style link with title'
-    const INPUT = `[${TEXT}](${HREF} "${TITLE}")`
-    const EXPECTED = `<p><a href="${HREF}" title="${TITLE}" target="_blank">${TEXT}</a></p>\n`
-    const ACTUAL = getters.markdown(state)(INPUT)
-    expect(ACTUAL).toBe(EXPECTED)
-  })
 })
