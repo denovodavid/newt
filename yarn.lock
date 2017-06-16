@@ -243,11 +243,10 @@ autosize@^3.0.20:
   version "3.0.21"
   resolved "https://registry.yarnpkg.com/autosize/-/autosize-3.0.21.tgz#f182f40d17757d978a139a4c9ca40c4c0e448603"
 
-avoriaz@^1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/avoriaz/-/avoriaz-1.15.0.tgz#a86a988a9063b4d651a72c04ed2429b4cce237f0"
+avoriaz@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/avoriaz/-/avoriaz-2.0.0.tgz#df0b4cd95afa6da03bed886595e36b9c1d17e201"
   dependencies:
-    sizzle "^2.3.3"
     vue-add-globals "^1.0.1"
 
 aws-sign2@~0.6.0:
@@ -4837,10 +4836,6 @@ sigmund@^1.0.1:
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
-
-sizzle@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/sizzle/-/sizzle-2.3.3.tgz#4eb078c37231a56b52e4193f701e7ef8937e606b"
 
 slash@^1.0.0:
   version "1.0.0"

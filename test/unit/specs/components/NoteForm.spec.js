@@ -35,7 +35,7 @@ describe('NoteForm', () => {
     testOptions.actions.createNote = jest.fn()
     const store = new Vuex.Store(testOptions)
     const wrapper = mount(NoteForm, { store })
-    wrapper.find('button[type=submit]')[0].dispatch('click')
+    wrapper.find('button[type=submit]')[0].trigger('click')
     expect(testOptions.actions.createNote).toBeCalled()
   })
 
