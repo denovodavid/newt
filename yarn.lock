@@ -243,7 +243,7 @@ autosize@^3.0.20:
   version "3.0.21"
   resolved "https://registry.yarnpkg.com/autosize/-/autosize-3.0.21.tgz#f182f40d17757d978a139a4c9ca40c4c0e448603"
 
-avoriaz@2.0.0:
+avoriaz@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/avoriaz/-/avoriaz-2.0.0.tgz#df0b4cd95afa6da03bed886595e36b9c1d17e201"
   dependencies:
