@@ -28,13 +28,14 @@
 import Vue from 'vue'
 import Note from './Note'
 import 'jquery-ui-dist/jquery-ui'
-import 'jquery-shapeshift'
+import '@/shapeshift'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 const shapeshiftOptions = {
   selector: '.newt-note',
   colWidth: 290,
-  animated: false,
+  animated: true,
+  animationSpeed: 225,
   handle: '.drag-handle'
 }
 
@@ -91,7 +92,7 @@ export default {
       el.style.opacity = 0
     },
     enter (el, done) {
-      const delay = 400 + el.dataset.index * 20
+      const delay = 225 + el.dataset.index * 15
       $(el).one('transitionend', done)
       setTimeout(() => {
         el.style.opacity = 1
@@ -130,11 +131,11 @@ export default {
   position: relative;
   margin-bottom: 2.4em;
   height: 100px;
-  transition: height 0.4s ease;
+  transition: height 375ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 375ms;
 }
 
 .fade-enter, .fade-leave-to {
@@ -158,7 +159,7 @@ export default {
   border: 1px dashed #999;
   border-radius: 4px;
   position: absolute;
-  transition: left 0.4s ease, top 0.4s ease;
+  transition: left 225ms cubic-bezier(0.4, 0, 0.2, 1), top 225ms cubic-bezier(0.4, 0, 0.2, 1);
   width: 290px;
   z-index: 0;
 }
