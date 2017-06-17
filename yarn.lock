@@ -3193,10 +3193,6 @@ joi@^6.10.1:
     moment "2.x.x"
     topo "1.x.x"
 
-jquery-shapeshift@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/jquery-shapeshift/-/jquery-shapeshift-1.0.1.tgz#d747107dee21d5b20a6ce32e4edac632f5ee978a"
-
 jquery-ui-dist@^1.12.1:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/jquery-ui-dist/-/jquery-ui-dist-1.12.1.tgz#5c0815d3cc6f90ff5faaf5b268a6e23b4ca904fa"
