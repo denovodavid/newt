@@ -1,6 +1,7 @@
 /* eslint-disable */
 import 'velocity-animate'
 import debounce from 'lodash/debounce'
+import Sortable from 'sortablejs'
 
 // forked from - https://github.com/McPants/jquery.shapeshift
 
@@ -261,7 +262,7 @@ import debounce from 'lodash/debounce'
             // $child.stop(true, false).animate(attributes, animation_speed, function () {});
             $child.velocity(attributes, {
               duration: animation_speed,
-              delay: 75,
+              // delay: 75,
               queue: false,
               easing: [0.4, 0, 0.2, 1]
             });
@@ -420,12 +421,28 @@ import debounce from 'lodash/debounce'
         $selected = $placeholder = $clone = selected_offset_y = selected_offset_x = null;
         drag_timeout = false;
         if (options.enableDrag) {
-          $container.children("." + active_class).filter(options.dragWhitelist).draggable({
-            addClasses: false,
-            containment: 'document',
-            handle: options.handle,
-            zIndex: 9999,
-            start: function (e, ui) {
+          $container[0].addEventListener('drop', e => {
+
+          })
+
+          $container[0].addEventListener('dragover', e => {
+            // if (!drag_timeout && !(drag_clone && delete_clone && $("." + current_container_class)[0] === $("." + original_container_class)[0])) {
+            //   $placeholder.remove().appendTo("." + current_container_class);
+            //   $("." + current_container_class).trigger("ss-setTargetPosition");
+            //   drag_timeout = true;
+            //   window.setTimeout((function () {
+            //     return drag_timeout = false;
+            //   }), drag_rate);
+            // }
+          })
+
+          $container.children("." + active_class).filter(options.dragWhitelist).each((i, e) => {
+            e.draggable = true
+
+            e.addEventListener('dragstart', e => {
+              // e.target.style.transition = 'none'
+              e.target.style.opacity = '0'
+
               var selected_tag;
               _this.globals.dragging = true;
               $selected = $(e.target);
@@ -441,21 +458,58 @@ import debounce from 'lodash/debounce'
               return selected_offset_x = $selected.outerWidth() / 2;
               */
               selected_offset_y = e.pageY - $selected.offset().top;
-              return selected_offset_x = e.pageX - $selected.offset().left;
-            },
-            drag: function (e, ui) {
+              selected_offset_x = e.pageX - $selected.offset().left;
+
+              // TODO: remove
+             /* const selOffset = document.createElement('span')
+              selOffset.style.position = 'absolute'
+              selOffset.style.width = '5px'
+              selOffset.style.height = '5px'
+              selOffset.style.background = 'red'
+              selOffset.style.left = `${selected_offset_x}px`
+              selOffset.style.top = `${selected_offset_y}px`
+
+              $selected[0].appendChild(selOffset)*/
+            })
+
+            e.addEventListener('drag', e => {
               if (!drag_timeout && !(drag_clone && delete_clone && $("." + current_container_class)[0] === $("." + original_container_class)[0])) {
                 $placeholder.remove().appendTo("." + current_container_class);
+
+                const posX = e.pageX - selected_offset_x
+                const posY = e.pageY - selected_offset_y
+
+                // TODO: remove
+                /*const thing = document.createElement('span')
+                thing.style.position = 'absolute'
+                thing.style.zIndex = '99999'
+                thing.style.width = '5px'
+                thing.style.height = '5px'
+                thing.style.background = 'blue'
+                thing.style.left = `${posX}px`
+                thing.style.top = `${posY}px`
+                document.querySelector('body').appendChild(thing)*/
+
+                $selected[0].dataset.posx = posX
+                $selected[0].dataset.posy = posY
+                // $selected[0].style.left = `${e.pageX - $selected.parent().offset().left - selected_offset_x}px`
+                // $selected[0].style.top = `${e.pageY - $selected.parent().offset().top - selected_offset_y}px`
                 $("." + current_container_class).trigger("ss-setTargetPosition");
                 drag_timeout = true;
                 window.setTimeout((function () {
                   return drag_timeout = false;
                 }), drag_rate);
               }
-              ui.position.left = e.pageX - $selected.parent().offset().left - selected_offset_x;
-              return ui.position.top = e.pageY - $selected.parent().offset().top - selected_offset_y;
-            },
-            stop: function () {
+
+              // ui.position.left = e.pageX - $selected.parent().offset().left - selected_offset_x;
+              // return ui.position.top = e.pageY - $selected.parent().offset().top - selected_offset_y;
+            })
+
+            e.addEventListener('dragend', e => {
+              $selected[0].style.left = `${e.pageX - $selected.parent().offset().left - selected_offset_x}px`
+              $selected[0].style.top = `${e.pageY - $selected.parent().offset().top - selected_offset_y}px`
+              $selected[0].style.opacity = '1'
+
               var $current_container, $original_container, $previous_container;
               _this.globals.dragging = false;
               $original_container = $("." + original_container_class);
@@ -483,34 +537,100 @@ import debounce from 'lodash/debounce'
               $current_container.trigger("ss-arrange", true).removeClass(current_container_class);
               $previous_container.trigger("ss-arrange").removeClass(previous_container_class);
               return $selected = $placeholder = null;
-            }
-          });
+            })
+          })
+
+          // $container.children("." + active_class).filter(options.dragWhitelist).draggable({
+          //   addClasses: false,
+          //   containment: 'document',
+          //   handle: options.handle,
+          //   zIndex: 9999,
+          //   start: function (e, ui) {
+          //     var selected_tag;
+          //     _this.globals.dragging = true;
+          //     $selected = $(e.target);
+          //     if (drag_clone) {
+          //       $clone = $selected.clone(false, false).insertBefore($selected).addClass(clone_class);
+          //     }
+          //     $selected.addClass(dragged_class);
+          //     selected_tag = $selected.prop("tagName");
+          //     $placeholder = $("<" + selected_tag + " class='" + placeholder_class + "' style='height: " + ($selected.height()) + "px; width: " + ($selected.width()) + "px'></" + selected_tag + ">");
+          //     $selected.parent().addClass(original_container_class).addClass(current_container_class);
+          //     /*
+          //     selected_offset_y = $selected.outerHeight() / 2;
+          //     return selected_offset_x = $selected.outerWidth() / 2;
+          //     */
+          //     selected_offset_y = e.pageY - $selected.offset().top;
+          //     return selected_offset_x = e.pageX - $selected.offset().left;
+          //   },
+          //   drag: function (e, ui) {
+          //     if (!drag_timeout && !(drag_clone && delete_clone && $("." + current_container_class)[0] === $("." + original_container_class)[0])) {
+          //       $placeholder.remove().appendTo("." + current_container_class);
+          //       $("." + current_container_class).trigger("ss-setTargetPosition");
+          //       drag_timeout = true;
+          //       window.setTimeout((function () {
+          //         return drag_timeout = false;
+          //       }), drag_rate);
+          //     }
+          //     ui.position.left = e.pageX - $selected.parent().offset().left - selected_offset_x;
+          //     return ui.position.top = e.pageY - $selected.parent().offset().top - selected_offset_y;
+          //   },
+          //   stop: function () {
+          //     var $current_container, $original_container, $previous_container;
+          //     _this.globals.dragging = false;
+          //     $original_container = $("." + original_container_class);
+          //     $current_container = $("." + current_container_class);
+          //     $previous_container = $("." + previous_container_class);
+          //     $selected.removeClass(dragged_class);
+          //     $("." + placeholder_class).remove();
+          //     if (drag_clone) {
+          //       if (delete_clone && $("." + current_container_class)[0] === $("." + original_container_class)[0]) {
+          //         $clone.remove();
+          //         $("." + current_container_class).trigger("ss-rearrange");
+          //       } else {
+          //         $clone.removeClass(clone_class);
+          //         $original_container.shapeshift($original_container.data("plugin_shapeshift").options);
+          //         $current_container.shapeshift($current_container.data("plugin_shapeshift").options);
+          //       }
+          //     }
+          //     if ($original_container[0] === $current_container[0]) {
+          //       $current_container.trigger("ss-rearranged", $selected);
+          //     } else {
+          //       $original_container.trigger("ss-removed", $selected);
+          //       $current_container.trigger("ss-added", $selected);
+          //     }
+          //     $original_container.trigger("ss-arrange").removeClass(original_container_class);
+          //     $current_container.trigger("ss-arrange", true).removeClass(current_container_class);
+          //     $previous_container.trigger("ss-arrange").removeClass(previous_container_class);
+          //     return $selected = $placeholder = null;
+          //   }
+          // });
         }
-        if (options.enableCrossDrop) {
-          return $container.droppable({
-            accept: options.crossDropWhitelist,
-            tolerance: 'intersect',
-            over: function (e) {
-              $("." + previous_container_class).removeClass(previous_container_class);
-              $("." + current_container_class).removeClass(current_container_class).addClass(previous_container_class);
-              return $(e.target).addClass(current_container_class);
-            },
-            drop: function (e, selected) {
-              var $current_container, $original_container, $previous_container;
-              if (_this.options.enableTrash) {
-                $original_container = $("." + original_container_class);
-                $current_container = $("." + current_container_class);
-                $previous_container = $("." + previous_container_class);
-                $selected = $(selected.helper);
-                $current_container.trigger("ss-trashed", $selected);
-                $selected.remove();
-                $original_container.trigger("ss-rearrange").removeClass(original_container_class);
-                $current_container.trigger("ss-rearrange").removeClass(current_container_class);
-                return $previous_container.trigger("ss-arrange").removeClass(previous_container_class);
-              }
-            }
-          });
-        }
+        // if (options.enableCrossDrop) {
+        //   return $container.droppable({
+        //     accept: options.crossDropWhitelist,
+        //     tolerance: 'intersect',
+        //     over: function (e) {
+        //       $("." + previous_container_class).removeClass(previous_container_class);
+        //       $("." + current_container_class).removeClass(current_container_class).addClass(previous_container_class);
+        //       return $(e.target).addClass(current_container_class);
+        //     },
+        //     drop: function (e, selected) {
+        //       var $current_container, $original_container, $previous_container;
+        //       if (_this.options.enableTrash) {
+        //         $original_container = $("." + original_container_class);
+        //         $current_container = $("." + current_container_class);
+        //         $previous_container = $("." + previous_container_class);
+        //         $selected = $(selected.helper);
+        //         $current_container.trigger("ss-trashed", $selected);
+        //         $selected.remove();
+        //         $original_container.trigger("ss-rearrange").removeClass(original_container_class);
+        //         $current_container.trigger("ss-rearrange").removeClass(current_container_class);
+        //         return $previous_container.trigger("ss-arrange").removeClass(previous_container_class);
+        //       }
+        //     }
+        //   });
+        // }
       };
 
       Plugin.prototype.setTargetPosition = function () {
@@ -523,8 +643,23 @@ import debounce from 'lodash/debounce'
           parsed_children = this.parsedChildren;
           child_positions = this.getPositions(false);
           total_positions = child_positions.length;
-          selected_x = $selected.offset().left - $start_container.offset().left + (this.globals.col_width / 2);
-          selected_y = $selected.offset().top - $start_container.offset().top + ($selected.height() / 2);
+          // selected_x = $selected.offset().left - $start_container.offset().left + (this.globals.col_width / 2);
+          // selected_y = $selected.offset().top - $start_container.offset().top + ($selected.height() / 2);
+
+          selected_x = $selected[0].dataset.posx - $start_container.offset().left + ($selected.width() / 2);
+          selected_y = $selected[0].dataset.posy - $start_container.offset().top + ($selected.height() / 2);
+
+          // TODO: reomve
+          /*const thing = document.createElement('span')
+          thing.style.position = 'absolute'
+          thing.style.zIndex = '99999'
+          thing.style.width = '5px'
+          thing.style.height = '5px'
+          thing.style.background = 'green'
+          thing.style.left = `${selected_x}px`
+          thing.style.top = `${selected_y}px`
+          document.querySelector('body').appendChild(thing)*/
+
           shortest_distance = 9999999;
           target_position = 0;
           if (total_positions > 1) {
