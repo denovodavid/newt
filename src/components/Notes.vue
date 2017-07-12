@@ -27,7 +27,7 @@
 <script>
 import Vue from 'vue'
 import Note from './Note'
-import 'jquery-ui-dist/jquery-ui'
+// import 'jquery-ui-dist/jquery-ui'
 import '@/shapeshift'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
@@ -35,8 +35,8 @@ const shapeshiftOptions = {
   selector: '.newt-note',
   colWidth: 290,
   animated: true,
-  animationSpeed: 225,
-  handle: '.drag-handle'
+  animationSpeed: 225
+  // handle: '.drag-handle'
 }
 
 let shapeshiftTimer = null
