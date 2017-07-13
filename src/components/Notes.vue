@@ -35,8 +35,8 @@ const shapeshiftOptions = {
   selector: '.newt-note',
   colWidth: 290,
   animated: true,
-  animationSpeed: 225
-  // handle: '.drag-handle'
+  animationSpeed: 225,
+  handle: '.drag-handle'
 }
 
 let shapeshiftTimer = null
