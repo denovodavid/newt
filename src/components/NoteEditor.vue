@@ -142,6 +142,7 @@ export default {
 .ui.long.large.basic.modal {
   top: 0;
   margin-top: 63px !important;
+  color: inherit;
 }
 
 .ui.modal > .actions {
