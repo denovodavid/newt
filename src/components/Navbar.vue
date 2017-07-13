@@ -17,14 +17,12 @@
                   mode="out-in">
         <div class="ui item"
              style="color: #222 !important;"
-             v-if="asyncLoading"
-             :key="asyncLoading">
+             v-if="asyncLoading">
           <i class="notched circle loading icon large"></i>
         </div>
         <div class="ui item"
              style="color: #222 !important;"
-             v-else
-             :key="asyncLoading">
+             v-else>
           <i class="checkmark icon large"></i>
         </div>
       </transition>
