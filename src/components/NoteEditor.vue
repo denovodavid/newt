@@ -5,7 +5,7 @@
     <div class="content">
       <form id="edit-form"
             class="ui form"
-            @submit.prevent="">
+            @submit.prevent="null">
         <div class="field">
           <textarea id="edit-text"
                     rows="1"
