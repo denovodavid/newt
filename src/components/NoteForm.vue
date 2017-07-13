@@ -21,6 +21,7 @@
             <div class="menu">
               <div class="item"
                   v-for="(hex, color) in colors"
+                  :key="color"
                   @click="NOTE_FORM_COLOR(color)">
                 <div class="ui large empty circular label"
                     :style="{ backgroundColor: hex }"></div>
