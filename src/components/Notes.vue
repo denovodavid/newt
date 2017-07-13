@@ -27,7 +27,6 @@
 <script>
 import Vue from 'vue'
 import Note from './Note'
-// import 'jquery-ui-dist/jquery-ui'
 import '@/shapeshift'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
