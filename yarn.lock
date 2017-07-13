@@ -2786,6 +2786,10 @@ inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
+interactjs@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.2.9.tgz#ae5a3e5bc4b174b7fe2a432df9ef4ef9cbacbdb6"
+
 interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
