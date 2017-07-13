@@ -1,7 +1,6 @@
 /* eslint-disable */
 import 'velocity-animate'
 import debounce from 'lodash/debounce'
-import Sortable from 'sortablejs'
 
 // forked from - https://github.com/McPants/jquery.shapeshift
 
