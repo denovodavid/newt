@@ -3,7 +3,7 @@
      style="border-radius: 0;">
   <div class="grey item"
        style="color: #222 !important;">
-    <h3>Newt</h3>
+    <h3>Newt <small>(under development)</small></h3>
   </div>
   <!--<a class="item" style="color: #222 !important;">Vue</a>-->
   <!-- <a class="item disabled" style="color: #222 !important; text-decoration: line-through;">Angular</a>
