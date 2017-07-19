@@ -1,5 +1,6 @@
 # Newt
 
+[![Build Status](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser/master.svg)](https://github.com/smeagolem/newt/tree/develop)
 [![Greenkeeper badge](https://badges.greenkeeper.io/smeagolem/newt.svg)](https://greenkeeper.io/)
 [![David Dev](https://img.shields.io/david/dev/smeagolem/newt/develop.svg)](https://david-dm.org/smeagolem/newt/develop?type=dev)
 
