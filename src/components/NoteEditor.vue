@@ -1,78 +1,92 @@
 <template>
-  <div class="ui long modal" v-modal>
-    <form id="edit-form" class="ui form" v-on:submit.prevent="">
-      <div class="ui fluid card">
-        <div class="content">
-          <div class="ui large transparent left input fluid">
-            <input id="edit-title" type="text" placeholder="Title" v-model="editor.note.title">
-          </div>
-          <div class="ui divider"></div>
-          <div class="field">
-            <textarea id="edit-text" v-autosize rows="3" placeholder="Take a note..." v-model="editor.note.text"></textarea>
-          </div>
+  <div id="note-editor"
+       class="ui long large basic modal"
+       v-modal>
+    <div class="content">
+      <form id="edit-form"
+            class="ui form"
+            @submit.prevent="null">
+        <div class="field">
+          <textarea id="edit-text"
+                    rows="1"
+                    placeholder="Take a note..."
+                    v-autosize
+                    v-model.trim="text"></textarea>
         </div>
-        <div class="extra content" v-bind:style="{ backgroundColor: noteColor }">
-          <div class="compact ui icon dropdown circular basic mini button" v-dropdown>
-            <i class="icon theme"></i>
-            <div class="menu">
-              <div class="item" v-for="(hex, color) in colors" v-on:click="setNoteColor(color)">
-                <div class="ui large empty circular label" v-bind:style="{ backgroundColor: hex }"></div>
-                {{ color | capitalise }}
-              </div>
-            </div>
+      </form>
+    </div>
+    <div class="actions">
+      <div class="ui dropdown button"
+           v-dropdown>
+        Color
+        <div class="menu">
+          <div class="item"
+              v-for="(hex, color) in colors"
+              :key="color"
+              @click="NOTE_EDITOR_COLOR(color)">
+            <div class="ui large empty circular label"
+                :style="{ backgroundColor: hex }"></div>
+            {{ color | capitalise }}
           </div>
-          <div class="right floated">
-            <div class="ui icon basic tiny buttons compact">
-              <button class="ui toggle button" type="button" v-on:click="toggleMarkdown()" v-bind:class="{ active: editor.note.markdown }">Markdown</button>
-              <!--<div class="ui icon dropdown button">
-                <i class="icon ellipsis vertical"></i>
-                <div class="menu">
-                  <div class="item">Delete note</div>
-                  <div class="item">Add label</div>
-                  <div class="item">Make a copy</div>
-                </div>
-              </div>-->
-            </div>
-          </div>
-        </div>
-        <div class="actions">
-          <div class="ui ok bottom attached button" style="margin-left: 0;">Done</div>
         </div>
       </div>
-    </form>
+      <div class="ui ok button">Done</div>
+    </div>
+    <div class="note-markdown"
+         v-html="markdown(editor.note.text)"></div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import db from '../database.js'
-import Colors from '../colors'
 import AutoSize from 'autosize'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import * as types from '../store/mutation-types'
+import 'semantic-ui-css/components/form'
+import 'semantic-ui-css/components/modal'
+import 'semantic-ui-css/components/transition'
 
 export default {
   name: 'noteeditor',
-  props: ['editor'],
-  data () {
-    return {
-      colors: Colors
-    }
-  },
   computed: {
+    text: {
+      get () {
+        return this.editor.note.text
+      },
+      set (value) {
+        this.NOTE_EDITOR_TEXT(value)
+      }
+    },
     noteColor () {
-      return Colors[this.editor.note.color]
-    }
+      return this.colors[this.editor.note.color]
+    },
+    ...mapState([
+      'editor',
+      'colors'
+    ]),
+    ...mapGetters([
+      'markdown'
+    ])
   },
   mounted () {
-    var self = this
+    const self = this
     $(self.$el).modal({
-      onHidden: self.updateNote
+      onHidden: () => {
+        self.updateNote(self.editor.note)
+        self.NOTE_EDITOR_SHOW(false)
+      },
+      // observeChanges: true,
+      closable: false,
+      dimmerSettings: {
+        variation: 'inverted',
+        opacity: 1
+      }
     })
     $('#edit-text').on('autosize:resized', () => {
       $(this.$el).modal('refresh')
     })
   },
-  beforeDestroy () {
-  },
+  beforeDestroy () {},
   watch: {
     editor () {
       console.log('EDITOR')
@@ -82,38 +96,115 @@ export default {
           AutoSize.update($('#edit-text'))
           $(this.$el).modal('refresh')
         })
+      } else {
+        $(this.$el).modal('hide')
       }
+    },
+    noteColor () {
+      $('body > .ui.dimmer').css('background-color', this.noteColor)
     }
   },
   methods: {
-    updateNote () {
-      var self = this
-      var key = self.editor.note['.key']
-      db.ref('notes').child(key).update({
-        title: self.editor.note.title.trim(),
-        text: self.editor.note.text.trim(),
-        markdown: self.editor.note.markdown,
-        color: self.editor.note.color
-      }, () => {
-        console.log('Note Updated!')
-        Vue.nextTick(() => {
-          self.$emit('noteUpdated')
-        })
-      })
-    },
-    setNoteColor (color) {
-      this.editor.note.color = color
-    },
-    toggleMarkdown () {
-      this.editor.note.markdown = !this.editor.note.markdown
-    }
+    ...mapMutations([
+      types.NOTE_EDITOR_SHOW,
+      types.NOTE_EDITOR_NOTE,
+      types.NOTE_EDITOR_TEXT,
+      types.NOTE_EDITOR_COLOR
+    ]),
+    ...mapActions([
+      'updateNote'
+    ])
   }
 }
 </script>
 
+<style src="semantic-ui-css/components/icon.css"></style>
+<style src="semantic-ui-css/components/modal.css"></style>
+<style src="semantic-ui-css/components/dimmer.css"></style>
+<style src="semantic-ui-css/components/container.css"></style>
+<style src="semantic-ui-css/components/form.css"></style>
+<style src="semantic-ui-css/components/card.css"></style>
+<style src="semantic-ui-css/components/input.css"></style>
+<style src="semantic-ui-css/components/divider.css"></style>
+<style src="semantic-ui-css/components/dropdown.css"></style>
+<style src="semantic-ui-css/components/button.css"></style>
+<style src="semantic-ui-css/components/menu.css"></style>
+<style src="semantic-ui-css/components/transition.css"></style>
+<style src="semantic-ui-css/components/label.css"></style>
 <style scoped>
 #edit-text {
+  font-size: 2em;
+  background: none;
   border: 0;
   padding: 0;
+  resize: none;
+}
+
+.ui.long.large.basic.modal {
+  top: 0;
+  margin-top: 63px !important;
+  color: inherit;
+}
+
+.ui.modal > .actions {
+  border: 0;
+}
+
+.ui.basic.clearing.segment {
+  padding: 0;
+}
+
+.ui.button {
+  background: none;
+}
+
+.ui.button:focus {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ui.button:hover, ui.active.button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ui.button:active {
+  background: none;
+}
+
+.ui.button.button {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.note-markdown {
+  word-wrap: break-word;
+}
+
+#post-note {
+  margin-right: 0;
+}
+</style>
+
+<style>
+#note-editor .emoji {
+  height: 1.3em;
+}
+
+#note-editor .ui.image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#note-editor pre {
+  background: rgba(250, 250, 250, 0.5);
+  border-radius: 4px;
+  padding: 0.5em;
+  white-space: pre-wrap;
+}
+
+#note-editor code {
+  font-family: 'Fira Code';
+  font-feature-settings: "calt" 1;
+  font-variant-ligatures: contextual;
 }
 </style>

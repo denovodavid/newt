@@ -6,7 +6,6 @@ const firebaseConfig = {
   databaseURL: 'https://newt-853a9.firebaseio.com',
   storageBucket: 'newt-853a9.appspot.com'
 }
-const firebaseApp = Firebase.initializeApp(firebaseConfig)
-const db = firebaseApp.database()
 
-export { db as default }
+export const firebaseApp = Firebase.initializeApp(firebaseConfig)
+export const db = firebaseApp.database()

@@ -1,0 +1,18 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+import state from './state'
+import * as getters from './getters'
+import * as actions from './actions'
+import mutations from './mutations'
+
+Vue.use(Vuex)
+
+export const options = {
+  state,
+  getters,
+  actions,
+  mutations,
+  strict: process.env.NODE_ENV !== 'production'
+}
+
+export default new Vuex.Store(options)
