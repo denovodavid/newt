@@ -28,13 +28,31 @@ jobs:
 
       - run: yarn install
 
+      # greenkeeper lockfile install!
+      - run: yarn global add greenkeeper-lockfile@1
+
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      # greenkeeper lockfile update!
+      - run: greenkeeper-lockfile-update
 
       # run tests!
       - run: yarn test
 
       # run build!
       - run: yarn build
+
+      # greenkeeper lockfile upload!
+      - run: greenkeeper-lockfile-upload
+
+      # deploy!
+      - deploy:
+          name: Deploy master to Firebase
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn global add firebase
+              firebase deploy --token "${FIREBASE_TOKEN}" --non-interactive
+            fi
