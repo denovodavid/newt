@@ -3,6 +3,7 @@
     <h1 class="ui center aligned grey icon header">
       <i class="sticky note yellow icon"></i>
       NEWT
+      <div class="sub header">(under development)</div>
       <div class="sub header">dem notes yo</div>
     </h1>
     <form class="ui form"
