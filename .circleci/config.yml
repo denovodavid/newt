@@ -17,6 +17,9 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      # greenkeeper lockfile install!
+      - run: yarn global add greenkeeper-lockfile@1
+
       - checkout
 
       # Download and cache dependencies
@@ -28,17 +31,13 @@ jobs:
 
       - run: yarn install
 
-      # greenkeeper lockfile install!
-      # - run: npm install -g greenkeeper-lockfile@1
-      - run: yarn add greenkeeper-lockfile@1 --no-lockfile
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # greenkeeper lockfile update!
-      - run: ./node_modules/greenkeeper-lockfile/greenkeeper-lockfile-update
+      - run: greenkeeper-lockfile-update
 
       # run tests!
       - run: yarn test
@@ -47,7 +46,7 @@ jobs:
       - run: yarn build
 
       # greenkeeper lockfile upload!
-      - run: ./node_modules/greenkeeper-lockfile/greenkeeper-lockfile-upload
+      - run: greenkeeper-lockfile-upload
 
       # deploy!
       - deploy:
