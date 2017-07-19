@@ -52,6 +52,6 @@ jobs:
           name: Deploy master to Firebase
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn global add firebase
+              sudo yarn global add firebase-tools
               firebase deploy --token "${FIREBASE_TOKEN}" --non-interactive
             fi
