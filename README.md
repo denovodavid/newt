@@ -1,7 +1,6 @@
 # Newt
 
 [![Build](https://img.shields.io/circleci/project/github/smeagolem/newt/develop.svg)](https://circleci.com/gh/smeagolem/newt)
-[![Greenkeeper badge](https://badges.greenkeeper.io/smeagolem/newt.svg)](https://greenkeeper.io/)
 [![David Dev](https://img.shields.io/david/dev/smeagolem/newt/develop.svg)](https://david-dm.org/smeagolem/newt/develop?type=dev)
 
 > A note taking web app.

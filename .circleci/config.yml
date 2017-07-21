@@ -33,19 +33,11 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # greenkeeper lockfile update!
-      - run: |
-          sudo yarn global add greenkeeper-lockfile@1
-          greenkeeper-lockfile-update
-
       # run tests!
       - run: yarn test
 
       # run build!
       - run: yarn build
-
-      # greenkeeper lockfile upload!
-      - run: greenkeeper-lockfile-upload
 
       # deploy!
       - deploy:
