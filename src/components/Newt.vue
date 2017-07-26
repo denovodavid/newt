@@ -4,7 +4,8 @@
     <br>
     <div class="ui fluid container">
       <note-form></note-form>
-      <notes></notes>
+      <!-- <notes></notes> -->
+      <water-wall-notes></water-wall-notes>
       <note-editor></note-editor>
     </div>
   </div>
@@ -15,6 +16,7 @@ import Hello from './Hello'
 import Navbar from './Navbar'
 import NoteForm from './NoteForm'
 import Notes from './Notes'
+import WaterWallNotes from './WaterWallNotes'
 import NoteEditor from './NoteEditor'
 
 export default {
@@ -24,6 +26,7 @@ export default {
     Navbar,
     NoteForm,
     Notes,
+    WaterWallNotes,
     NoteEditor
   }
 }
