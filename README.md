@@ -12,17 +12,17 @@ Uses [Firebase](https://firebase.google.com/) as the backend.
 
 ``` bash
 # install dependencies
-yarn
+npm install
 
 # serve with hot reload at localhost:8080
-yarn start
+npm run start
 
 # build for production with minification
-yarn build
+npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
 
 # run tests
-yarn test
+npm run test
 ```
