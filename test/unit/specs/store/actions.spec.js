@@ -42,7 +42,7 @@ const testAction = (action, payload, state, expectedMutations, expectedActions, 
   }
 }
 
-describe('actions', () => {
+describe.skip('actions', () => {
   it('setNotesRef', done => {
     testAction(actions.setNotesRef, 'fakeRef', {}, [], [{
       type: 'asyncLoading',
