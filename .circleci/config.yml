@@ -48,5 +48,5 @@ jobs:
           name: Deploy master to Firebase
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn deploy
+              npx firebase deploy --token "${FIREBASE_TOKEN}" --non-interactive
             fi
