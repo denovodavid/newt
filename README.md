@@ -5,24 +5,40 @@
 
 > A note taking web app.
 
-Based on [Vue.js & Webpack](https://github.com/vuejs-templates/webpack).
-Uses [Firebase](https://firebase.google.com/) as the backend.
+- [Vue CLI](https://cli.vuejs.org/)
+- [Firebase](https://firebase.google.com/)
 
-## Build Setup
+## Project setup
+```
+yarn install
+```
 
-``` bash
-# install dependencies
-npm install
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
 
-# serve with hot reload at localhost:8080
-npm run start
+### Compiles and minifies for production
+```
+yarn run build
+```
 
-# build for production with minification
-npm run build
+### Run your tests
+```
+yarn run test
+```
 
-# build for production and view the bundle analyzer report
-npm run build --report
+### Lints and fixes files
+```
+yarn run lint
+```
 
-# run tests
-npm run test
+### Run your end-to-end tests
+```
+yarn run test:e2e
+```
+
+### Run your unit tests
+```
+yarn run test:unit
 ```

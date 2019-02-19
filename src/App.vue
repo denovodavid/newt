@@ -4,10 +4,9 @@
          class="ui top attached violet progress">
       <div class="bar"></div>
     </div>
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
-
 <script>
 import { mapState, mapMutations } from 'vuex'
 import * as mutations from '@/store/mutation-types'
