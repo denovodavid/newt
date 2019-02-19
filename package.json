@@ -1,6 +1,6 @@
 {
   "name": "newt",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "private": true,
   "description": "A note taking webb app.",
   "author": "smeagolem",
@@ -9,7 +9,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "deploy": "firebase deploy --non-interactive"
   },
   "dependencies": {
     "autosize": "^4.0.2",
@@ -44,6 +45,7 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "firebase-tools": "^6.3.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.5.21"
