@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import Hello from './Hello'
 import Navbar from './Navbar'
 import NoteForm from './NoteForm'
 import Notes from './Notes'
@@ -20,7 +19,6 @@ import NoteEditor from './NoteEditor'
 export default {
   name: 'newt',
   components: {
-    Hello,
     Navbar,
     NoteForm,
     Notes,

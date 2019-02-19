@@ -101,7 +101,7 @@ export default {
     firebaseApp.auth().onAuthStateChanged(function (user) {
       if (user) {
         console.log('LOGGED IN!')
-        router.push({name: 'home'})
+        router.push({ name: 'home' })
       }
     })
   },
