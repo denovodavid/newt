@@ -1,6 +1,6 @@
 {
   "name": "newt",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "private": true,
   "description": "A note taking webb app.",
   "author": "smeagolem",
@@ -9,8 +9,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit",
-    "deploy": "firebase deploy --token \"${FIREBASE_TOKEN}\" --non-interactive"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "autosize": "^4.0.2",
